@@ -1,0 +1,140 @@
+//views, comments,upvotes and follow topic
+const upvotes = document.querySelector('#upvote').innerHTML;
+const views = document.querySelector('.views');
+const commentsArray = document.querySelector('.comments-section');
+const commentLength = commentsArray.querySelectorAll('.comments').length;
+const commentCounter = document.querySelector('.commnt');
+const upvotesCountHolder =document.querySelector('.upvotes');
+const follow = document.querySelector('.follow-topic');
+$.ajaxSetup({
+  headers: {
+      'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+  }
+});
+views.addEventListener("DOMContentLoad", ()=>{
+   //to be implemented with backend
+})
+
+//setting up follow
+let isFollwing = false;
+follow.addEventListener('click', ()=>{
+   if(!isFollwing){
+       follow.innerHTML = 'Following';
+       isFollwing = true;
+    const card = document.querySelector('.card').innerHTML;
+    localStorage.setItem("card", JSON.stringify(card))
+   } else if(isFollwing){
+    follow.innerHTML = 'Follow';
+    isFollwing = false;
+    localStorage.removeItem('card')
+   }
+})
+
+//setting up upvote button
+const upvoteButton = document.querySelector('#upvote');
+ let isclicked = false;
+ let upvoteCounter = 0;
+upvoteButton.addEventListener('click', ()=>{
+  let upvotesCounter = document.querySelector('.like-counter');
+  if(!isclicked){
+      upvoteCounter++;
+      upvotesCounter.innerHTML = upvoteCounter;
+      isclicked = true;
+  } else if(isclicked){
+      upvoteCounter--;
+      upvotesCounter.innerHTML = upvoteCounter;
+      isclicked = false;
+  }
+   
+  //appending upvotes to upvote holder
+  upvotesCountHolder.innerHTML = `${upvoteCounter} Upvotes`;
+
+})
+
+//setting up downvote holder
+const downvoteButton = document.querySelector('.dislike');
+ let isdownVoteClicked = false;
+ let downvoteCounter = 0;
+downvoteButton.addEventListener('click', ()=>{
+  let downvotesCounter = document.querySelector('.main-dislike');
+  if(!isdownVoteClicked){
+      downvoteCounter++;
+      downvotesCounter.innerHTML = downvoteCounter;
+     isdownVoteClicked = true;
+  } else if(isdownVoteClicked){
+      downvoteCounter--;
+      downvotesCounter.innerHTML = downvoteCounter;
+      isdownVoteClicked = false;
+  }
+
+})
+
+//setting up comment box
+const post = document.querySelector('.post');
+ post.addEventListener('keyup', ()=>{
+     if(post.value.length > 112){
+       post.rows = '5';
+     } else if(post.value.length > 34){
+         post.rows = '3';
+     }
+     else if(post.value.length < 34){
+         post.rows = '1';
+     }
+     //console.log(post.value.length);
+ });
+
+ let commentList = document.querySelector('.comments-section');
+
+ //setting up commenting functionality
+ const doComment = document.querySelector('.send');
+ doComment.addEventListener('click',()=>{ 
+    //  //removing no-comment message
+    //  let noCommentMessage = document.querySelector('.no-comment-message');
+    //  noCommentMessage.style.display = 'none'
+     //getting comment content
+     let commentContent = document.querySelector('.post').value;
+     //check if comment value is empty
+     if(commentContent === ''){
+       let postBox = document.querySelector('.post');
+       postBox.style.border = '2px solid red';
+       postBox.placeholder = 'please input comment';
+       //postBox.style.color = 'rgb(114, 114, 110)'
+     } else {
+      
+      jQuery.ajax({
+        url: "http://127.0.0.1:8000/post",
+        method: 'post',
+        data:{
+          thread_id:$('.follow-topic')[0].id,
+          content:commentContent
+
+        },
+        success: function(data){
+          if(data){
+            console.log(data);
+           const newdata =
+                `
+               <div class='flex-comment'>
+               <img src="" alt="commenter">
+               <div class="commenters-name">{{'@'.$post->user->username}}<p             
+               class="date">{{$post->created_at->diffForHumans()}}</p></div>
+               </div>
+               <p class="comment-content">{{$post->content}}</p>
+               <div class="post-tools" id="comments-icons">
+               <p class="like"><div class="fa fa-arrow-circle-up"id="upvote"></div> <span class="like-counter">{{count($post->upvote)}}</span></p>
+               <p class="dislike"><div class="fa fa-arrow-circle-down"id="downvote"></div> <span class="dislike-counter">{{count($post->downvote)}}</span></p> 
+               <p class="share"><div class="fa fa-share-alt" id="share"></div></p>
+               </div>
+               `
+           ;
+           $(".comments").append(newdata);
+           console.log(data)
+          }
+        },
+        error: function(e){
+            console.log(e);
+        }
+      
+      });
+     }  
+})
