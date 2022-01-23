@@ -60,8 +60,8 @@
             </div>
             @endforeach
             <div class="post-tools">
-                 <p class="like"><div class="fa fa-arrow-circle-up"id="upvote"></div> <span class="like-counter">{{count($thread->upvote)}}</span></p>
-                 <p class="dislike"><div class="fa fa-arrow-circle-down"id="downvote"></div> <span class="dislike-counter">{{count($thread->downvote)}}</span></p> 
+                 <p class="like"><div class="fa fa-arrow-circle-up u-vote" id="upvote" upid="thread_id-{{$thread->id}}"></div> <span class="like-counter">{{count($thread->upvote)}}</span></p>
+                 <p class="dislike"><div class="fa fa-arrow-circle-down d-vote"id="downvote" upid="thread_id-{{$thread->id}}"></div> <span class="dislike-counter">{{count($thread->downvote)}}</span></p> 
                  <p class="share"><div class="fa fa-share-alt" id="share"></div></p>
             </div>
         <div class="comment-text">
@@ -72,30 +72,9 @@
     </div>
 
     <div class="comments-section">
-        @if(!$thread->posts)
-       <h1 class="no-comment-message">no comments at the moment</h1>
-        
-        @else
-           
-            @foreach($thread->posts as $post)
-            <div class="comments">
-            <div class='flex-comment'>
-            <img src="{{url($post->user->avatar)}}" alt="commenter">
-            <div class="commenters-name">{{'@'.$post->user->username}}<p             
-            class="date">{{$post->created_at->diffForHumans()}}</p></div>
-            </div>
-            <p class="comment-content">{{$post->content}}</p>
-            <div class="post-tools" id="comments-icons">
-            <p class="like"><div class="fa fa-arrow-circle-up"id="upvote"></div> <span class="like-counter">{{count($post->upvote)}}</span></p>
-            <p class="dislike"><div class="fa fa-arrow-circle-down"id="downvote"></div> <span class="dislike-counter">{{count($post->downvote)}}</span></p> 
-            <p class="share"><div class="fa fa-share-alt" id="share"></div></p>
-            </div>
-            <div>
-            @endforeach
-            
-        
-        @endif
+      
     </div>
+</div>
     
     <div class="resting-nav-bar">
         <li> <a href="index.html"><div class="hello fa fa-home"></div></a></li>
@@ -103,8 +82,8 @@
         <li><a href="notifications.html"><div class="hello fa fa-bell"></div></a></li>
         <li><a href="messages.html"><div class="hello fa fa-envelope"></div></a></li>
     </div>
-<script src="post.js"></script>
-<script src="main.js"></script> 
+
+<script src="main.js"></script> <script src="post.js"></script>
 </body>
 </html>
 

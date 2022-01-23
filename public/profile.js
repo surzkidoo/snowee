@@ -6,6 +6,13 @@ const topics = document.querySelector('.topics');
 const posts = document.querySelector('.posts');
 const upvotes = document.querySelector('.upvotes');
 
+
+$.ajaxSetup({
+  headers: {
+      'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+  }
+});
+
 //add event listeners
 const upVote = document.querySelectorAll('.like');
 upVote.forEach((upvotes)=>{
@@ -52,6 +59,7 @@ downVote.forEach((downvotes)=>{
   }) 
 })
 //show menu
+if(editProfile){
 editProfile.addEventListener('click',()=>{
         let editProfileMenu = document.querySelector('.edit-profile-element');
       let body = document.querySelector('.profile-container');
@@ -61,7 +69,7 @@ editProfile.addEventListener('click',()=>{
       editProfileMenu.style.display = 'block';
       editProfileMenu.style.zIndex = '';
 })
-
+}
 //hide menu
 closeMenu.addEventListener('click', ()=>{
     let editProfileMenu = document.querySelector('.edit-profile-element');
@@ -117,6 +125,42 @@ posts.addEventListener('click', ()=>{
     posts = posts;
   } else{
     posts.classList.add('current')
+    let userid=$('.user')[0].id
+    jQuery.ajax({
+      url: `http://127.0.0.1:8000/user/${userid}/posts`,
+      method: 'get',
+      success: function(data){
+        if(data){
+          console.log(data);
+        
+         const newdata = data.map(post=>{
+           return`
+              <div class="comments">
+                <div class='flex-comment'>
+                <img src="http://127.0.0.1:8000/${post.user.avatar}" alt="commenter">
+                <div class="commenters-name">@${post.user.username}<p             
+                class="date">${post.created_at}</p></div>
+                </div>
+                <p class="comment-content">${post.content}</p>
+                <div class="post-tools" id="comments-icons">
+                <p class="like"><div class="fa fa-arrow-circle-up u-vote"id="upvote" upid="post_id-${post.id}"></div> <span class="like-counter">${post.upvote_count}</span></p>
+                <p class="dislike"><div class="fa fa-arrow-circle-down d-vote"id="downvote" upid="post_id-${post.id}"></div> <span class="dislike-counter">${post.downvote_count}</span></p> 
+                <p class="share"><div class="fa fa-share-alt" id="share"></div></p>
+                </div>
+                <div>
+             `
+         ;
+         })
+         $(".postf").append(newdata);
+         upVoteHandle()
+    downVoteHandle()
+        }
+      },
+      error: function(e){
+          console.log(e);
+      }
+    
+    });
   }
   let upvote = document.querySelector('.upvote').style.display = 
    'none';
@@ -139,3 +183,46 @@ upvotes.addEventListener('click', ()=>{
   let topic = document.querySelector('.topic').style.display =  
 'none';
 })
+
+
+let userid=$('.user')[0].id
+jQuery.ajax({
+  url: `http://127.0.0.1:8000/user/${userid}/topics`,
+  method: 'get',
+
+  success: function(data){
+    console.log(data)
+    if(data){
+     const newdata =data.map(post=>{
+         return `
+         <div class="card">
+              <div class="image-head">
+                 <img src="http://127.0.0.1:8000/${post.user.avatar}" alt="thumbnail">
+                 <div class="username"><a href="profile.html" class="this">@${post.user.username} ${post.user.verified===1? '<div class="fa fa-check-circle" id="checked"></div>':''}</a><p class="details">originally posted in<a href="section/${post.section.name.toLowerCase()}">${post.section.name}</a></p></div>
+              </div>
+                 <div class="content-box">
+                 <h1>${post.title}</h1>
+                 <p>${post.content}</p>
+                 <div class="post-image">
+                     ${post.image.length !=0 ? `<img src="${post.image[0].url}" alt="image">`:""}
+                 </div>
+                 <div class="post-tools">
+                      <p class="like"><div class="fa fa-arrow-circle-up u-vote" id="upvote" upid="thread_id-${post.id}"></div> <span class="like-counter">${post.upvote_count}</span></p>
+                      <p class="dislike"><div class="fa fa-arrow-circle-down d-vote"id="downvote" upid="thread_id-${post.id}"></div> <span class="dislike-counter">${post.downvote_count}</span></p> 
+                      <p class="dislike"><div class="fa fa-comment"id="comment"></div> <span class="comment-counter">${post.posts_count}</span></p> 
+                      <button class="see-more"><a href=${post.slug}>more...</a></button>
+                 </div>
+                  </div>
+         `
+     });
+     $(".topic").append(newdata);
+     console.log(data)
+     upVoteHandle()
+     downVoteHandle()
+          }
+  },
+  error: function(e){
+      console.log(e);
+  }
+
+});

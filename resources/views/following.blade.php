@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <meta name="_token" content="{{csrf_token()}}" />
+    <link rel="stylesheet" href="{{url('style.css')}}">
+    <title>Following | Snowy</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
-    <title>Notifications | Snowy</title>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous">
+</script>
 </head>
 <body>
     <header>
@@ -26,43 +30,27 @@
      </div>
           <div class="header-container">
                 <h1>Snowy</h1>
-                <div class="container-header">
-                    <div class="fa fa-search"></div>
-                </div>
-             </div>
           </div> 
     </header>
-      <div class="notification-container">
-        <div class="first-notification-head">
-            <h2><span>Notifications</span></h2> 
-            <p>Mark all as read</p>
+
+    <div class="following-container">
+        <div class="following-stat" id="user_id" fid="{{$user->username}}">
+            <h3>Following</h3>
+            <h3 class="following-count">{{count($user->following)}}</h3>
         </div>
-        <div class="notification-menu">
-            <div class="notifis-head">
-                <img src="img/img_avatar.png" alt="">
-                <p><strong>@muhammad</strong> likes your post</p>
-            </div>
-            <div class="notifis-head">
-                <img src="img/img_avatar.png" alt="">
-                <p><strong>@abubakar</strong> mentions you</p>
-            </div>
-            <div class="notifis-head">
-                <img src="img/img_avatar.png" alt="">
-                <p><strong>@muhammad</strong> message you</p>
-            </div>
-            <div class="notifis-head">
-                <img src="img/img_avatar.png" alt="">
-                <p><strong>@abubakar</strong> follows you</p>
-            </div>
+        <div class="following-area" id="following-area" authid="{{auth()->user()->id}}">
+
+            
         </div>
-    </div>
-    <div class="resting-nav-bar">
+     </div>
+     <div class="resting-nav-bar">
         <li> <a href="index.html"><div class="hello fa fa-home"></div></a></li>
         <li><a href="section.html"><div class="hello fa fa-users"></div></a></li>
         <li><a href="notifications.html"><div class="hello fa fa-bell"></div></a></li>
         <li><a href="messages.html"><div class="hello fa fa-envelope"></div></a></li>
     </div> 
-      
- <script src="main.js"></script>
+
+<script src="{{url('following.js')}}"></script>
+<script src="{{url('main.js')}}"></script> 
 </body>
 </html>

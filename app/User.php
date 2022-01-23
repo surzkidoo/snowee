@@ -48,24 +48,23 @@ class User extends Authenticatable
     }
     public function threads(){
 
-        return $this->hasMany(thread::class);    
+        return $this->hasMany(thread::class);
     }
 
     public function notifications(){
-
         return $this->hasMany(notification::class);
     }
 
-    public function follower(){
-        return $this->hasMany(follow::class,'follower_id');
+    public function following(){
+        return $this->hasManyThrough('App\User', 'App\follow', 'follower_id',"id","id","follow_id");
     }
 
-    public function follow(){
-        return $this->hasMany(follow::class,'follow_id');
+    public function follower(){
+            return $this->hasManyThrough('App\User', 'App\follow', 'follow_id', 'id','id',"follower_id");
     }
 
     public function followpost(){
-        return $this->hasMany(followpost::class);
+        return $this->hasManyThrough('App\thread', 'App\followpost', 'user_id', 'id');
     }
 
 

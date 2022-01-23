@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\post;
 use App\thread;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -9,8 +10,9 @@ use Illuminate\Support\Facades\Validator;
 
 class ThreadController extends Controller
 {
-    public function index(){
-        return (thread::paginate(5));
+    public function threadPost(Request $request,$id){
+      $thread=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote')->where('thread_id','=',$id)->get();
+      return response()->json($thread, 200);
       }
   
   

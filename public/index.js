@@ -1,26 +1,6 @@
 //handling upvote, downvote, comment
 //Upvote
- const upVote = document.querySelectorAll('#upvote');
- upVote.forEach((upvotes)=>{
-    let counter = 0;
-    let hasClicked = false;
-   upvotes.addEventListener('click', (e)=>{
-       let upvote = e.target.parentElement;
-       if(!hasClicked){
-        counter++
-        hasClicked = true;
-        let voteCounter = upvote.querySelector('.like-counter');
-        voteCounter.innerHTML = counter;
-       } else if(hasClicked){
-           counter = 0;
-            hasClicked = false;
-            let voteCounter = upvote.querySelector('.like-counter');
-            voteCounter.innerHTML = counter;
-        }
-       let add = document.querySelector('.add')
-       upvotes.classList.toggle('add')
-   }) 
- })
+ 
 
  //Downvote
  const downVote = document.querySelectorAll('.dislike');
@@ -48,7 +28,11 @@
 
 //popular page 
 
-
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+    }
+});
 
   jQuery.ajax({
     url: "http://127.0.0.1:8000/popular",
@@ -70,8 +54,8 @@
                        ${post.image.length !=0 ? `<img src="${post.image[0].url}" alt="image">`:""}
                    </div>
                    <div class="post-tools">
-                        <p class="like"><div class="fa fa-arrow-circle-up"id="upvote"></div> <span class="like-counter">${post.upvote_count}</span></p>
-                        <p class="dislike"><div class="fa fa-arrow-circle-down"id="downvote"></div> <span class="dislike-counter">${post.downvote_count}</span></p> 
+                        <p class="like"><div class="fa fa-arrow-circle-up u-vote" id="upvote" upid="thread_id-${post.id}"></div> <span class="like-counter">${post.upvote_count}</span></p>
+                        <p class="dislike"><div class="fa fa-arrow-circle-down d-vote"id="downvote" upid="thread_id-${post.id}"></div> <span class="dislike-counter">${post.downvote_count}</span></p> 
                         <p class="dislike"><div class="fa fa-comment"id="comment"></div> <span class="comment-counter">${post.posts_count}</span></p> 
                         <button class="see-more"><a href=${post.slug}>more...</a></button>
                    </div>
@@ -80,13 +64,20 @@
        });
        $(".container-home").append(newdata);
        console.log(data)
-      }
+       upVoteHandle()
+       downVoteHandle()
+            }
     },
     error: function(e){
         console.log(e);
     }
   
   });
+
+//Handle upvote
+
+
+
 const popular = document.querySelector('.popular');
 const personalized = document.querySelector('.personalized');
 
@@ -169,7 +160,7 @@ const personalizedContainer = document.querySelector('.personalized-container');
    })
    personalizedContainer.appendChild(ul)
 
-
+   
 
 
 
