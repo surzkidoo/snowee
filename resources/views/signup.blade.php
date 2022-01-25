@@ -32,7 +32,7 @@
     </header>
     <div class="container">
         <h1 class="sign-up-h1">Sign Up.</h1>
-        <p>do you have an account already? <a href="login.html" class="sign-in-link">Sign In</a></p>
+        <p>Do you have an account already? <a href="login.html" class="sign-in-link">Sign In</a></p>
         <form class="signup-form" id="signup-form">
             <input type="text" placeholder="Full Name" class="full-name"><br>
             <input type="text" placeholder="E-mail" class="sign-up-email"> <br>
@@ -40,7 +40,7 @@
             <input type="text" 
             placeholder="Username" class="signUpUsername"> <br>
             <input type="password" placeholder='Password' class="signUpPassword"><br>
-            <input type="button" id="submit" class="sign-up-submit">
+            <input type="button" id="submit" class="sign-up-submit" value ='Sign up'>
         </form>
         <div class="circle-signup"></div>
         <div class="circle-signup-1"></div>

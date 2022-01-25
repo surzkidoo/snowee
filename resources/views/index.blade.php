@@ -19,7 +19,7 @@
        </div>
         <div class="collapsible-menu" id="collapsible-menu">
             <ul>
-            <li class="different-li"><img src="img/img_avatar.png" alt=""> <p id="id">@muhammad</p> </li>
+            <li class="different-li"><img src="" alt=""> <p id="id">@muhammad</p> </li>
             <li><a href="profile.html">View Profile</a></li>
            <li><a href="followers.html">Followers</a></li>
            <li><a href="following.html">Following</a></li>
