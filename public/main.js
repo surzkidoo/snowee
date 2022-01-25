@@ -5,10 +5,6 @@ const toggleMenu = document.querySelector('.container-div');
 toggleMenu.addEventListener('click', ()=>{
     var toggleItem = document.querySelector('.collapsible-menu')
     toggleItem.classList.toggle('show')
-<<<<<<< HEAD
-  })
-  
-=======
   }) 
 
   const upVoteHandle=()=>{
@@ -84,4 +80,4 @@ upvotes.addEventListener('click', (e)=>{
 
 
 }
->>>>>>> dbddc08818978014113dd7335c3efd7421e4701b
+
