@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile | Snowy</title>
+    <meta name="_token" content="{{csrf_token()}}" />
+    <link rel="stylesheet" href="{{url('style.css')}}">
+    <title>{{$user->username}} | Snowy</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous">
+</script>
 </head>
 <body>
     <header>
@@ -36,11 +40,17 @@
            <h2><span>Profile</span></h2>
        </div>
        <div class="profile-grid" id="profile-grid">
-        <img src="img/img_avatar.png" alt="profile">
-        <div><p class="user">@muhammad</p>
-        <p class="profile-bio">Founder Snowy| Foodie</p>
+        <img src="{{url($user->avatar)}}" alt="profile">
+        <div><p class="user" id="{{$user->id}}">{{'@'.$user->username}}</p>
+        <p class="profile-bio">{{$user->bio}}</p>
     </div>
+    @if(auth()->user()->id==$user->id)
     <button class="edit-profile">Edit profile</button>
+    @else
+    <div class="button-container" id="button-container">
+        <button class="add">Follow</button> <button class="block">Block</button>
+     </div>
+    @endif
        </div>
        <div class="profile-container">
            <div class="profile-section">
@@ -51,22 +61,7 @@
            <div class="upvote">oops!, no upvoted post</div>
            <div class="postf">oops!, no post at the moment</div>
            <div class="topic">
-            <div class="card">
-                <div class="image-head">
-                   <img src="img/img_avatar.png" alt="thumbnail">
-                   <div class="username"><a href="profile.html" class="this">@muhammad</a><p class="details">originally posted in<a href="programming.html">programming</a></p></div>
-                   </div>
-                   <div class="content-box">
-                    <h1>How can i use AJAX with Javascript?</h1>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur sequi voluptatum rerum voluptas 
-                 voluptate, nobis consequatur cupiditate necessitatibus fugiat distinctio impedit porro incidunt. Quasi 
-                 expedita beatae voluptatum pariatur odio iure.</p>
-                 <div class="post-tools">
-                    <p class="like"><div class="fa fa-arrow-circle-up"id="upvote"></div> <span class="like-counter">0</span></p>
-                    <p class="dislike"><div class="fa fa-arrow-circle-down"id="downvote"></div> <span class="dislike-counter">0</span></p> 
-                    <p class="dislike"><div class="fa fa-comment"id="comment"></div> <span class="comment-counter">0</span></p> 
-                    <button class="see-more"><a href=post.html>more...</a></button>
-               </div>
+            
             </div>
             </div>
     </div>
@@ -92,7 +87,7 @@
         <button class="submit-changes">Update Profile</button>
     </div>
 </div>
-<script src="main.js"></script>
-<script src="profile.js"></script>
+<script src="{{url('main.js')}}"></script>
+<script src="{{url('profile.js')}}"></script>
 </body>
 </html>

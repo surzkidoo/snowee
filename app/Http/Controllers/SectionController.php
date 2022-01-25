@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\thread;
 use App\section;
 use Illuminate\Http\Request;
 
@@ -38,6 +39,28 @@ class SectionController extends Controller
         $section=section::where("name","=",$name)->first();
        
         return view('single-section',["section"=>$section]);
+
+    }
+
+    
+    public function mostViewedTopics(Request $request,$id){
+
+        $section=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where("section_id","=",$id)->orderBy('views','DESC')->get();
+       
+        return response()->json($section, 200);
+
+    }
+
+
+    public function newTopics(Request $request,$id){
+        $section=thread::where("section_id","=",$id)->get();
+        return response()->json($section, 200);
+    }
+
+    public function updatedTopics(Request $request,$id){
+
+        $section=thread::where("section_id","=",$id)->sortByDesc('updated_at')->get();
+        return response()->json($section, 200);
 
     }
 

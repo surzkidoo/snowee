@@ -31,43 +31,10 @@ follow.addEventListener('click', ()=>{
 })
 
 //setting up upvote button
-const upvoteButton = document.querySelector('#upvote');
- let isclicked = false;
- let upvoteCounter = 0;
-upvoteButton.addEventListener('click', ()=>{
-  let upvotesCounter = document.querySelector('.like-counter');
-  if(!isclicked){
-      upvoteCounter++;
-      upvotesCounter.innerHTML = upvoteCounter;
-      isclicked = true;
-  } else if(isclicked){
-      upvoteCounter--;
-      upvotesCounter.innerHTML = upvoteCounter;
-      isclicked = false;
-  }
-   
-  //appending upvotes to upvote holder
-  upvotesCountHolder.innerHTML = `${upvoteCounter} Upvotes`;
 
-})
 
 //setting up downvote holder
-const downvoteButton = document.querySelector('.dislike');
- let isdownVoteClicked = false;
- let downvoteCounter = 0;
-downvoteButton.addEventListener('click', ()=>{
-  let downvotesCounter = document.querySelector('.main-dislike');
-  if(!isdownVoteClicked){
-      downvoteCounter++;
-      downvotesCounter.innerHTML = downvoteCounter;
-     isdownVoteClicked = true;
-  } else if(isdownVoteClicked){
-      downvoteCounter--;
-      downvotesCounter.innerHTML = downvoteCounter;
-      isdownVoteClicked = false;
-  }
 
-})
 
 //setting up comment box
 const post = document.querySelector('.post');
@@ -138,3 +105,41 @@ const post = document.querySelector('.post');
       });
      }  
 })
+
+thread_id=$('.follow-topic')[0].id,
+jQuery.ajax({
+  url: `http://127.0.0.1:8000/thread/${thread_id}/posts`,
+  method: 'get',
+  success: function(data){
+    if(data){
+      console.log(data);
+    
+     const newdata = data.map(post=>{
+       return`
+          <div class="comments">
+            <div class='flex-comment'>
+            <img src="${post.user.avatar}" alt="commenter">
+            <div class="commenters-name">@${post.user.username}<p             
+            class="date">${post.created_at}</p></div>
+            </div>
+            <p class="comment-content">${post.content}</p>
+            <div class="post-tools" id="comments-icons">
+            <p class="like"><div class="fa fa-arrow-circle-up u-vote"id="upvote" upid="post_id-${post.id}"></div> <span class="like-counter">${post.upvote_count}</span></p>
+            <p class="dislike"><div class="fa fa-arrow-circle-down d-vote"id="downvote" upid="post_id-${post.id}"></div> <span class="dislike-counter">${post.downvote_count}</span></p> 
+            <p class="share"><div class="fa fa-share-alt" id="share"></div></p>
+            </div>
+            </div>
+         `
+     ;
+     })
+     $(".comments-section").append(newdata);
+     upVoteHandle()
+downVoteHandle()
+    }
+  },
+  error: function(e){
+      console.log(e);
+  }
+
+});
+

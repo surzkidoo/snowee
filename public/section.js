@@ -17,51 +17,7 @@ newTopicContent.style.display = 'none';
 //add event listener for local storage 
  //document.addEventListener("DOMContentLoaded", showContent);
 
- const upVote = document.querySelectorAll('.like');
-upVote.forEach((upvotes)=>{
-   let counter = 0;
-   let hasClicked = false;
-  upvotes.addEventListener('click', (e)=>{
-      let upvote = e.target;
-      if(!hasClicked){
-       counter++
-       hasClicked = true;
-       let voteCounter = upvote.querySelector('.like-counter');
-       voteCounter.innerHTML = counter;
-      } else if(hasClicked){
-          counter = 0;
-           hasClicked = false;
-           let voteCounter = upvote.querySelector('.like-counter');
-           voteCounter.innerHTML = counter;
-       }
-      let add = document.querySelector('.add')
-      upvotes.classList.toggle('add')
-  }) 
-})
 
-//Downvote
-const downVote = document.querySelectorAll('.dislike');
-downVote.forEach((downvotes)=>{
-    let p = document.querySelector('.dislike-counter');
-   let counter = 0;
-   let hasClicked = false;
-  downvotes.addEventListener('click', (e)=>{
-      let downvote = e.target;
-      if(!hasClicked){
-       counter++
-       hasClicked = true;
-       let voteCounter = downvote.querySelector('.dislike-counter');
-       voteCounter.innerHTML = counter;
-      } else if(hasClicked){
-          counter = 0;
-           hasClicked = false;
-           let voteCounter = downvote.querySelector('.dislike-counter');
-           voteCounter.innerHTML = counter;
-       }
-      let add = document.querySelector('.add')
-      downvotes.classList.toggle('add')
-  }) 
-})
 
 //check most view is empty
 //most viewed options
@@ -75,6 +31,47 @@ mostViewed.addEventListener('click', ()=>{
         mostViewed = mostViewed;
     } else{
         mostViewed.classList.add('current')
+       let id= $('.section-name')[0].id
+       alert(id);
+        jQuery.ajax({
+          url: `http://127.0.0.1:8000/section/${id}/viewed`,
+          method: 'get',
+          success: function(data){
+            if(data){
+             const newdata =data.map(post=>{
+                 return `
+                 <div class="card">
+                      <div class="image-head">
+                         <img src="http://127.0.0.1:8000/${post.user.avatar}" alt="thumbnail">
+                         <div class="username"><a href="profile.html" class="this">@${post.user.username} ${post.user.verified===1? '<div class="fa fa-check-circle" id="checked"></div>':''}</a><p class="details">originally posted in<a href="section/${post.section.name.toLowerCase()}">${post.section.name}</a></p></div>
+                      </div>
+                         <div class="content-box">
+                         <h1>${post.title}</h1>
+                         <p>${post.content}</p>
+                         <div class="post-image">
+                             ${post.image.length !=0 ? `<img src="http://127.0.0.1:8000/${post.image[0].url}" alt="image">`:""}
+                         </div>
+                         <div class="post-tools">
+                              <p class="like"><div class="fa fa-arrow-circle-up u-vote" id="upvote" upid="thread_id-${post.id}"></div> <span class="like-counter">${post.upvote_count}</span></p>
+                              <p class="dislike"><div class="fa fa-arrow-circle-down d-vote"id="downvote" upid="thread_id-${post.id}"></div> <span class="dislike-counter">${post.downvote_count}</span></p> 
+                              <p class="dislike"><div class="fa fa-comment"id="comment"></div> <span class="comment-counter">${post.posts_count}</span></p> 
+                              <button class="see-more"><a href=${post.slug}>more...</a></button>
+                         </div>
+                         </div>
+                          </div>
+                 `
+             });
+             $(".post-main").append(newdata);
+             console.log(data)
+             upVoteHandle()
+             downVoteHandle()
+                  }
+          },
+          error: function(e){
+              console.log(e);
+          }
+        
+        });
     }
     //hide other subs on click
     let mainPost = document.querySelector('.post-main').style.display = 'block';

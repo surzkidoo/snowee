@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <meta name="_token" content="{{csrf_token()}}" />
+    <link rel="stylesheet" href="{{url('style.css')}}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
-    <title>Messages | Snowy</title>
+    <title>Followers | Snowy</title>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous">
+</script>
 </head>
 <body>
     <header>
@@ -32,31 +36,29 @@
              </div>
           </div> 
     </header>
-    <div class="messages-container">
-       <div class="messages-first-header">
-         <h2><span>Messages</span></h2>
-       </div>
-       <div class="message-section">
-           <div class="name-msg">
-            <img src="img/img_avatar.png" alt="">
-               <div class="inner-msg">
-                <h4>@muhammad</h4>
-                <p>Hi</p>
-               </div>
-           </div>
-           <div class="number-time">
-            <h2>1</h2>
-            <p>1m ago</p>
-           </div>
-       </div>
-    </div>
-    <div class="resting-nav-bar">
+
+    <div class="followers-container">
+        <div class="followers-stat" id="user_id" fid="{{$user->username}}">
+            <h3><span>Followers</span></h3>
+            <h3 class="followers-count">{{count($user->follower)}}</h3>
+        </div>
+         <div class="span"></div>
+        <div class="followers-area" id="followers-area" authid="{{auth()->user()->id}}">
+            
+
+            
+
+        </div>
+     </div>
+     <div class="resting-nav-bar">
         <li> <a href="index.html"><div class="hello fa fa-home"></div></a></li>
         <li><a href="section.html"><div class="hello fa fa-users"></div></a></li>
         <li><a href="notifications.html"><div class="hello fa fa-bell"></div></a></li>
         <li><a href="messages.html"><div class="hello fa fa-envelope"></div></a></li>
     </div> 
-      
-    <script src="main.js"></script>
+
+
+<script src="{{url('followers.js')}}"></script>
+<script src="{{url('main.js')}}"></script>
 </body>
 </html>
