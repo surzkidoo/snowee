@@ -6,13 +6,22 @@ use App\post;
 use App\User;
 use App\follow;
 use App\thread;
+use App\section;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function feed(Request $request){
-        
-    }
+    public function Feed(Request $request){
+        if(auth()->check()){
+            $user=User::with('feed')->where('id','=',auth()->user()->id)->first();
+            $result=$user->feed->map(function($item,$key){
+                $thread=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where('id','=',$item->id)->first();
+                return $thread;
+            });
+            return response()->json($result, 200);
+        }
+        return response()->json(["error"=>"UnAuthorized user"], 403);
+        }
 
     public function follower(Request $request,$username){
         $user=User::where("username",'=',$username)->first();
@@ -21,7 +30,6 @@ class UserController extends Controller
 
     public function getFollower(Request $request,$username){
         $user=User::with('follower')->where("username",'=',$username)->first();
-       
         $multiplied = $user->follower->map(function ($item, $key) {
             $user=follow::where("follow_id",'=',$item->id)->where("follower_id",'=',auth()->user()->id)->first();
             if($user){
@@ -32,7 +40,6 @@ class UserController extends Controller
         if(!$user){
             return response()->json(["error"=>"Unknown request"],402);
         }
-        
         return response()->json($multiplied,200);
     }
 
@@ -58,7 +65,6 @@ class UserController extends Controller
     public function following(Request $request,$username){
         $user=User::where("username",'=',$username)->first();
         return view('following',['user'=>$user]);
-
     }
 
     public function getFollowing(Request $request,$username){
@@ -74,13 +80,24 @@ class UserController extends Controller
         if(!$user){
             return response()->json(["error"=>"Unknown request"],402);
         }
-        
         return response()->json($multiplied,200);
     } 
     
     public function profile(Request $request,$id){
         $user=User::where("username",'=',$id)->first();
-        return view('profile',['user'=>$user]);
+        $follow= follow::where('follower_id','=',auth()->user()->id)->where('follow_id','=',$user->id)->get();
+        $followb= follow::where('follower_id','=',$user->id)->where('follow_id','=',auth()->user()->id)->first();
+       if($followb){
+             $blocked= $followb->blocked;
+        } else{
+            $blocked=-1;
+        }
+        if($follow->count()==0){
+          $follow=0;
+        }else{
+            $follow=1;
+        }
+        return view('profile',['user'=>$user,'follow'=>$follow,'blocked'=>$blocked]);
     }
 
     public function userTopics(Request $request,$id){
@@ -92,4 +109,27 @@ class UserController extends Controller
         $thread=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote')->where('user_id','=',$id)->get();
         return response()->json($thread, 200);
     }
+
+    public function userUpvoted(Request $request,$id){
+        $thread=User::with("upvote")->where('id','=',$id)->get();
+        return response()->json($thread, 200);
+    }
+    public function setBlock(Request $request,$id){
+        $user=User::where("id",'=',$id)->first();
+        $followb= follow::where('follower_id','=',$user->id)->where('follow_id','=',auth()->user()->id)->first();
+        if($followb){
+            if($followb->blocked==1){
+                $followb->blocked=0;
+                $followb->save();
+                return response()->json(0, 200);
+            }
+            $followb->blocked=1;
+            $followb->save();
+            return response()->json(1, 200);
+       } else{
+           $blocked=-1;
+       }
+        return response()->json($blocked, 404);
+    }
+
 }

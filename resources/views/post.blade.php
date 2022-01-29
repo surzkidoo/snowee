@@ -43,7 +43,13 @@
                 <p class="views">{{$thread->views}} <span class="fa fa-eye"></span></p>
                 <p class="commnt">{{count($thread->posts)}} <span class="fa fa-comment"></span></p>
             </div>
-            <button class="follow-topic" id="{{$thread->id}}">Follow</button>
+            <button class="follow-topic" id="{{$thread->id}}">
+            @if($follow)
+                 Following
+            @else
+                Follow
+            @endif
+            </button>
         </div>
         <div class="card">
             <div class="image-head">
@@ -83,7 +89,8 @@
         <li><a href="messages.html"><div class="hello fa fa-envelope"></div></a></li>
     </div>
 
-<script src="main.js"></script> <script src="post.js"></script>
+<script src="main.js"></script>
+ <script src="post.js"></script>
 </body>
 </html>
 

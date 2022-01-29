@@ -15,7 +15,7 @@ class IndexController extends Controller
     }
 
     public function popular(Request $request){
-        $thread=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->get();
+        $thread=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->simplePaginate(5);
         return response()->json($thread, 200);
     }
 
@@ -103,12 +103,12 @@ class IndexController extends Controller
                     return response()->json($count, 200);
               }
         }
-
             else{
                 return response()->json(["error"=>"Unknown Command"], 403);
-
             }
-    }
+        }
+
+        
 
 
 

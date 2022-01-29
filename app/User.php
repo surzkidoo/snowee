@@ -64,7 +64,15 @@ class User extends Authenticatable
     }
 
     public function followpost(){
-        return $this->hasManyThrough('App\thread', 'App\followpost', 'user_id', 'id');
+        return $this->hasManyThrough('App\thread', 'App\followpost', 'user_id', 'id','id','thread_id');
+    }
+
+    public function upvote(){
+        return $this->hasManyThrough('App\thread', 'App\upvote', 'user_id', 'id','id','thread_id');
+    }
+
+    public function feed(){
+        return $this->hasManyThrough('App\thread', 'App\follow', 'follower_id', 'user_id','id','follow_id');
     }
 
 

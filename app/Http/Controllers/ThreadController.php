@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\post;
 use App\thread;
+use App\followpost;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class ThreadController extends Controller
 {
     public function threadPost(Request $request,$id){
-      $thread=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote')->where('thread_id','=',$id)->get();
+      $thread=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote')->where('thread_id','=',$id)->paginate(5);
       return response()->json($thread, 200);
       }
   
@@ -45,15 +46,33 @@ class ThreadController extends Controller
       public function show($slug)
       {
         $thread= thread::where('slug','=',$slug)->first();
-        return view('post',["thread"=>$thread]);
+        $follow= followpost::where('user_id','=',auth()->user()->id)->where('thread_id','=',$thread->id)->get();
+        if($follow->count()==0){
+          $follow=0;
+        }else{
+          $follow=1;
+        }
+        return view('post',["thread"=>$thread,'follow'=>$follow]);
       }
   
       
-      public function edit($id)
-      {
-          //
+    //1 is the result of following- 0 is for unfollowing
+    public function followPost(Request $request,$threadid){
+      $checkfollow = followpost::where('thread_id','=',$threadid)->where('user_id','=',auth()->user()->id)->get();
+      if($checkfollow->count()==0){
+          $follow = new followPost();
+          $follow->user_id=auth()->user()->id;
+          $follow->thread_id=$threadid;
+          $follow->save();
+          return response()->json(1, 200);
       }
-  
+      $valid = followpost::where('thread_id','=',$threadid)->where('user_id','=',auth()->user()->id)->delete();
+      if(!$valid){
+          return response()->json(["error"=>"unfollow failed"], 404);
+      }
+      return response()->json(0, 200);
+  }
+
       /**
        * Update the specified resource in storage.
        *

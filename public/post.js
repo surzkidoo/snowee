@@ -16,24 +16,26 @@ views.addEventListener("DOMContentLoad", ()=>{
 })
 
 //setting up follow
-let isFollwing = false;
 follow.addEventListener('click', ()=>{
-   if(!isFollwing){
-       follow.innerHTML = 'Following';
-       isFollwing = true;
-    const card = document.querySelector('.card').innerHTML;
-    localStorage.setItem("card", JSON.stringify(card))
-   } else if(isFollwing){
-    follow.innerHTML = 'Follow';
-    isFollwing = false;
-    localStorage.removeItem('card')
-   }
+  let id= $('.follow-topic')[0].id
+  jQuery.ajax({
+    url: `http://127.0.0.1:8000/thread/${id}/follow`,
+    method: 'get',
+    success: function(data){
+     
+      if(data==1){
+        follow.innerHTML = 'Following';
+    } else if(data==0){
+     follow.innerHTML = 'Follow';
+    }
+      
+    },
+    error: function(e){
+        console.log(e);
+    }
+  
+  });
 })
-
-//setting up upvote button
-
-
-//setting up downvote holder
 
 
 //setting up comment box
@@ -114,7 +116,7 @@ jQuery.ajax({
     if(data){
       console.log(data);
     
-     const newdata = data.map(post=>{
+     const newdata = data.data.map(post=>{
        return`
           <div class="comments">
             <div class='flex-comment'>
@@ -133,6 +135,7 @@ jQuery.ajax({
      ;
      })
      $(".comments-section").append(newdata);
+     initPagination(data.first_page_url.split('=')[0],2,'.comments-section',false)
      upVoteHandle()
 downVoteHandle()
     }
