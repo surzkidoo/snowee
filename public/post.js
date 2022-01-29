@@ -183,9 +183,8 @@ downVoteHandle()
    })
   });
 
-  comments.forEach((comment)=>{
+comments.forEach((comment)=>{
     let reply = comment.querySelector('.edit-reply-comment');
-    })
   })
 
 var deleteThis = $('.delete-side-comment');
