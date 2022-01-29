@@ -47,8 +47,8 @@
         </div>  
     </div> 
     <div class="resting-nav-bar">
-        <li> <a href="index.html"><div class="hello fa fa-home"></div></a></li>
-        <li><a href="section.html"><div class="hello fa fa-users"></div></a></li>
+        <li> <a href="/"><div class="hello fa fa-home"></div></a></li>
+        <li><a href="/section"><div class="hello fa fa-users"></div></a></li>
         <li><a href="notifications.html"><div class="hello fa fa-bell"></div></a></li>
         <li><a href="messages.html"><div class="hello fa fa-envelope"></div></a></li>
     </div>

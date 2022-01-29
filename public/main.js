@@ -14,7 +14,7 @@ toggleMenu.addEventListener('click', ()=>{
   upvotes.addEventListener('click', (e)=>{
       let thread_id= $(upvotes).attr('upid');
       if(!thread_id || thread_id =="undefined"){
-          alert("login brro")
+          alert("login bro")
           return
       }
       //
