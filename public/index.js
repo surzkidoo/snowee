@@ -46,7 +46,7 @@ $.ajaxSetup({
            <div class="card">
                 <div class="image-head">
                    <img src="${post.user.avatar}" alt="thumbnail">
-                   <div class="username"><a href="profile.html" class="this">@${post.user.username} ${post.user.verified===1? '<div class="fa fa-check-circle" id="checked"></div>':''}</a><p class="details">originally posted in<a href="section/${post.section.name.toLowerCase()}">${post.section.name}</a></p></div>
+                   <div class="username"><a href="profile.html" class="this">@${post.user.username} ${post.user.verified===1? '<div class="fa fa-check-circle" id="checked"></div>':''}</a><p class="details">originally posted in<a href="section/${post.section.name.toLowerCase()}">${post.section.name.toLowerCase()}</a></p></div>
                 </div>
                    <div class="content-box">
                    <h1>${post.title}</h1>

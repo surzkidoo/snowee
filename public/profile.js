@@ -67,7 +67,6 @@ editProfile.addEventListener('click',()=>{
       body2.style.filter = 'blur(1px)';
       body.style.filter = 'blur(1px)';
       editProfileMenu.style.display = 'block';
-      editProfileMenu.style.zIndex = '';
 })
 }
 //hide menu

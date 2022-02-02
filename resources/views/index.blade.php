@@ -20,7 +20,7 @@
        </div>
         <div class="collapsible-menu" id="collapsible-menu">
             <ul>
-            <li class="different-li"><img src="img/img_avatar.png" alt=""> <p id="id">@muhammad</p> </li>
+            <li class="different-li"><img src="" alt=""> <p id="id">@muhammad</p> </li>
             <li><a href="profile.html">View Profile</a></li>
            <li><a href="followers.html">Followers</a></li>
            <li><a href="following.html">Following</a></li>
@@ -32,7 +32,6 @@
                 <h1>Snowy</h1>
                 <div class="container-header">
                 <div class="fa fa-search"></div>
-                <div class="fa fa-plus-circle"></div>
             </div>
           </div> 
    </header>
@@ -40,14 +39,14 @@
             <h4 class="popular active"><span class="first-second-header">Popular</span></h4>
             <h4 class="personalized"><span class="second-second-header">Personalized</span></h4>
        </div>
-        <div class="personalized-container"></div>
+        
        <div class="container-home">
           <!-- postsec -->
     </div>
     </div>
     <div class="resting-nav-bar">
-        <li> <a href="index.html"><div class="hello fa fa-home"></div></a></li>
-        <li><a href="section.html"><div class="hello fa fa-users"></div></a></li>
+        <li> <a href="/"><div class="hello fa fa-home"></div></a></li>
+        <li><a href="/section"><div class="hello fa fa-users"></div></a></li>
         <li><a href="notifications.html"><div class="hello fa fa-bell"></div></a></li>
         <li><a href="messages.html"><div class="hello fa fa-envelope"></div></a></li>
     </div>

@@ -8,22 +8,9 @@
 }
 
 body{
-    background-color: rgb(241, 242, 242);
+    background-color: rgb(255, 255, 255);
     position: relative;
     overflow-x: hidden;
-}
-
-.edit-profile-element.report-post-modal{
-    min-height: 0px;
-}
-
-.edit-profile-element.report-post-modal h1{
-    font-size: 27px;
-    margin-top: 0px;
-}
-
-.edit-profile-element.report-post-modal textarea{
-    margin-top: 10px;
 }
 
 a{
@@ -166,8 +153,8 @@ img{
   
   .container-div{
     position: absolute;
-    top: 20px;
-    left: 25px;
+    top: 28px;
+    left: 15px;
     cursor: pointer;
   }
 
@@ -214,33 +201,6 @@ img{
     margin-right: auto;
     width: 100%;
     margin-top: 220px;
-}
-
-.side-comment{
-    display: flex;
-    width: 100%;
-    justify-content: end;
-    cursor: pointer;
-}
-
-.side-comment .delete-side-comment{
-    color: #ff0000;
-}
-
-.side-comment .edit-side-comment{
-    color: #443e3e;
-}
-
-.side-comment .delete-post.post{
-    color: #ff0000;
-}
-
-.side-comment .edit-post-post{
-    color: #443e3e;
-}
-
-.edit-profile-element .update-comment{
-    width: 50%;
 }
 
 /* shapes */
@@ -296,72 +256,11 @@ img{
 	border-top: 50px solid rgb(255, 5, 5);
 }
 
-#edit-post-textarea{
-    resize: none;
-    width: 100%;
-    font-size: 16px;
-    padding: 6px;
-    margin-bottom: 5px;
-    white-space: pre-wrap;
-    border: 0.7px solid #787c88;
-    outline: none;
-}
-
-.edit-profile-element #post-name{
-    border-radius: 0px;
-    margin-bottom: 0px;
-    outline: none;
-}
-
-.edit-profile-element .delete-p{
-    border-radius: 0%;
-}
-
-.delete-buttons{
-    display: flex;
-}
-
-.delete-buttons button:nth-child(2){
-    background: #7F6792;
-    padding: 8px;
-    font-weight: bold;
-}
-
-.delete-buttons button:nth-child(1){
-    padding: 8px;
-    font-weight: bold;
-}
-
-#delete-post{
-    min-height: 0px;
-    padding: 15px;
-    min-width: 23rem;
-}
-
-#delete-post h1{
-    margin-top: 0px;
-    padding-bottom: 10px;
-    font-size: 27px;
-}
-
-#delete-post .delete-p{
-    padding-bottom: 20px;
-}
-
-#delete-post div span{
-    font-style: italic;
-}
-
-.edited{
-    display: none;
-    color: #787c88;
-    padding-left: 6px;
-}
-
 /* sign up */
 
 .container form{
     position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -369,12 +268,21 @@ img{
     margin-top: 8px;
 }
 
-.sign-up-submit{
-    font-weight: normal;
+#edit-post-textarea{
+    margin-top: 10px;
+    resize: none;
+    width: 100%;
+    height: 34vh;
+    font-size: 16px;
+    padding: 6px;
+    margin-bottom: 5px;
+    white-space: pre-wrap;
+    border: none;
+    outline-color: white
 }
 
-.container form input{
-    width: 405px;
+ input{
+    width:65%;
     height: 45px;
     padding: 5px;
     margin-bottom:6px;
@@ -384,7 +292,7 @@ img{
 }
 
 #submit{
-    width: 405px;
+    width: 65%;
      color: white;
     font-size: 18px;
     cursor: pointer;
@@ -508,7 +416,7 @@ img{
 
 #submit-login{
     margin-top: 15px;
-    width: 405px;
+    width: 65%;
     cursor: pointer;
     background-color: #8c00ff;
     color: #ffffff;
@@ -523,8 +431,7 @@ header{
     background-color: #8c00ff;
     width: 100%;
     color: #ffffff;
-    padding-top: 5px;
-    padding-bottom: 0px;
+    padding: 10px;
     z-index: 5;
 }
 
@@ -558,37 +465,16 @@ header{
     background-color: rgb(255, 255, 255);
 }
 
-.sort{
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    width: 100%;
-}
-
-.sort select{
-    outline: none;
-    padding: 2px;
-    border: none;
-    background: #ffffff;
-    font-size: 15px;
-    font-weight: bold;
-}
-
-.sort select option{
-    font-weight: bold;
-    background: #F8F6FB;
-}
-
 .header-container{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-top: 5px;
+    padding-bottom: 7px;
 }
 
 .header-container h1{
-    margin-left: 70px;
-    font-size: 34px;
-    padding-bottom: 6.5px;
+    margin-left: 50px;
 }
 
 .container-header{
@@ -615,10 +501,10 @@ header{
 }
 
 .container-home{
-    width: 590px;
+    width: 95%;
     max-width: 1100px;
     margin: auto;
-    margin-bottom: 65px;
+    margin-bottom: 50px;
 }
 
 .personalized-container{
@@ -670,9 +556,7 @@ header{
 /* posts section */
 .card{
   padding: 10px;
- background: #ffffff;
- margin-top: 15px;
- margin-bottom: 15px;
+  border-bottom: 2px solid rgb(199, 198, 198);
 }
 
 .image-head{
@@ -710,7 +594,6 @@ header{
 .image-head .details{
     padding-top: 2px;
     font-weight: 400;
-    font-size: 14px;
 }
 
 .content-box{
@@ -734,11 +617,10 @@ header{
     justify-content: space-between;
     align-items: center;
     margin-left: -25px;
-    margin-bottom: -10px;
 }
 
 .post-tools .like{
-    color: rgb(17, 17, 17);
+    color: green;
     cursor: pointer;
 }
 
@@ -773,20 +655,20 @@ header{
 
 
 .comments-tools #downvote{
-    font-size: 22px;
+    font-size: 25px;
     color: red;
     cursor: pointer;
 }
 
 .post-tools #upvote{
-    font-size: 22px;
+    font-size: 25px;
     color: green;
     padding-right: 5px;
     cursor: pointer;
 }
 
 .post-tools #comment{
-    font-size: 22px;
+    font-size: 25px;
     color: rgb(0, 13, 128);
     padding-right: 5px;
     cursor: pointer;
@@ -798,7 +680,7 @@ header{
 }
 
 .post-tools #downvote{
-    font-size: 22px;
+    font-size: 25px;
     color: red;
     padding-right: 5px;
     cursor: pointer;
@@ -1119,17 +1001,10 @@ header{
 }
 
 /* post section */
-.post-content{
-    margin-top: 20px;
-}
-
-
 .post-container{
     margin: auto;
-    width: 690px;
+    width: 90%;
     max-width: 1100px;
-    background: #ffffff;
-    padding: 10px;
 }
 
 .post-container h1{
@@ -1214,17 +1089,13 @@ header{
    padding: 4px;
 }
 
-.comments-section {
+.post-container .comments-section {
     display: flex;
     flex-direction: column;
     justify-content:flex-start;
     align-items: flex-start;
     margin-bottom: 50px;
-    margin: auto;
-    width: 690px;
-    max-width: 1100px;
-    background: #ffffff;
-    padding: 10px;
+    margin-top: 10px;
 }
 
 .comments-section .commenters-name{
@@ -1244,6 +1115,7 @@ header{
 
 #comments-icons{
     padding-bottom: 10px;
+    border-bottom: 2px solid rgb(199, 198, 198);
 }
 
 .comments-tools{
@@ -1621,7 +1493,6 @@ header{
 }
 
 .comment-text{
-    margin-top: 30px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -2137,7 +2008,6 @@ header{
    .post-tools{
        display: flex;
        justify-content: left;
-    margin-bottom: -10px;
    }
 
    .post-tools p{
@@ -2164,10 +2034,7 @@ header{
 
     .comments-section .comments{
       width: 100%;
-      margin-top: 8px;
-      border-bottom: 2px solid rgb(199, 198, 198);
-      padding-bottom: 15px;
-      margin-bottom: 10px;
+      margin-top: 10px;
     }
 
     .comments-section .comment-content{
@@ -2252,7 +2119,7 @@ header{
     }
 
    .comments-section {
-    padding: 20px;
+    padding: 5px;
     font-size: 16px;
     color: #2b2828;
     font-weight: 450;
@@ -2320,7 +2187,7 @@ header{
 
 #signup-form{
     margin:auto;
-    width: 100%;
+    width: 80%;
     margin-top: 20px;
   }
 
@@ -2712,7 +2579,6 @@ header{
    .comments-section .comments{
     width: 100%;
     margin-top: 10px;
-    border-bottom: 2px solid rgb(199, 198, 198);
     }
   
     .comments-section .comment-content{
