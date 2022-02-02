@@ -31,4 +31,35 @@ class PostController extends Controller
       
         return response()->json($post, 200);
       }
+
+
+    public function update(Request $request,$id){
+      $validator = Validator::make($request->all(), [
+        "content" =>"required"
+    ]);
+
+    $post = post::where('id','=',$id)->where('user_id','=',auth()->user()->id)->first();
+
+    if(!$post){
+        return response()->json('post not found or unAuthorized to edit', 400);
+    }
+
+    $post->content=$request->content;
+    $result=$post->save();
+    return response()->json($result, 200);
+
+    }
+
+    public function delete(Request $request,$id){
+
+    $post = post::where('id','=',$id)->where('user_id','=',auth()->user()->id)->first();
+
+    if(!$post){
+        return response()->json('post not found or unauthorized to delete', 400);
+    }
+    $result=$post->delete();
+
+    return response()->json($result, 200);
+
+    }
 }

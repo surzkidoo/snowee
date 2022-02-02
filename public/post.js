@@ -111,7 +111,7 @@ const post = document.querySelector('.post');
      }  
 })
 
-thread_id=$('.follow-topic')[0].id,
+let thread_id=$('.follow-topic')[0].id;
 jQuery.ajax({
   url: `http://127.0.0.1:8000/thread/${thread_id}/posts`,
   method: 'get',
@@ -121,7 +121,7 @@ jQuery.ajax({
     
      const newdata = data.data.map(post=>{
        return`
-          <div class="comments">
+          <div class="comments" id="${post.id}">
             <div class='flex-comment'>
             <img src="${post.user.avatar}" alt="commenter">
             <div class="commenters-name">@${post.user.username}<p             
@@ -150,32 +150,52 @@ jQuery.ajax({
      })
      $(".comments-section").append(newdata);
      initPagination(data.first_page_url.split('=')[0],2,'.comments-section',false)
-     
-
      upVoteHandle()
-downVoteHandle()
+    downVoteHandle()
    const comments = document.querySelectorAll('.comments');
    comments.forEach((comment)=>{
      let commentDelete = comment.querySelector('.edit-side-comment');
      commentDelete.addEventListener('click', (e)=>{
       let editComment = document.querySelector('.edit-comment').style.display = 'block';
        let target = e.target.parentElement.parentElement.parentElement;
-      let inputName = target.querySelector('.comment-content').innerHTML;
+      let inputName = target.querySelector('.comment-content');
   
      let postContainer = document.querySelector('.post-content');
      let textareaContent = document.querySelector('.comment-textarea');
-     textareaContent.value = inputName;
+     textareaContent.value = inputName.innerHTML;
      postContainer.style.filter = 'blur(1px)';
 
      let updateComment = document.querySelector('.update-comment');
      updateComment.addEventListener('click', ()=>{
-      let textareaContent = document.querySelector('.comment-textarea');
-      let inputName = target.querySelector('.comment-content');
-      inputName.innerHTML = textareaContent.value
-      let editComment = document.querySelector('.edit-comment').style.display = 'none';
-      let postContainer = document.querySelector('.post-content');
-      let edited = target.querySelector('.edited').style.display = 'block'
-      postContainer.style.filter = 'blur(0px)';
+      //Updating post
+      
+      jQuery.ajax({
+        url: `http://127.0.0.1:8000/post/${comment.id}`,
+        method: 'put',
+        data:{
+          content:textareaContent.value
+
+        },
+        success: function(data){
+          if(data){
+            inputName.innerHTML = textareaContent.value;
+            textareaContent.value='';
+            let editComment = document.querySelector('.edit-comment').style.display = 'none';
+            let postContainer = document.querySelector('.post-content');
+            let edited = target.querySelector('.edited').style.display = 'block';
+            postContainer.style.filter = 'blur(0px)';
+            
+          }
+        },
+        error: function(e){
+            console.log(e);
+            textareaContent.value=''
+        }
+      
+      });
+   
+     
+     
      })
      let closeEdit = document.querySelector('#close-edit-menu');
      closeEdit.addEventListener('click', ()=>{
@@ -233,12 +253,31 @@ function editThisPost(){
 
   let submit = document.querySelector('.submit-changes')
   submit.addEventListener('click', ()=>{
-    let postContainer = document.querySelector('.post-content')
-    postContent.innerHTML = textareaContent.value;
-    threadName.innerHTML = inputName.value;
-    let edited = document.querySelector('.edited').style.display = 'block'
-    let editPost = document.querySelector('.edit-profile-element').style.display = 'none';
-    postContainer.style.filter = 'blur(0px)';
+    jQuery.ajax({
+      url: `http://127.0.0.1:8000/thread/${thread_id}`,
+      method: 'put',
+      data:{
+        title:inputName.value,
+        content:textareaContent.value
+
+      },
+      success: function(data){
+        if(data){
+          postContent.innerHTML = data.title;
+          threadName.innerHTML = data.content;
+          let edited = document.querySelector('.edited').style.display = 'block'
+          let editPost = document.querySelector('.edit-profile-element').style.display = 'none';
+          postContainer.style.filter = 'blur(0px)';
+        }
+      },
+      error: function(e){
+          console.log(e);
+          textareaContent.value=''
+      }
+    
+    });
+
+   
   })
 
   let closeEdit = document.querySelector('.close-menu');

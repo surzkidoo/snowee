@@ -38,6 +38,8 @@ Route::get('/section/{name}/new',"SectionController@newTopics")->name('section-n
 
 
 Route::post('/post',"PostController@store")->name('newpost');
+Route::put('/post/{id}',"PostController@update")->name('updatepost');
+Route::delete('/post/{id}',"PostController@delte")->name('deletepost');
 Route::get('/post/{threadID}',"PostController@index")->name('getpost');
 
 Route::post('/upvote',"IndexController@upvote")->name('upvote');

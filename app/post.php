@@ -28,10 +28,10 @@ class post extends Model
         return $this->hasMany(tag::class);
     }
     public function upvote(){        
-        return $this->hasMany(upvote::class);
+        return $this->hasManyThrough('App\User', 'App\upvote', 'post_id', 'id','id','user_id');
     }
     public function downvote(){        
-        return $this->hasMany(downvote::class);
+        return $this->hasManyThrough('App\User', 'App\downvote', 'post_id', 'id','id','user_id');
     }
     
 }

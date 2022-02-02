@@ -20,11 +20,14 @@ class thread extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function upvote(){        
-        return $this->hasMany(upvote::class);
+    public function upvote(){          
+    return $this->hasManyThrough('App\User', 'App\upvote', 'thread_id', 'id','id','user_id');
+    
     }
     public function downvote(){        
-        return $this->hasMany(downvote::class);
+     
+    return $this->hasManyThrough('App\User', 'App\downvote', 'thread_id', 'id','id','user_id');
+        
     }
     public function image(){     
         return $this->hasMany(image::class);
