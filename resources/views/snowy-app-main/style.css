@@ -24,6 +24,7 @@ a{
     font-weight:bold;
     width: 0.2%;
     padding-left: 0.3%;
+    cursor: pointer;
 }
 
 .dislike-counter{
