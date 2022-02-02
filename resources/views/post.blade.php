@@ -60,13 +60,13 @@
             @endforeach
             <div class="edited">(edited)</div>
             <div class="post-tools">
-                 <p class="like"><div class="fa fa-arrow-circle-up u-vote" id="upvote" upid="thread_id-{{$thread->id}}"></div> <span class="like-counter">{{count($thread->upvote)}}</span></p>
-                 <p class="dislike"><div class="fa fa-arrow-circle-down d-vote"id="downvote" upid="thread_id-{{$thread->id}}"></div> <span class="dislike-counter">{{count($thread->downvote)}}</span></p> 
+                 <p class="like"><div class="fa fa-arrow-circle-up u-vote" id="upvote" upid="thread_id-{{$thread->id}}"></div> <span class="like-counter this-counter">{{count($thread->upvote)}}</span></p>
+                 <p class="dislike"><div class="fa fa-arrow-circle-down d-vote" id="downvote" upid="thread_id-{{$thread->id}}"></div> <span class="dislike-counter this-dislike">{{count($thread->downvote)}}</span></p> 
                  <p class="share"><div class="fa fa-share-alt" id="share"></div></p>
                 <div class="side-comment">
-                 <p class="delete-post-post">delete</p>
-                <p class="edit-post-post">edit</p>
-                 <p class="report-post">report</p>
+                 <p><div id="delete-icon" class="fa fa-trash-alt delete-post-post"></div></p>
+                <p><div id="edit-icon" class="fa fa-edit edit-post-post"></div></p>
+                 <p><div id="report-icon" class="fa fa-exclamation-triangle report-post"></div></p>
             </div> 
             </div>
         <div class="comment-text">
@@ -142,10 +142,112 @@
         <button class="submit-changes update-comment">Report</button>
     </div>
 
+    <div class="edit-profile-element report-comment-modal">
+        <p class="close-menu" id="close-report-comment">x</p>
+        <h1>Report comment</h1>
+        <div class="flex-input">
+            <textarea class="new-bio-data comment-textarea" id="edit-post-textarea" cols="30" rows="5" placeholder="Write your report here"></textarea>
+        </div>
+        <button class="submit-changes update-comment">Report</button>
+    </div>
+
+    
+    <div class="edit-profile-element upvote-modal">
+        <p class="close-menu" id="close-upvote-modal">x</p>
+        <h1>Upvotes</h1>
+        <ul class="upvotes-flex">
+            <li class="upvote-card">
+            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
+                <div><strong>@abubakar</strong></div>
+            </li>
+            <li class="upvote-card">
+            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
+                <div><strong>@abubakar</strong></div>
+            </li>
+            <li class="upvote-card">
+            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
+                <div><strong>@abubakar</strong></div>
+            </li>
+            <li class="upvote-card">
+            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
+                <div><strong>@abubakar</strong></div>
+            </li>
+            <li class="upvote-card">
+            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
+                <div><strong>@abubakar</strong></div>
+            </li>
+            <li class="upvote-card">
+            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
+                <div><strong>@abubakar</strong></div>
+            </li>
+            <li class="upvote-card">
+            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
+                <div><strong>@abubakar</strong></div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="edit-profile-element downvote-modal">
+        <p class="close-menu" id="close-downvote-modal">x</p>
+        <h1>Downvotes</h1>
+        <ul class="upvotes-flex">
+            <li class="upvote-card">
+            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
+                <div><strong>@abubakar</strong></div>
+            </li>
+            <li class="upvote-card">
+            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
+                <div><strong>@abubakar</strong></div>
+            </li>
+            <li class="upvote-card">
+            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
+                <div><strong>@abubakar</strong></div>
+            </li>
+            <li class="upvote-card">
+            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
+                <div><strong>@abubakar</strong></div>
+            </li>
+            <li class="upvote-card">
+            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
+                <div><strong>@abubakar</strong></div>
+            </li>
+            <li class="upvote-card">
+            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
+                <div><strong>@abubakar</strong></div>
+            </li>
+            <li class="upvote-card">
+            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
+                <div><strong>@abubakar</strong></div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="edit-profile-element share-modal">
+        <p class="close-menu" id="close-share-modal">x</p>
+        <h1>Share</h1>
+        <ul class="upvotes-flex">
+            <li class="upvote-card">
+            <img src="http://127.0.0.1:8000/ic-twitter.png" alt="img">
+                <div class="button" data-sharer="twitter" data-title="Checkout PreenTok!" data-hashtags="awesome, sharer.js" data-url="https://nairaland.com/">Share</div>
+            </li>
+            <li class="upvote-card">
+            <img src="http://127.0.0.1:8000/ic-facebook.png" alt="img">
+                <div class="button" data-sharer="facebook" data-hashtag="PreenTok" data-url="https://preentok.com">Share</div>
+            </li>
+            <li class="upvote-card">
+            <img src="http://127.0.0.1:8000/whatspp.jfif" alt="img" width="50" height="50">
+                <div class="button" data-sharer="whatsapp" data-title="Checkout Sharer.js!" data-url="https://preetok.com/">Share</div>
+            </li>
+        </ul>
+    </div>
+
+
+
 
 
 <script src="main.js"></script> 
 <script src="post.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
 </body>
 </html>
 

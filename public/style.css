@@ -13,6 +13,176 @@ body{
     overflow-x: hidden;
 }
 
+.div-reply{
+    display: none;
+}
+
+.commenters-comment{
+   margin-left: 50px;
+   width: 95%;
+    margin-top: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgb(199, 198, 198)
+}
+
+.edit-profile-element.share-modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    transform: translate(-50%,-50%);
+    padding: 15px;
+    min-width: 16rem;
+    border: 1px solid #25479F;
+    border-radius: 8px;
+    min-height: 250px;
+    background-color: #F9F9F9;
+    display: none;
+}
+
+.edit-profile-element.share-modal h1{
+    margin-top: 0px;
+    font-size: 27px;
+    padding-bottom: 10px;
+}
+
+.edit-profile-element.share-modal .upvotes-flex{
+    display: flex;
+    margin-top: 20px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.edit-profile-element.share-modal .upvote-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.edit-profile-element.share-modal .upvote-card div{
+    background-color: #4C37EA;
+    color: white;
+    cursor: pointer;
+    padding: 8px;
+    border: none;
+    text-align: center;
+    font-size: 12px;
+    width: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.downvote-modal{
+    min-height: none;
+    position: fixed;
+     top: 50%;
+     left: 50%;
+     margin: 0;
+     transform: translate(-50%,-50%);
+     padding: 10px;
+     min-width: 17rem;
+     border: 1px solid #25479F;
+     border-radius: 8px;
+     min-height: 300px;
+     background-color: #F9F9F9;
+     display: none;
+}
+
+.edit-profile-element.downvote-modal h1{
+    margin-top: 0px;
+    font-size: 25px;
+    padding-bottom: 10px;
+}
+
+.downvote-modal .upvotes-flex{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    overflow-y: scroll;
+    height: 350px;
+}
+
+.edit-profile-element.downvote-modal .upvotes-flex .upvote-card{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid rgb(184, 180, 189);
+}
+
+.edit-profile-element.downvote-modal .upvotes-flex .upvote-card div{
+   padding-left: 5px;
+   font-size: 15px;
+}
+
+.edit-profile-element.downvote-modal .upvotes-flex .upvote-card img{
+    width: 55px;
+    height: 55px;
+}
+
+.upvote-modal{ 
+   min-height: none;
+   position: fixed;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    transform: translate(-50%,-50%);
+    padding: 10px;
+    min-width: 17rem;
+    border: 1px solid #25479F;
+    border-radius: 8px;
+    min-height: 300px;
+    background-color: #F9F9F9;
+    display: none;
+}
+
+.edit-profile-element.upvote-modal h1{
+    margin-top: 0px;
+    font-size: 25px;
+    padding-bottom: 10px;
+}
+
+.upvote-modal .upvotes-flex{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    overflow-y: scroll;
+    height: 350px;
+}
+
+.edit-profile-element.upvote-modal .upvotes-flex .upvote-card{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid rgb(184, 180, 189);
+}
+
+.edit-profile-element.upvote-modal .upvotes-flex .upvote-card div{
+   padding-left: 5px;
+   font-size: 15px;
+}
+
+.edit-profile-element.upvote-modal .upvotes-flex .upvote-card img{
+    width: 55px;
+    height: 55px;
+}
+
+.edit-profile-element.report-comment-modal h1{
+    margin-top: 0px;
+    font-size: 27px;
+}
+
+.edit-profile-element.report-comment-modal{
+    min-height: 0px;
+}
+
 .edit-profile-element.report-post-modal{
     min-height: 0px;
 }
@@ -26,17 +196,30 @@ body{
     margin-top: 10px;
 }
 
+.comment-text.comment-menu{
+    margin-top: 10px;
+}
+
 a{
     text-decoration: none;
     color: #dfd2d2;
 }
 
 .like-counter{
-    font-size: 16px;
+font-size: 16px;
     color: green;
     font-weight:bold;
     width: 0.2%;
+    cursor:pointer;
     padding-left: 0.3%;
+}
+
+.this-counter{
+    cursor: pointer;
+}
+
+.this-dislike{
+    cursor: pointer;
 }
 
 .dislike-counter{
@@ -45,6 +228,7 @@ a{
     font-weight:bold;
     width: 0.2%;
     padding-left: 0.3%;
+    cursor: pointer;
 }
 
 .comment-counter{
@@ -228,7 +412,11 @@ img{
 }
 
 .side-comment .edit-side-comment{
-    color: #443e3e;
+    color: #4667bb;
+}
+
+.side-comment .edit-report-comment{
+    color: rgb(255, 174, 0);
 }
 
 .side-comment .delete-post.post{
@@ -795,6 +983,21 @@ header{
 .post-tools .dislike{
     color: red;
     cursor: pointer;
+}
+
+#delete-icon{
+    font-size: 16px;
+    color: red;
+}
+
+#edit-icon{
+    font-size: 16px;
+    color: #4667bb;
+}
+
+#report-icon{ 
+    font-size: 16px;
+    color: rgb(255, 174, 0);
 }
 
 .post-tools #downvote{
