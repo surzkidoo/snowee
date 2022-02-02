@@ -27,6 +27,8 @@ class PostController extends Controller
       $post->thread_id=$request->thread_id;
       $post->user_id=auth()->user()->id;
       $post->save();
+      $post->touch();
+      
         return response()->json($post, 200);
       }
 }

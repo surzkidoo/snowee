@@ -34,7 +34,7 @@ mostViewed.addEventListener('click', ()=>{
        let id= $('.section-name')[0].id
        alert(id);
         jQuery.ajax({
-          url: `http://127.0.0.1:8000/section/${id}/viewed`,
+          url: `http://127.0.0.1:8000/section/${id}/new`,
           method: 'get',
           success: function(data){
             if(data){

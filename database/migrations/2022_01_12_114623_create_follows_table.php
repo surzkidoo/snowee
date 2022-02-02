@@ -17,6 +17,7 @@ class CreateFollowsTable extends Migration
             $table->id();
             $table->integer('follower_id');
             $table->integer('follow_id');
+            $table->boolean('blocked')->default(false);
             $table->timestamps();
         });
     }

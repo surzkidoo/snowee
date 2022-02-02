@@ -40,7 +40,8 @@ $.ajaxSetup({
 
     success: function(data){
       if(data){
-       const newdata =data.map(post=>{
+          console.log(data)
+       const newdata =data.data.map(post=>{
            return `
            <div class="card">
                 <div class="image-head">
@@ -63,9 +64,10 @@ $.ajaxSetup({
            `
        });
        $(".container-home").append(newdata);
-       console.log(data)
-       upVoteHandle()
-       downVoteHandle()
+        upVoteHandle()
+        downVoteHandle()
+       initPagination(data.first_page_url.split('=')[0],2,'.container-home',false)
+     
             }
     },
     error: function(e){
@@ -160,7 +162,6 @@ const personalizedContainer = document.querySelector('.personalized-container');
    })
    personalizedContainer.appendChild(ul)
 
-   
 
 
 

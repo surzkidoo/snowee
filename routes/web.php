@@ -43,18 +43,24 @@ Route::get('/post/{threadID}',"PostController@index")->name('getpost');
 Route::post('/upvote',"IndexController@upvote")->name('upvote');
 Route::post('/downvote',"IndexController@downvote")->name('downvote');
 
+Route::get('/user/feed',"UserController@feed")->name('feed');
 Route::get('/user/{id}/',"UserController@profile")->name('profile');
 Route::get('/user/{id}/topics',"UserController@userTopics")->name('userpost');
 Route::get('/user/{id}/posts',"UserController@userPosts")->name('usertopics');
+Route::get('/user/{id}/upvote',"UserController@userUpvoted")->name('usertopics');
+
 
 Route::get('/user/{username}/following',"UserController@following")->name('userFollower');
 Route::get('/user/{username}/getfollowing',"UserController@getFollowing")->name('getFollowering');
 Route::post('/user/{username}/setfollowing',"UserController@setFollowing")->name('userFollower');
+Route::get('/user/{username}/block',"UserController@setBlock")->name('setblock');
+
 
 Route::get('/user/{username}/follower',"UserController@follower")->name('setFollower');
 Route::get('/user/{username}/getfollower',"UserController@getFollower")->name('getFollower');
 Route::post('/setfollow',"UserController@setFollow")->name('setFollower');
 
 Route::get('/thread/{id}/posts',"ThreadController@threadPost")->name('pthread');
+Route::get('/thread/{id}/follow',"ThreadController@followPost")->name('flthread');
 Route::post('/thread',"ThreadController@store")->name('thread');
 Route::get('/{slug}',"ThreadController@show")->name('thread');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\post;
 use App\thread;
 use App\section;
 use Illuminate\Http\Request;
@@ -53,13 +54,13 @@ class SectionController extends Controller
 
 
     public function newTopics(Request $request,$id){
-        $section=thread::where("section_id","=",$id)->get();
+        $section=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where("section_id","=",$id)->orderBy('created_at','DESC')->get();
         return response()->json($section, 200);
     }
 
     public function updatedTopics(Request $request,$id){
 
-        $section=thread::where("section_id","=",$id)->sortByDesc('updated_at')->get();
+        $section=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where("section_id","=",$id)->orderBy('updated_at','DESC')->get();
         return response()->json($section, 200);
 
     }

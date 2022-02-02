@@ -42,7 +42,13 @@
                 <p class="views">{{$thread->views}} <span class="fa fa-eye"></span></p>
                 <p class="commnt">{{count($thread->posts)}} <span class="fa fa-comment"></span></p>
             </div>
-            <button class="follow-topic" id="{{$thread->id}}">Follow</button>
+            <button class="follow-topic" id="{{$thread->id}}">
+            @if($follow)
+                 Following
+            @else
+                Follow
+            @endif
+            </button>
         </div>
         <div class="card">
             <div class="image-head">
@@ -92,6 +98,7 @@
         <li><a href="notifications.html"><div class="hello fa fa-bell"></div></a></li>
         <li><a href="messages.html"><div class="hello fa fa-envelope"></div></a></li>
     </div>
+
 
     <div class="edit-profile-element">
         <p class="close-menu">x</p>
@@ -247,7 +254,11 @@
 
 <script src="main.js"></script> 
 <script src="post.js"></script>
+<<<<<<< HEAD
 <script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
+=======
+
+>>>>>>> 021f12c23bb4b84562e5ffef53d0036e43aee0d6
 </body>
 </html>
 
