@@ -76,9 +76,12 @@
             </div> 
             </div>
         <div class="comment-text">
-           <textarea class="post" placeholder="write a comment" rows="1"></textarea>
-           <button class="link"><div class="fa fa-paperclip" id="link-it"></div></button>
+           <textarea class="post post-emoji" placeholder="write a comment" rows="1"></textarea>
+           <button class="link"><div class="emoji-button" id="link-it"></div></button>
+           <button class="link"><div class="fa fa-paperclip link-it" id="link-it"><input type="file" id="image-upload"  class="fa fa-paperclip" multiple></div></button>
            <button class="send"><div class="fa fa-share" id="do-comment"></div></button>
+        </div>
+        <div class="box-image-holder">
         </div>
     </div>
     </div>
@@ -93,8 +96,8 @@
 </div>
     
     <div class="resting-nav-bar">
-        <li> <a href="index.html"><div class="hello fa fa-home"></div></a></li>
-        <li><a href="section.html"><div class="hello fa fa-users"></div></a></li>
+        <li> <a href="/"><div class="hello fa fa-home"></div></a></li>
+        <li><a href="/section"><div class="hello fa fa-users"></div></a></li>
         <li><a href="notifications.html"><div class="hello fa fa-bell"></div></a></li>
         <li><a href="messages.html"><div class="hello fa fa-envelope"></div></a></li>
     </div>
@@ -116,8 +119,8 @@
         <h1>Delete Post</h1>
            <div class="delete-p">Are you <span>really</span> sure you want to delete this?</div>
          <div class="delete-buttons">
-           <button class="submit-changes">Yes</button>
-           <button class="submit-changes">No</button>
+           <button class="submit-changes yes-delete">Yes</button>
+           <button class="submit-changes no-delete">No</button>
         </div>
     </div>
 
@@ -126,8 +129,8 @@
         <h1>Delete comment</h1>
            <div class="delete-p">Are you <span>really</span> sure you want to delete this?</div>
          <div class="delete-buttons">
-           <button class="submit-changes">Yes</button>
-           <button class="submit-changes">No</button>
+           <button class="submit-changes yes-delete-comment yes-reply-comment">Yes</button>
+           <button class="submit-changes no-delete-comment no-reply-comment">No</button>
         </div>
     </div>
 
@@ -247,18 +250,17 @@
             </li>
         </ul>
     </div>
-
-
-
-
-
 <script src="main.js"></script> 
 <script src="post.js"></script>
-<<<<<<< HEAD
 <script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
-=======
-
->>>>>>> 021f12c23bb4b84562e5ffef53d0036e43aee0d6
+<script src="https://cdn.jsdelivr.net/npm/emoji-button@0.6.0/dist/index.min.js"></script>
+<script>
+      window.addEventListener('DOMContentLoaded', () => {
+  EmojiButton(document.querySelector('.emoji-button'), function (emoji) {
+    document.querySelector('.post-emoji').value += emoji;
+  });
+});
+</script>
 </body>
 </html>
 

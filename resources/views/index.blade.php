@@ -20,7 +20,7 @@
        </div>
         <div class="collapsible-menu" id="collapsible-menu">
             <ul>
-            <li class="different-li"><img src="" alt=""> <p id="id">@muhammad</p> </li>
+            <li class="different-li"><img src="http://127.0.0.1:8000/avatar.png" alt=""> <p id="id">@muhammad</p> </li>
             <li><a href="profile.html">View Profile</a></li>
            <li><a href="followers.html">Followers</a></li>
            <li><a href="following.html">Following</a></li>
@@ -31,13 +31,13 @@
           <div class="header-container">
                 <h1>Snowy</h1>
                 <div class="container-header">
-                <div class="fa fa-search"></div>
+                <div class="fa fa-search header-search"></div>
             </div>
           </div> 
    </header>
         <div class="second-header">
-            <h4 class="popular active"><span class="first-second-header">Popular</span></h4>
-            <h4 class="personalized"><span class="second-second-header">Personalized</span></h4>
+            <h4 class="popular"><span class="first-second-header active">Popular <span class="fa fa-fire fire-emoji"></span></span></h4>
+            <h4 class="personalized"><span class="second-second-header">Personal  <span class="fa fa-user fire-emoji-2"></span></span></h4>
        </div>
         
        <div class="container-home">

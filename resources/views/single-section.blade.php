@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="_token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" href="{{ url('style.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
     <title>{{ $section->name }} | Snowy</title>
     <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous">
@@ -21,7 +22,7 @@
         </div>
         <div class="collapsible-menu" id="collapsible-menu">
             <ul>
-                <li class="different-li"><img src="img/img_avatar.png" alt="thumbnail" class="avatar">
+                <li class="different-li"><img src="http://127.0.0.1:8000/avatar.png" alt="thumbnail" class="avatar">
                     <p class="username">@muhammad</p>
                 </li>
                 <li><a href="profile.html">View profile</a></li>
@@ -32,13 +33,13 @@
             </ul>
         </div>
         <div class="header-container">
-            <h1 class="section-head">Snowy</h1>
-            <div class="side-header-container">
-                <p class="post-icon">+</p>
+            <h1>Preen</h1>
+            <div class="container-header">
+            <div class="fa fa-search"></div>
+            <div class="fa fa-plus-circle post-icon"></div>
             </div>
         </div>
     </header>
-    <div class="post-content"></div>
     <div class="full-content">
         <div class="section-part-container">
             <div class="make-post">
@@ -46,13 +47,19 @@
                     <h1>New Post</h1>
                     <p class="close-post">x</p>
                 </div>
-                <input type="text" id="heading-header" placeholder="heading goes here">
-                <textarea name="" id="heading-content"
-                    placeholder="you can only post 245 characters as we are still working on the back-end."></textarea>
+                <div class="header-and-emoji">
+                <input type="text" id="heading-header" class="heading-header" placeholder="write your heading here...">
+                <div class="heading-emoji"></div>
+                </div>
+                <div class="text-content-emoji-icon"></div>
+                <textarea id="heading-content" class="text-content-emoji" placeholder="you can only post 245 characters as we are still working on the back-end."></textarea>
                 <br>
+                <div class="post-add-container">
                 <button class="new-post">Post</button>
-                <button class="add-photos">Add Photos</button> <br>
-                <a href="community.html" class="guidelines">read our community guidelines</a>
+                <input type="file" class="add-photos" multiple id="upload-image">
+                </div>
+                <br>
+                <a href="community.html" target="_blank" class="guidelines">read our community guidelines</a>
             </div>
             <div class="first-header">
                 <h1><span><span class="section-name" id="{{ $section->id }}">{{ $section->name }}</span>-
@@ -66,116 +73,65 @@
             </div>
         </div>
         <div class="post-main">
-            <div class="card">
+          <div class="most-viewed-content">
+          <div class="card">
                 <div class="image-head">
-                    <img src="img/img_avatar.png" alt="thumbnail">
-                    <div class="username"><a href="profile.html" class="this">@muhammad</a>
-                        <p class="details">originally posted in<a href="programming.html">programming</a></p>
-                    </div>
+                <img src="http://127.0.0.1:8000/avatar.png" alt="thumbnail">
+                   <div class="username"><a href="profile.html" class="this">@muhammad </a><p class="details">originally posted in<a href="section/relationship">relationship</a></p></div>
                 </div>
-                <div class="content-box">
-                    <h1>Sample Topic Header</h1>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur sequi voluptatum rerum
-                        voluptas
-                        voluptate, nobis consequatur cupiditate necessitatibus fugiat distinctio impedit porro incidunt.
-                        Quasi
-                        xpedita beatae voluptatum pariatur odio iure.</p>
-                    <div class="post-tools">
-                        <p class="like">Upvote <span class="like-counter">0</span></p>
-                        <p class="dislike">Downvote <span class="dislike-counter">0</span></p>
-                        <button class="see-more"><a href=post.html>more...</a></button>
+                   <div class="content-box">
+                   <h1>Welcome to Snowy!</h1>
+                   <p>aaaaa</p>
+                   <div class="post-image">
+                       
+                   </div>
+                   <div class="post-tools">
+                        <p class="like"></p><div class="fa fa-arrow-circle-up u-vote" id="upvote" upid="thread_id-1"></div> <span class="like-counter">1</span><p></p>
+                        <p class="dislike"></p><div class="fa fa-arrow-circle-down d-vote" id="downvote" upid="thread_id-1"></div> <span class="dislike-counter">0</span><p></p> 
+                        <p class="dislike"></p><div class="fa fa-comment" id="comment"></div> <span class="comment-counter">28</span><p></p> 
+                        <button class="see-more"><a href="welcome-to-snowy">more...</a></button>
+                   </div>
                     </div>
-                </div>
-            </div>
-            <div class="card">
+           </div>
+           <div class="card">
                 <div class="image-head">
-                    <img src="img/img_avatar.png" alt="thumbnail">
-                    <div class="username"><a href="profile.html" class="this">@muhammad</a>
-                        <p class="details">originally posted in<a href="programming.html">programming</a></p>
-                    </div>
+                <img src="http://127.0.0.1:8000/avatar.png" alt="thumbnail">
+                   <div class="username"><a href="profile.html" class="this">@muhammad </a><p class="details">originally posted in<a href="section/relationship">relationship</a></p></div>
                 </div>
-                <div class="content-box">
-                    <h1>Sample Topic Header</h1>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur sequi voluptatum rerum
-                        voluptas
-                        voluptate, nobis consequatur cupiditate necessitatibus fugiat distinctio impedit porro incidunt.
-                        Quasi
-                        expedita beatae voluptatum pariatur odio iure.</p>
-                    <div class="post-tools">
-                        <p class="like">Upvote <span class="like-counter">0</span></p>
-                        <p class="dislike">Downvote <span class="dislike-counter">0</span></p>
-                        <button class="see-more"><a href=post.html>more...</a></button>
+                   <div class="content-box">
+                   <h1>Welcome to Snowy!</h1>
+                   <p>aaaaa</p>
+                   <div class="post-image">    
+                   </div>
+                   <div class="post-tools">
+                        <p class="like"></p><div class="fa fa-arrow-circle-up u-vote" id="upvote" upid="thread_id-1"></div> <span class="like-counter">1</span><p></p>
+                        <p class="dislike"></p><div class="fa fa-arrow-circle-down d-vote" id="downvote" upid="thread_id-1"></div> <span class="dislike-counter">0</span><p></p> 
+                        <p class="dislike"></p><div class="fa fa-comment" id="comment"></div> <span class="comment-counter">28</span><p></p> 
+                        <button class="see-more"><a href="welcome-to-snowy">more...</a></button>
+                   </div>
                     </div>
-                </div>
-            </div>
+           </div>
+           </div>
 
-            <div class="card">
-                <div class="image-head">
-                    <img src="img/img_avatar.png" alt="thumbnail">
-                    <div class="username"><a href="profile.html" class="this">@muhammad</a>
-                        <p class="details">originally posted in<a href="programming.html">programming</a></p>
-                    </div>
-                </div>
-                <div class="content-box">
-                    <h1>Sample Topic Header</h1>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur sequi voluptatum rerum
-                        voluptas
-                        voluptate, nobis consequatur cupiditate necessitatibus fugiat distinctio impedit porro incidunt.
-                        Quasi
-                        expedita beatae voluptatum pariatur odio iure.</p>
-                    <div class="post-tools">
-                        <p class="like">Upvote <span class="like-counter">0</span></p>
-                        <p class="dislike">Downvote <span class="dislike-counter">0</span></p>
-                        <button class="see-more"><a href=post.html>more...</a></button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="image-head">
-                    <img src="img/img_avatar.png" alt="thumbnail">
-                    <div class="username"><a href="profile.html" class="this">@muhammad</a>
-                        <p class="details">originally posted
-                            in<a href="programming.html">programming</a></p>
-                    </div>
-                </div>
-                <div class="content-box">
-                    <h1>Sample Topic Header</h1>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur sequi voluptatum rerum
-                        voluptas
-                        voluptate, nobis consequatur cupiditate necessitatibus fugiat distinctio impedit porro incidunt.
-                        Quasi
-                        expedita beatae voluptatum pariatur odio iure.</p>
-                    <div class="post-tools">
-                        <p class="like">Upvote <span class="like-counter">0</span></p>
-                        <p class="dislike">Downvote <span class="dislike-counter">0</span></p>
-                        <button class="see-more"><a href=post.html>more...</a></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="updated-topics">
-        <div class="card">
-            <div class="image-head">
-                <img src="img/img_avatar.png" alt="thumbnail">
-                <div class="username"><a href="profile.html" class="this">@muhammad</a>
-                    <p class="details">originally posted in<a href="programming.html">programming</a></p>
+            <div class="card">
+                <div class="image-head">
+                <img src="http://127.0.0.1:8000/avatar.png" alt="thumbnail">
+                   <div class="username"><a href="profile.html" class="this">@muhammad </a><p class="details">originally posted in<a href="section/relationship">relationship</a></p></div>
                 </div>
-            </div>
-            <div class="content-box">
-                <h1>Sample Topic Header</h1>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur sequi voluptatum rerum voluptas
-                    voluptate, nobis consequatur cupiditate necessitatibus fugiat distinctio impedit porro incidunt.
-                    Quasi
-                    expedita beatae voluptatum pariatur odio iure.</p>
-                <div class="post-tools">
-                    <p class="like">Upvote <span class="like-counter">0</span></p>
-                    <p class="dislike">Downvote <span class="dislike-counter">0</span></p>
-                    <button class="see-more"><a href=post.html>more...</a></button>
-                </div>
-            </div>
-        </div>
+                   <div class="content-box">
+                   <h1>Welcome to Snowy!</h1>
+                   <p>aaaaa</p>
+                   <div class="post-image">    
+                   </div>
+                   <div class="post-tools">
+                        <p class="like"></p><div class="fa fa-arrow-circle-up u-vote" id="upvote" upid="thread_id-1"></div> <span class="like-counter">1</span><p></p>
+                        <p class="dislike"></p><div class="fa fa-arrow-circle-down d-vote" id="downvote" upid="thread_id-1"></div> <span class="dislike-counter">0</span><p></p> 
+                        <p class="dislike"></p><div class="fa fa-comment" id="comment"></div> <span class="comment-counter">28</span><p></p> 
+                        <button class="see-more"><a href="welcome-to-snowy">more...</a></button>
+                   </div>
+                    </div>
+           </div>
         <div class="update-no-content"></div>
     </div>
     <div class="new-topics-content">
@@ -184,13 +140,14 @@
     </div>
     <div class="no-content-display"></div>
     <div class="resting-nav-bar">
-        <li> <a href="index.html"><img src="img/home (1).png" alt="" class="hello"></a></li>
-        <li><a href="section.html"><img src="img/multiple-users-silhouette.png" alt="" class="hello"></a></li>
-        <li><a href="notifications.html"><img src="img/notification.png" alt="" class="hello"></a></li>
-        <li><a href="messages.html"><img src="img/envelope (3).png" alt="" class="hello"></a></li>
+        <li> <a href="/"><div class="hello fa fa-home"></div></a></li>
+        <li><a href="/section"><div class="hello fa fa-users"></div></a></li>
+        <li><a href="notifications.html"><div class="hello fa fa-bell"></div></a></li>
+        <li><a href="messages.html"><div class="hello fa fa-envelope"></div></a></li>
     </div>
     <script src="{{ url('section.js') }}"></script>
     <script src="{{ url('main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emoji-button@0.6.0/dist/index.min.js"></script>
 </body>
 
 </html>

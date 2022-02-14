@@ -1,9 +1,5 @@
-//handling upvote, downvote, comment
-//Upvote
- 
-
- //Downvote
- const downVote = document.querySelectorAll('.dislike');
+//Downvote
+const downVote = document.querySelectorAll('.dislike');
  downVote.forEach((downvotes)=>{
      let p = document.querySelector('.dislike-counter');
     let counter = 0;
@@ -58,7 +54,7 @@ $.ajaxSetup({
                         <p class="like"><div class="fa fa-arrow-circle-up u-vote" id="upvote" upid="thread_id-${post.id}"></div> <span class="like-counter">${post.upvote_count}</span></p>
                         <p class="dislike"><div class="fa fa-arrow-circle-down d-vote"id="downvote" upid="thread_id-${post.id}"></div> <span class="dislike-counter">${post.downvote_count}</span></p> 
                         <p class="dislike"><div class="fa fa-comment"id="comment"></div> <span class="comment-counter">${post.posts_count}</span></p> 
-                        <button class="see-more"><a href=${post.slug}>more...</a></button>
+                        <button class="see-more"><a href=${post.slug}><span class="fa fa-ellipsis-h elipse"></span></a></button>
                    </div>
                     </div>
            `
@@ -80,8 +76,8 @@ $.ajaxSetup({
 
 
 
-const popular = document.querySelector('.popular');
-const personalized = document.querySelector('.personalized');
+const popular = document.querySelector('.first-second-header');
+const personalized = document.querySelector('.second-second-header');
 
 popular.addEventListener('click', (e)=>{
     e.preventDefault();

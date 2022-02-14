@@ -80,18 +80,53 @@ closeMenu.addEventListener('click', ()=>{
     editProfileMenu.style.zIndex = '1'
 });
 
+let newbiodata = document.querySelector('.new-bio-data');
+
+newbiodata.addEventListener('keyup', (e)=>{
+  console.log(e.target.value.length);
+})
+
+//Uploading Image
+const imageFile = document.querySelector('.add-photos');
+var uploadedImage = "";
+imageFile.addEventListener("change", function(){
+  const reader = new FileReader();
+  reader.addEventListener('load', ()=>{
+    let editProfileMenu = document.querySelector('.edit-profile-element');
+    editProfileMenu.style.display = 'none';
+    let body = document.querySelector('.profile-container');
+    let body2 = document.querySelector('.profile-grid');
+    body2.style.filter = 'blur(0px)'; 
+    body.style.filter = 'blur(0px)';
+    uploadedImage = reader.result;
+    let image = document.querySelector('#changed-image');
+    image.setAttribute('src', uploadedImage);
+  })
+  reader.readAsDataURL(this.files[0])
+})
+
 //update bio
 submit.addEventListener('click', ()=>{
-  let newbiodata = document.querySelector('.new-bio-data').value;
+  let newbiodata = document.querySelector('.new-bio-data');
+
   let biodata = document.querySelector('.profile-bio');
-  if(newbiodata === ''){
+  if(newbiodata.value === ''){
       let newBioDataStyle = document.querySelector('.new-bio-data')
       newBioDataStyle.style.border = '2px solid red';
       newBioDataStyle.placeholder = 'please input a valid bio';
-  } else{
+      //alert('Bio should not be more than 156 words😊')
+  } else if(newbiodata.value.length > 156){
+    let span = document.querySelector('.exceed-length');
+    span.innerText =  'Bio should not be more than 156 words😊';
+
+    setTimeout(()=>{
+      span.classList.toggle('.exceed-length');
+      span.innerHTML = '';
+    }, 2500)
+  }else{
     let editProfileMenu = document.querySelector('.edit-profile-element');
     editProfileMenu.style.display = 'none';
-    biodata.innerHTML = newbiodata;
+    biodata.innerHTML = newbiodata.value;
     let body = document.querySelector('.profile-container');
     let body2 = document.querySelector('.profile-grid');
     body2.style.filter = 'blur(0px)'; 
@@ -144,7 +179,12 @@ posts.addEventListener('click', ()=>{
                 <div class="post-tools" id="comments-icons">
                 <p class="like"><div class="fa fa-arrow-circle-up u-vote"id="upvote" upid="post_id-${post.id}"></div> <span class="like-counter">${post.upvote_count}</span></p>
                 <p class="dislike"><div class="fa fa-arrow-circle-down d-vote"id="downvote" upid="post_id-${post.id}"></div> <span class="dislike-counter">${post.downvote_count}</span></p> 
-                <p class="share"><div class="fa fa-share-alt" id="share"></div></p>
+                <div class="side-comment">
+                <p></p><div class="fa fa-trash-alt delete-side-comment"></div><p></p>
+                <p></p><div class="fa fa-edit edit-side-comment"></div><p></p>
+                <p></p><div class="fa fa-reply edit-reply-comment"></div><span class="comments-number"></span><p></p>
+                <p></p><div class="fa fa-exclamation-triangle edit-report-comment"></div><p></p>
+                 </div>
                 </div>
                 <div>
              `
@@ -164,7 +204,7 @@ posts.addEventListener('click', ()=>{
   let upvote = document.querySelector('.upvote').style.display = 
    'none';
  let post = document.querySelector('.postf').style.display =  'block';
- let topic = document.querySelector('.topic').style.visibility =  'hidden';
+ let topic = document.querySelector('.topic').style.display =  'none';
 })
 
 upvotes.addEventListener('click', ()=>{

@@ -33,7 +33,7 @@
     <div class="container" id="container-sign-in">
         <h1 class="sign-in-1">Sign In.</h1>
         <div class="forgot-password-container">
-        <p>Don't have an account? <a href="signup.html" class="sign-in-link">Sign Up</a> or </p> <p class="forgot-password">Forgot password?</p>
+        <p>Don't have an account? <a href="signup.html" class="sign-in-link">Sign up</a> or </p> <p class="forgot-password">forgot password?</p>
         </div>
         <form id="form-sign-in">
             <input type="text" 
@@ -42,8 +42,6 @@
             placeholder='Password' class="sign-in-password">
             <input type="button" id="submit-login" value="Sign in">
         </form>
-        <div class="circle-sign-in"></div>
-        <div class="circle-sign-in-1"></div>
     </div>
     <script src="main.js"></script>
     <script src="login.js"></script>
