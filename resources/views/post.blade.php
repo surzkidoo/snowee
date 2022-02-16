@@ -85,8 +85,9 @@
     <div class="comments-section">
         <div class="sort">
           <select>
-              <option>Most upvoted</option>
-              <option>Most recent</option>
+            <option value="oldest">Oldest</option>
+              <option value="mostupvote">Most upvoted</option>
+              <option value="recent">Most recent</option>
           </select>
         </div>
     </div>
@@ -162,35 +163,8 @@
     <div class="edit-profile-element upvote-modal">
         <p class="close-menu" id="close-upvote-modal">x</p>
         <h1>Upvotes</h1>
-        <ul class="upvotes-flex">
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
+        <ul class="upvotes-flex" id="upvote-container">
+           
         </ul>
     </div>
 
@@ -198,34 +172,7 @@
         <p class="close-menu" id="close-downvote-modal">x</p>
         <h1>Downvotes</h1>
         <ul class="upvotes-flex">
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
+            
         </ul>
     </div>
 
@@ -254,11 +201,8 @@
 
 <script src="main.js"></script> 
 <script src="post.js"></script>
-<<<<<<< HEAD
 <script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
-=======
 
->>>>>>> 021f12c23bb4b84562e5ffef53d0036e43aee0d6
 </body>
 </html>
 

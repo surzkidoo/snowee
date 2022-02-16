@@ -42,6 +42,7 @@ Route::put('/post/{id}',"PostController@update")->name('updatepost');
 Route::delete('/post/{id}',"PostController@delte")->name('deletepost');
 Route::get('/post/{threadID}',"PostController@index")->name('getpost');
 
+Route::get('/upvote/{type}/{id}',"IndexController@viewUpvote")->name('Vupvote');
 Route::post('/upvote',"IndexController@upvote")->name('upvote');
 Route::post('/downvote',"IndexController@downvote")->name('downvote');
 

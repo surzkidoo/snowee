@@ -29,6 +29,7 @@ class post extends Model
     }
     public function upvote(){        
         return $this->hasManyThrough('App\User', 'App\upvote', 'post_id', 'id','id','user_id');
+        
     }
     public function downvote(){        
         return $this->hasManyThrough('App\User', 'App\downvote', 'post_id', 'id','id','user_id');

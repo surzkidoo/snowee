@@ -119,41 +119,13 @@ jQuery.ajax({
     if(data){
       console.log(data);
     
-     const newdata = data.data.map(post=>{
-       return`
-          <div class="comments" id="${post.id}">
-            <div class='flex-comment'>
-            <img src="${post.user.avatar}" alt="commenter" class="img-avatar">
-            <div class="commenters-name">@${post.user.username}<p             
-            class="date">${post.created_at}</p></div>
-            </div>
-            <p class="comment-content">${post.content}</p>
-            <div class="edited">(edited)</div>
-            <div class="post-tools" id="comments-icons">
-            <p class="like"><div class="fa fa-arrow-circle-up u-vote"id="upvote" upid="post_id-${post.id}"></div> <span class="like-counter">${post.upvote_count}</span></p>
-            <p class="dislike"><div class="fa fa-arrow-circle-down d-vote"id="downvote" upid="post_id-${post.id}"></div> <span class="dislike-counter">${post.downvote_count}</span></p> 
-            <div class="side-comment">
-                <p><div class="fa fa-trash-alt delete-side-comment"></div></p>
-                <p><div class="fa fa-edit edit-side-comment"></div></p>
-                <p class="edit-reply-comment">reply<span class="comments-number"></span></p>
-                <p><div class="fa fa-exclamation-triangle edit-report-comment"></div></p>
-            </div>
-            </div>
-            <div class="div-reply">
-            <div class="comment-text comment-menu">
-            <textarea class="post this-textarea" placeholder="write a comment" rows="1"></textarea>
-            <button class="link"><div class="fa fa-paperclip" id="link-it"></div></button>
-            <button class="send"><div class="fa fa-share" id="do-comment"></div></button>
-            </div>
-            </div>
-            </div>
-         `
-     ;
+     commentTemplete(data.data,(newdata)=>{
+         $(".comments-section").append(newdata);
      })
-     $(".comments-section").append(newdata);
-     initPagination(data.first_page_url.split('=')[0],2,'.comments-section',false)
-     upVoteHandle()
-    downVoteHandle()
+      upVoteHandle()
+      downVoteHandle()
+     initPagination(data.first_page_url.split('=')[0],2,'.comments-section',false,"comment")
+    
    const comments = document.querySelectorAll('.comments');
    comments.forEach((comment)=>{
      let commentDelete = comment.querySelector('.edit-side-comment');
@@ -452,15 +424,46 @@ comments.forEach((comment)=>{
 //comments upvotes counter
 comments.forEach((comment)=>{
   let commentupvotes = comment.querySelector('.like-counter')
+  
   commentupvotes.addEventListener('click', ()=>{
+    let vdata=$(commentupvotes).prev().attr('upid');
+    let type=vdata.split('_')[0];
+    let id = vdata.split('-')[1];
+    
     let showReport = document.querySelector('.upvote-modal').style.display = 'block';
     let postContainer = document.querySelector('.post-content');
     postContainer.style.filter = 'blur(1px)';
-  
+    //ajax call to get the upvote user
+    jQuery.ajax({
+      url: `http://127.0.0.1:8000/upvote/${type}/${id}`,
+      method: 'get',
+      success: function(response){
+        data=response.data
+        if(data){
+          console.log(data)
+         const newdata = data.map((user)=>{
+           return `
+           <li class="upvote-card">
+           <img src="http://127.0.0.1:8000/avatar.png" alt="img">
+               <div><strong>@${user.username}</strong></div>
+           </li>
+           `
+         })
+         $('#upvote-container').append(newdata);
+        
+        }
+      },
+      error: function(e){
+          console.log(e);
+      }
+    
+    });
+
     //close modal
      let closeDelete = document.querySelector('#close-upvote-modal');
      closeDelete.addEventListener('click', ()=>{
     postContainer.style.filter = 'blur(0px)';
+    $('#upvote-container').empty()
     let showReport = document.querySelector('.upvote-modal').style.display = 'none';
   })
   })
@@ -646,5 +649,12 @@ share.addEventListener('click', ()=>{
 })
 
 
+})
+
+//Sorting
+$("select").on('change',function(){
+  
+  console.log(this.selectedIndex)
+  $(".comments").empty()
 })
 

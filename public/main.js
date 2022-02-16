@@ -123,36 +123,104 @@ function topicTemplete(data, callback) {
     });
     return callback(newdata);
 }
+//Commet Templete 
+function commentTemplete(data, callback) {
+    const newdata = data.map(post=>{
+        return`
+           <div class="comments" id="${post.id}">
+             <div class='flex-comment'>
+             <img src="${post.user.avatar}" alt="commenter" class="img-avatar">
+             <div class="commenters-name">@${post.user.username}<p             
+             class="date">${post.created_at}</p></div>
+             </div>
+             <p class="comment-content">${post.content}</p>
+             <div class="edited">(edited)</div>
+             <div class="post-tools" id="comments-icons">
+             <p class="like"><div class="fa fa-arrow-circle-up u-vote"id="upvote" upid="post_id-${post.id}"></div> <span class="like-counter">${post.upvote_count}</span></p>
+             <p class="dislike"><div class="fa fa-arrow-circle-down d-vote"id="downvote" upid="post_id-${post.id}"></div> <span class="dislike-counter">${post.downvote_count}</span></p> 
+             <div class="side-comment">
+                 <p><div class="fa fa-trash-alt delete-side-comment"></div></p>
+                 <p><div class="fa fa-edit edit-side-comment"></div></p>
+                 <p class="edit-reply-comment">reply<span class="comments-number"></span></p>
+                 <p><div class="fa fa-exclamation-triangle edit-report-comment"></div></p>
+             </div>
+             </div>
+             <div class="div-reply">
+             <div class="comment-text comment-menu">
+             <textarea class="post this-textarea" placeholder="write a comment" rows="1"></textarea>
+             <button class="link"><div class="fa fa-paperclip" id="link-it"></div></button>
+             <button class="send"><div class="fa fa-share" id="do-comment"></div></button>
+             </div>
+             </div>
+             </div>
+          `
+      ;
+      })
+    return callback(newdata);
+}
+
+
+
+
 
 //scroll
-function initPagination(url, page = 2, container, loading = false) {
+
+
+function initPagination(url, page = 2, container, loading = false,type) {
     $(window).scroll(function () {
         if (
             $(window).scrollTop() + $(window).height() >=
                 $(document).height() &&
-            !loading
-        ) {
+            !loading && $('#more').text()!="No More"
+        ) { 
+           
+            $(container).append("<div id='more' class='load-action'>View More</div>")
             loading = true;
-            infinteLoadMore(page, url, container);
-            page++;
+            $('.load-action').on('click',function(){
+           
+            infinteLoadMore(page, url, container,type);
             loading = false;
+            page++;
+           
+            });
         }
     });
 }
 
-function infinteLoadMore(page, url, container) {
+function infinteLoadMore(page, url, container,type) {
     jQuery.ajax({
         url: `${url}=${page}`,
         method: "get",
 
         success: function (data) {
+          
             if (data) {
-                console.log(data);
-                topicTemplete(data.data, (newdata) => {
+                console.log(data)
+                if (data.data.length==0) {
+                    alert("dds")
+                    $('#more').text("No More")
+                    return
+                }
+                if(type=="topic"){
+                    topicTemplete(data.data, (newdata) => {
+                    $('#more').remove();
                     $(container).append(newdata);
                 });
                 upVoteHandle();
                 downVoteHandle();
+                
+                }
+                else if(type=="comment"){
+                    commentTemplete(data.data, (newdata) => {
+                        alert("sd")
+                        $('#more').remove();
+                        $(container).append(newdata);
+                    });
+                    upVoteHandle();
+                    downVoteHandle();
+                }
+                
+                
             }
         },
         error: function (e) {

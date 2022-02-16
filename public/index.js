@@ -41,34 +41,14 @@ $.ajaxSetup({
     success: function(data){
       if(data){
           console.log(data)
-       const newdata =data.data.map(post=>{
-           return `
-           <div class="card">
-                <div class="image-head">
-                   <img src="${post.user.avatar}" alt="thumbnail">
-                   <div class="username"><a href="profile.html" class="this">@${post.user.username} ${post.user.verified===1? '<div class="fa fa-check-circle" id="checked"></div>':''}</a><p class="details">originally posted in<a href="section/${post.section.name.toLowerCase()}">${post.section.name.toLowerCase()}</a></p></div>
-                </div>
-                   <div class="content-box">
-                   <h1>${post.title}</h1>
-                   <p>${post.content}</p>
-                   <div class="post-image">
-                       ${post.image.length !=0 ? `<img src="${post.image[0].url}" alt="image">`:""}
-                   </div>
-                   <div class="post-tools">
-                        <p class="like"><div class="fa fa-arrow-circle-up u-vote" id="upvote" upid="thread_id-${post.id}"></div> <span class="like-counter">${post.upvote_count}</span></p>
-                        <p class="dislike"><div class="fa fa-arrow-circle-down d-vote"id="downvote" upid="thread_id-${post.id}"></div> <span class="dislike-counter">${post.downvote_count}</span></p> 
-                        <p class="dislike"><div class="fa fa-comment"id="comment"></div> <span class="comment-counter">${post.posts_count}</span></p> 
-                        <button class="see-more"><a href=${post.slug}>more...</a></button>
-                   </div>
-                    </div>
-           `
-       });
-       $(".container-home").append(newdata);
+          topicTemplete(data.data, (newdata) => {
+            $('.container-home').append(newdata);
+        }); 
         upVoteHandle()
         downVoteHandle()
-       initPagination(data.first_page_url.split('=')[0],2,'.container-home',false)
+       initPagination(data.first_page_url.split('=')[0],2,'.container-home',false,"topic")
      
-            }
+    }
     },
     error: function(e){
         console.log(e);
@@ -160,7 +140,7 @@ const personalizedContainer = document.querySelector('.personalized-container');
        let toggleItem = document.querySelector('.paragraph2-style');
         toggleItem.classList.toggle('toggle-this')
    })
-   personalizedContainer.appendChild(ul)
+   //personalizedContainer.appendChild(ul)
 
 
 

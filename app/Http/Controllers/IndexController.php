@@ -29,12 +29,14 @@ class IndexController extends Controller
 
     public function viewUpvote($type,$id){
         if($type=="post"){
-           $post= post::with('upvote')->where('id','=',$id)->get();
-           return response()->json($post, 200);
+           $post= post::with('upvote')->where('id','=',$id)->first();
+           $uuser=$post->upvote()->paginate(15);
+           return response()->json($uuser, 200);
         }
         else if($type=="thread"){
             $post= thread::with('upvote')->where('id','=',$id)->get();
-            return response()->json($post, 200);
+            $uuser=$post->upvote()->paginate(15);
+            return response()->json($uuser, 200);
         }
         else{
             return response()->json("Request Recognized", 400);
@@ -44,11 +46,13 @@ class IndexController extends Controller
     public function viewDownvote($type,$id){
         if($type=="post"){
            $post= post::with('downvote')->where('id','=',$id)->get();
-           return response()->json($post, 200);
+           $duser=$post->downvote()->paginate(15);
+           return response()->json($duser, 200);
         }
         else if($type=="thread"){
             $post= thread::with('downvote')->where('id','=',$id)->get();
-            return response()->json($post, 200);
+            $duser=$post->downvote()->paginate(15);
+            return response()->json($duser, 200);
         }
         else{
             return response()->json("Request no Recognized", 400);
