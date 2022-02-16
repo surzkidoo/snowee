@@ -12,15 +12,34 @@ use Illuminate\Support\Facades\Validator;
 class ThreadController extends Controller
 {
     public function threadPost(Request $request,$id){
+      
+      $sort=$request->input('sort')==null? "old" : $request->input('sort');
+      if($sort=="old"){
+
       $thread=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote')->where('thread_id','=',$id)->paginate(5);
       return response()->json($thread, 200);
+
       }
-  
+      else if($sort=="new"){
+
+      $thread=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote')->where('thread_id','=',$id)->orderBy('created_at','DESC')->paginate(5);
+      return response()->json($thread, 200);
+
+      }
+      else if($sort=="upvote"){
+
+        $thread=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote')->where('thread_id','=',$id)->orderBy('upvote_count','DESC')->paginate(5);
+        return response()->json($thread, 200);
+
+      }
+
+    
+      }
   
       public function store(Request $request){
 
         $validator = Validator::make($request->all(), [
-            "title" => "required|string|max:255|min:3",
+            "title" => "required|string|max:255",
             "content" =>"required"
         ]);
      
@@ -73,27 +92,35 @@ class ThreadController extends Controller
       return response()->json(0, 200);
   }
 
-      /**
-       * Update the specified resource in storage.
-       *
-       * @param  \Illuminate\Http\Request  $request
-       * @param  int  $id
-       * @return \Illuminate\Http\Response
-       */
+   
       public function update(Request $request, $id)
       {
-          //
+        
+        $validator = Validator::make($request->all(), [
+          "title" => "required|string|max:255|min:3",
+          "content" =>"required"
+      ]);
+    
+        $thread = thread::where('id','=',$id)->where('user_id','=',auth()->user()->id)->first();
+        
+        if(!$thread){
+            return response()->json('Thread not found or unAuthorized to edit', 400);
+        }
+        $checkduplicate = thread::where('id','!=',$id)->where('slug','=',$thread->slug)->where('user_id','=',auth()->user()->id)->first();
+        $checkduplicate? $thread->slug=$thread->slug.Str::random(4):$thread->$request->title;
+        $thread->content=$request->content;
+        $thread->save();
+        return response()->json($thread, 200);
+      
       }
-  
-      /**
-       * Remove the specified resource from storage.
-       *
-       * @param  int  $id
-       * @return \Illuminate\Http\Response
-       */
-      public function destroy($id)
-      {
-          thread::find($id)->delete();
-          return redirect()->back();
+    
+      public function destroy($id){
+        $thread = thread::where('id','=',$id)->where('user_id','=',auth()->user()->id)->first();
+        if(!$thread){
+          return response()->json('Thread not found or unAuthorized to edit', 400);
+      }
+      post::where('id','=',$id)->delete();
+      $result=$thread->delete();
+        return response()->json($result, 200);
       }
 }

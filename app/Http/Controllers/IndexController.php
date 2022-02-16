@@ -19,6 +19,41 @@ class IndexController extends Controller
         return response()->json($thread, 200);
     }
 
+    public function search (Request $request){
+        
+        $query = $request->input('search');
+        $user=User::where('username','LIKE',"%{$query}%")->get();
+        $thread=thread::where('title','LIKE',"%{$query}%")->orWhere('content','LIKE',"%{$query}%")->get();//->paginate(1)->withQueryString()
+        return response()->json([$user,$thread], 200);
+    }
+
+    public function viewUpvote($type,$id){
+        if($type=="post"){
+           $post= post::with('upvote')->where('id','=',$id)->get();
+           return response()->json($post, 200);
+        }
+        else if($type=="thread"){
+            $post= thread::with('upvote')->where('id','=',$id)->get();
+            return response()->json($post, 200);
+        }
+        else{
+            return response()->json("Request Recognized", 400);
+        }
+    }
+
+    public function viewDownvote($type,$id){
+        if($type=="post"){
+           $post= post::with('downvote')->where('id','=',$id)->get();
+           return response()->json($post, 200);
+        }
+        else if($type=="thread"){
+            $post= thread::with('downvote')->where('id','=',$id)->get();
+            return response()->json($post, 200);
+        }
+        else{
+            return response()->json("Request no Recognized", 400);
+        }
+    }
     public function upvote(Request $request){
         if($request->thread_id){
             $result=upvote::where("user_id","=",auth()->user()->id)->where("thread_id","=",$request->thread_id)->get();
