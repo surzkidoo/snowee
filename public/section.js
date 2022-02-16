@@ -8,8 +8,7 @@ let updateTopicSection = document.querySelector('.updated-topics');
 const updateTopicCards = updateTopicSection.querySelectorAll('.card');
 const  newTopicContent =document.querySelector('.new-topics-content');
 const  newTopic =document.querySelector('.new-topic');
-const newTopicCards = newTopicContent.querySelectorAll('.card')
-console.log(newTopic.innerHTML);
+const newTopicCards = newTopicContent.querySelectorAll('.card');
 
 updateTopicSection.style.display = 'none';
 newTopicContent.style.display = 'none';
@@ -32,7 +31,6 @@ mostViewed.addEventListener('click', ()=>{
     } else{
         mostViewed.classList.add('current')
        let id= $('.section-name')[0].id
-       alert(id);
         jQuery.ajax({
           url: `http://127.0.0.1:8000/section/${id}/new`,
           method: 'get',
@@ -61,7 +59,7 @@ mostViewed.addEventListener('click', ()=>{
                           </div>
                  `
              });
-             $(".post-main").append(newdata);
+             $(".most-viewed-content").append(newdata);
              console.log(data)
              upVoteHandle()
              downVoteHandle()
@@ -74,7 +72,7 @@ mostViewed.addEventListener('click', ()=>{
         });
     }
     //hide other subs on click
-    let mainPost = document.querySelector('.post-main').style.display = 'block';
+    let mainPost = document.querySelector('.most-viewed-content').style.display = 'block';
     let updateTopicSection = document.querySelector('.updated-topics').style.display = 'none';
     newTopicContent.style.display = 'none';
 
@@ -97,7 +95,7 @@ updateTopic.addEventListener('click', ()=>{
   }
   //hide other subs 
   newTopicContent.style.display = 'none'
-  let mainPost = document.querySelector('.post-main').style.display = 'none';  
+  let mainPost = document.querySelector('.most-viewed-content').style.display = 'none';  
   // check if updated topics is empty
   if(updateTopicCards.length <= 0){
       let updateTopicNoContent =  document.querySelector('.update-no-content');
@@ -128,7 +126,7 @@ newTopic.addEventListener('click', ()=>{
         newTopic.classList.add('current');
     }
     //hide other section
-    let mainPost = document.querySelector('.post-main').style.display = 'none';
+    let mainPost = document.querySelector('.most-viewed-content').style.display = 'none';
     let updateTopicSection = document.querySelector('.updated-topics').style.display = 'none';
     // check if updated topics is empty
     if(newTopicCards.length <= 0){
@@ -306,6 +304,20 @@ if(mostViewedCards.length <= 0){
     messageDisplay.innerHTML = '';
     //let updateTopicNoContent =  document.querySelector('.update-no-content').style.display = 'none';
 }
+
+//Post Header Emoji
+window.addEventListener('DOMContentLoaded', () => {
+  EmojiButton(document.querySelector('.heading-emoji'), function (emoji) {
+   document.querySelector('.heading-header').value += emoji;
+   });
+ });
+
+ //Text content emoji
+ window.addEventListener('DOMContentLoaded', () => {
+  EmojiButton(document.querySelector('.text-content-emoji-icon'), function (emoji) {
+   document.querySelector('.text-content-emoji').value += emoji;
+   });
+ });
 
 
 

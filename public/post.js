@@ -1,5 +1,7 @@
 //const { functions } = require("lodash");
 
+//const { lowerCase } = require("lodash");
+
 //views, comments,upvotes and follow topic
 const upvotes = document.querySelector('#upvote').innerHTML;
 const views = document.querySelector('.views');
@@ -90,7 +92,7 @@ const post = document.querySelector('.post');
                <div class="commenters-name">{{'@'.$post->user->username}}<p             
                class="date">{{$post->created_at->diffForHumans()}}</p></div>
                </div>
-               <p class="comment-content">{{$post->content}}</p>
+               <p class="comment-content">{{$post->content}}hj</p>
                <div class="edited">(edited)</div>
                <div class="post-tools" id="comments-icons">
                <p class="like"><div class="fa fa-arrow-circle-up"id="upvote"></div> <span class="like-counter">{{count($post->upvote)}}</span></p>
@@ -121,6 +123,38 @@ jQuery.ajax({
     
      commentTemplete(data.data,(newdata)=>{
          $(".comments-section").append(newdata);
+     const newdata = data.data.map(post=>{
+       return`
+          <div class="comments" id="${post.id}">
+            <div class='flex-comment'>
+            <img src="${post.user.avatar}" alt="commenter" class="img-avatar">
+            <div class="commenters-name">@${post.user.username}<p             
+            class="date">${post.created_at}</p></div>
+            </div>
+            <p class="comment-content">${post.content}</p>
+            <div class="edited">(edited)</div>
+            <div class="post-tools" id="comments-icons">
+            <p class="like"><div class="fa fa-arrow-circle-up u-vote"id="upvote" upid="post_id-${post.id}"></div> <span class="like-counter">${post.upvote_count}</span></p>
+            <p class="dislike"><div class="fa fa-arrow-circle-down d-vote"id="downvote" upid="post_id-${post.id}"></div> <span class="dislike-counter">${post.downvote_count}</span></p> 
+            <div class="side-comment">
+                <p><div class="fa fa-trash-alt delete-side-comment"></div></p>
+                <p><div class="fa fa-edit edit-side-comment"></div></p>
+                <p><div class="fa fa-reply edit-reply-comment"></div><span class="comments-number"></span></p>
+                <p><div class="fa fa-exclamation-triangle edit-report-comment"></div></p>
+            </div>
+            </div>
+            <div class="div-reply">
+            <div class="comment-text comment-menu">
+            <textarea class="this-textarea" placeholder="write a comment" rows="1"></textarea>
+            <button class="link"><div class="comment-emoji" id="link-it"></div></button>
+            <button class="link"><div class="fa fa-paperclip link-it" id="link-it"><input type="file" id="image-upload"  class="fa fa-paperclip" multiple></div></button>
+            <button class="send"><div class="fa fa-share" id="do-comment"></div></button>
+            </div>
+            <div class="box-image-holder"></div>
+            </div>
+            </div>
+         `
+     ;
      })
       upVoteHandle()
       downVoteHandle()
@@ -203,9 +237,10 @@ comments.forEach((comment)=>{
    makeComment.addEventListener('click', (e)=>{
     let target = e.target.parentElement.parentElement.parentElement.parentElement;
     let replyDiv = target.querySelector('.div-reply')
+    console.log(target);
     let avatar = target.querySelector('.img-avatar')
     let username = target.querySelector('.commenters-name').innerHTML.slice(0,9);
-    let reply = comment.querySelector('.post').value;
+    let reply = target.querySelector('.this-textarea').value;
     let replyBlock = document.createElement('div');
     replyBlock.classList.add('commenters-comment');
     replyBlock.innerHTML = `
@@ -222,7 +257,7 @@ comments.forEach((comment)=>{
     <div class="side-comment">
         <p class="delete-side-comment"><div class="fa fa-trash-alt delete-reply-comment"></div></p>
         <p class="edit-side-comment"><div class="fa fa-edit edit-replied-comment"></div></p>
-        <p class="edit-reply-comment comment-reply-reply">reply<span class="comments-number"></span></p>
+        <p><div class="fa fa-reply edit-reply-comment comment-reply-reply"></div><span class="comments-number"></span></p>
         <p class="edit-report-comment"><div class="fa fa-exclamation-triangle report-reply-comment"></div></p>
     </div>
     </div>
@@ -242,11 +277,23 @@ comments.forEach((comment)=>{
     //Delete Reply
     let replyDeletes = comment.querySelectorAll('.delete-reply-comment');
     replyDeletes.forEach((replyDelete)=>{
-      replyDelete.addEventListener('click',()=>{
+      replyDelete.addEventListener('click',(e)=>{
         let deleteModal = document.querySelector('.delete-comment').style.display = 'block';
         let postContainer = document.querySelector('.post-content');
         postContainer.style.filter = 'blur(1px)';
-      
+        //delete functionality
+        let deleteThis = document.querySelector('.yes-reply-comment');
+        deleteThis.addEventListener('click', ()=>{
+          let deleteReply = e.target.parentElement.parentElement.parentElement;
+          deleteReply.remove();
+          postContainer.style.filter = 'blur(0px)';
+          let deleteModal = document.querySelector('.delete-comment').style.display = 'none';
+        })
+        let noDeleteThis = document.querySelector('.no-reply-comment');
+        noDeleteThis.addEventListener('click', ()=>{
+          postContainer.style.filter = 'blur(0px)';
+          let deleteModal = document.querySelector('.delete-comment').style.display = 'none';
+        })
         //close modal
         let closeDelete = document.querySelector('.close-comment');
         closeDelete.addEventListener('click', ()=>{
@@ -488,17 +535,13 @@ comments.forEach((comment)=>{
 
 
 var deleteThis = $('.delete-side-comment');
- deleteThis.on('click', function(){
-   deletePost()
+ deleteThis.on('click', function(e){
+   deletePost(e)
  })
 
-    }
-  },
-  error: function(e){
-      console.log(e);
-  }
-
-});
+    
+  
+ 
 
 const deletepostPost = document.querySelector('.delete-post-post');
 const editpostPost = document.querySelector('.edit-post-post');
@@ -565,24 +608,53 @@ function editThisPost(){
   })
 }
 
-function deleteThisPost(){
+function deleteThisPost(e){
   let deleteModal = document.querySelector('#delete-post').style.display = 'block';
   let postContainer = document.querySelector('.post-content')
   postContainer.style.filter = 'blur(1px)';
+  let wholeBody  = document.querySelector('.post-content');
 
+   //delete functionality 
+   console.log(wholeBody);
   //close modal
   let closeDelete = document.querySelector('#close-menu');
   closeDelete.addEventListener('click', ()=>{
     postContainer.style.filter = 'blur(0px)';
     let deleteModal = document.querySelector('#delete-post').style.display = 'none';
   })
+
+  let yesDelete = document.querySelector('.yes-delete');
+  yesDelete.addEventListener('click', ()=>{
+    window.location = '/'
+  })
+
+  let noDelete = document.querySelector('.no-delete');
+  noDelete.addEventListener('click', ()=>{
+    postContainer.style.filter = 'blur(0px)';
+    let deleteModal = document.querySelector('#delete-post').style.display = 'none';
+  })
 }
 
 //Comment delete post and edit post
-function deletePost(){
+function deletePost(e){
   let deleteModal = document.querySelector('.delete-comment').style.display = 'block';
   let postContainer = document.querySelector('.post-content');
   postContainer.style.filter = 'blur(1px)';
+
+//delete functionality(
+ let deleteComment = document.querySelector('.yes-delete-comment');
+ deleteComment.addEventListener('click', ()=>{
+       let removeComment = e.target.parentElement.parentElement.parentElement;
+       removeComment.remove();
+       postContainer.style.filter = 'blur(0px)';
+      let deleteModal = document.querySelector('.delete-comment').style.display = 'none';
+ })
+
+ let noDeleteComment = document.querySelector('.no-delete-comment')
+ noDeleteComment.addEventListener('click', ()=>{
+  postContainer.style.filter = 'blur(0px)';
+  let deleteModal = document.querySelector('.delete-comment').style.display = 'none';
+ })
 
   //close modal
   let closeDelete = document.querySelector('.close-comment');
@@ -647,8 +719,6 @@ share.addEventListener('click', ()=>{
   postContainer.style.filter = 'blur(0px)';
   let showReport = document.querySelector('.share-modal').style.display = 'none';
 })
-
-
 })
 
 //Sorting
@@ -656,5 +726,29 @@ $("select").on('change',function(){
   
   console.log(this.selectedIndex)
   $(".comments").empty()
+})
+
+//Picture Upload
+const imageUpload = document.querySelector('#image-upload');
+const imagesContainer= document.querySelector('.box-image-holder');
+imageUpload.addEventListener('change', function(){
+  imagesContainer.style.display = 'block'
+  let files = imageUpload.files;
+  for(i of files){
+    let reader = new FileReader();
+    let figure = document.createElement("figure");
+    let figCap = document.createElement("figcaption");
+    figCap.innerText = '';
+    figure.appendChild(figCap);
+
+    reader.onload=()=>{
+     let img = document.createElement('img');
+     img.setAttribute("src",reader.result);
+    img.classList.add('box')
+     figure.insertBefore(img, figCap);
+    }
+    imagesContainer.appendChild(figure);
+    reader.readAsDataURL(i)
+  }
 })
 

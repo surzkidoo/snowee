@@ -1514,7 +1514,7 @@ header{
 .comment-text .link{
     cursor: pointer;
     flex-grow: 0.5;
-    background-color: #8c00ff;
+    background-color: yellow;
     border: none;
     outline: none;
     width: 30px;

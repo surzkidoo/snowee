@@ -22,7 +22,7 @@
         </div>
         <div class="collapsible-menu" id="collapsible-menu">
             <ul>
-                <li class="different-li"><img src="img/img_avatar.png" alt="">
+                <li class="different-li"><img src="http://127.0.0.1:8000/avatar.png" alt="commenter">
                     <p>@muhammad</p>
                 </li>
                 <li><a href="profile.html">View profile</a></li>
@@ -33,20 +33,21 @@
             </ul>
         </div>
         <div class="header-container">
-            <h1>Snowy</h1>
+            <h1>Preen</h1>
             <div class="container-header">
                 <div class="fa fa-search"></div>
             </div>
         </div>
     </header>
     <div class="main">
-        <div class="profile-grid-container">
+        <div class="profile-grid-container">   
             <h2><span>Profile</span></h2>
+            <span class="fa fa-envelope" id="profile-envelope"></span>
         </div>
         <div class="profile-grid" id="profile-grid">
-            <img src="{{ url($user->avatar) }}" alt="profile">
+          <div class="image-div"><img src="{{ url($user->avatar) }}" alt="profile" id="changed-image"></div>
             <div>
-                <p class="user" id="{{ $user->id }}">{{ '@' . $user->username }}</p>
+                <p class="user" id="{{ $user->id }}">{{ '@' . $user->username }}<span class="fa fa-check-circle profile-check"></span></p>
                 <p class="profile-bio">{{ $user->bio }}</p>
             </div>
 
@@ -71,10 +72,8 @@
                 <p class="upvotes"><span>Upvoted</span></p>
             </div>
             <div class="upvote">oops!, no upvoted post</div>
-            <div class="postf">oops!, no post at the moment</div>
-            <div class="topic">
-
-            </div>
+            <div class="postf"></div>
+            <div class="topic"></div>
         </div>
     </div>
 
@@ -93,10 +92,11 @@
         <p class="close-menu">x</p>
         <h1>Edit Profile</h1>
         <div class="flex-input">
+            <span class="exceed-length"></span>
             <label>Change Bio</label>
-            <input type="text" class="new-bio-data" placeholder="input bio data here">
+            <textarea type="text" class="new-bio-data" placeholder="write your bio here"></textarea>
             <label>Change display picture</label>
-            <input type="text" class="change-profile-picture" placeholder="backend tasks">
+            <input type="file" class="add-photos" id="upload-image">
         </div>
         <button class="submit-changes">Update Profile</button>
     </div>
