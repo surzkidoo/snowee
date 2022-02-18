@@ -23,6 +23,9 @@ class post extends Model
     public function thread(){        
         return $this->belongsTo(thread::class);
     }
+    public function reply(){
+        return $this->hasMany(post::class,'reply_to_id','id');
+    }
 
     public function tag(){        
         return $this->hasMany(tag::class);

@@ -38,13 +38,16 @@ Route::get('/section/{name}/new',"SectionController@newTopics")->name('section-n
 
 
 Route::post('/post',"PostController@store")->name('newpost');
+Route::get('/post/reply/{id}',"PostController@replyPost")->name('newpost');
 Route::put('/post/{id}',"PostController@update")->name('updatepost');
-Route::delete('/post/{id}',"PostController@delte")->name('deletepost');
+Route::delete('/post/{id}',"PostController@delete")->name('deletepost');
 Route::get('/post/{threadID}',"PostController@index")->name('getpost');
 
+Route::post('/downvote',"IndexController@downvote")->name('downvote');
+Route::get('/downvote/{type}/{id}',"IndexController@viewDownvote")->name('Vdownvote');
 Route::get('/upvote/{type}/{id}',"IndexController@viewUpvote")->name('Vupvote');
 Route::post('/upvote',"IndexController@upvote")->name('upvote');
-Route::post('/downvote',"IndexController@downvote")->name('downvote');
+
 
 Route::get('/user/feed',"UserController@feed")->name('feed');
 Route::get('/user/{id}/',"UserController@profile")->name('profile');

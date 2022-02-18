@@ -78,7 +78,7 @@
         <div class="comment-text">
            <textarea class="post post-emoji" placeholder="write a comment" rows="1"></textarea>
            <button class="link"><div class="emoji-button" id="link-it"></div></button>
-           <button class="link"><div class="fa fa-paperclip link-it" id="link-it"><input type="file" id="image-upload"  class="fa fa-paperclip" multiple></div></button>
+           <button class="link"><div class="fa fa-paperclip link-it" id="link-it"><input type="file" id="image-upload"  class="fa fa-paperclip" multiple=""></div></button>
            <button class="send"><div class="fa fa-share" id="do-comment"></div></button>
         </div>
         <div class="box-image-holder">
@@ -174,7 +174,7 @@
     <div class="edit-profile-element downvote-modal">
         <p class="close-menu" id="close-downvote-modal">x</p>
         <h1>Downvotes</h1>
-        <ul class="upvotes-flex">
+        <ul class="upvotes-flex" id="downvote-container">
             
         </ul>
     </div>

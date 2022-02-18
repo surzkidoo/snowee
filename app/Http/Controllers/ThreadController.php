@@ -16,19 +16,19 @@ class ThreadController extends Controller
       $sort=$request->input('sort')==null? "old" : $request->input('sort');
       if($sort=="old"){
 
-      $thread=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote')->where('thread_id','=',$id)->paginate(5);
+      $thread=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote','reply')->where('thread_id','=',$id)->where('reply_to_id','=',0)->paginate(5);
       return response()->json($thread, 200);
 
       }
       else if($sort=="new"){
 
-      $thread=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote')->where('thread_id','=',$id)->orderBy('created_at','DESC')->paginate(5);
+      $thread=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote','reply')->where('thread_id','=',$id)->where('reply_to_id','=',0)->orderBy('created_at','DESC')->paginate(5);
       return response()->json($thread, 200);
 
       }
       else if($sort=="upvote"){
 
-        $thread=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote')->where('thread_id','=',$id)->orderBy('upvote_count','DESC')->paginate(5);
+        $thread=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote','reply')->where('thread_id','=',$id)->where('reply_to_id','=',0)->orderBy('upvote_count','DESC')->paginate(5);
         return response()->json($thread, 200);
 
       }

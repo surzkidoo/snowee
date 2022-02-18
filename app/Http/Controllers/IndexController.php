@@ -45,7 +45,7 @@ class IndexController extends Controller
 
     public function viewDownvote($type,$id){
         if($type=="post"){
-           $post= post::with('downvote')->where('id','=',$id)->get();
+           $post= post::with('downvote')->where('id','=',$id)->first();
            $duser=$post->downvote()->paginate(15);
            return response()->json($duser, 200);
         }
