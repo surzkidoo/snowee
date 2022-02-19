@@ -101,11 +101,13 @@ imageUpload.addEventListener('change', function(){
        postBox.placeholder = 'please input comment';
        //postBox.style.color = 'rgb(114, 114, 110)'
      } else {
+       
+ let id= $('.follow-topic')[0].id
        formdata = new FormData()
       
        formdata.append('content',commentContent)
        formdata.append('reply_to_id',0);
-       formdata.append('thread_id',1)
+       formdata.append('thread_id',id)
 
        let TotalFiles = imageUpload.files.length; //Total files
        let files = imageUpload.files;
@@ -188,7 +190,6 @@ deletepostPost.addEventListener('click', ()=>{
 });
 
 editpostPost.addEventListener('click', ()=>{
-  alert("d")
   editThisPost()
 });
 
@@ -216,8 +217,8 @@ function editThisPost(){
       },
       success: function(data){
         if(data){
-          postContent.innerHTML = data.title;
-          threadName.innerHTML = data.content;
+          postContent.innerHTML = data.content;
+          threadName.innerHTML = data.title;
           let edited = document.querySelector('.edited').style.display = 'block'
           let editPost = document.querySelector('.edit-profile-element').style.display = 'none';
           postContainer.style.filter = 'blur(0px)';
@@ -248,7 +249,6 @@ function deleteThisPost(e){
   let wholeBody  = document.querySelector('.post-content');
 
    //delete functionality 
-   console.log(wholeBody);
   //close modal
   let closeDelete = document.querySelector('#close-menu');
   closeDelete.addEventListener('click', ()=>{
@@ -258,7 +258,21 @@ function deleteThisPost(e){
 
   let yesDelete = document.querySelector('.yes-delete');
   yesDelete.addEventListener('click', ()=>{
-    window.location = '/'
+    jQuery.ajax({
+      url: `http://127.0.0.1:8000/thread/${thread_id}`,
+      method: 'delete',
+      success: function(data){
+        if(data){
+          window.location = '/'
+        }
+      },
+      error: function(e){
+          console.log(e);
+          
+      }
+    
+    });
+   
   })
 
   let noDelete = document.querySelector('.no-delete');
@@ -283,34 +297,36 @@ function reportThisPost(){
 }
 
 //Upvotes users
-const likeCounter = document.querySelector('.this-counter');
-likeCounter.addEventListener('click', ()=>{
-  let showReport = document.querySelector('.upvote-modal').style.display = 'block';
-  let postContainer = document.querySelector('.post-content');
-  postContainer.style.filter = 'blur(1px)';
+// const likeCounter = document.querySelector('.this-counter');
+// likeCounter.addEventListener('click', ()=>{
+//   let showReport = document.querySelector('.upvote-modal').style.display = 'block';
+//   let postContainer = document.querySelector('.post-content');
+//   postContainer.style.filter = 'blur(1px)';
 
-  //close modal
-   let closeDelete = document.querySelector('#close-upvote-modal');
-   closeDelete.addEventListener('click', ()=>{
-  postContainer.style.filter = 'blur(0px)';
-  let showReport = document.querySelector('.upvote-modal').style.display = 'none';
-})
-})
+//   //close modal
+//    let closeDelete = document.querySelector('#close-upvote-modal');
+//    closeDelete.addEventListener('click', ()=>{
+//   postContainer.style.filter = 'blur(0px)';
+//   let showReport = document.querySelector('.upvote-modal').style.display = 'none';
+// })
+// })
 
 //Downvotes users
-const dislikeCounter = document.querySelector('.this-dislike');
-dislikeCounter.addEventListener('click', ()=>{
-  let showReport = document.querySelector('.downvote-modal').style.display = 'block';
-  let postContainer = document.querySelector('.post-content');
-  postContainer.style.filter = 'blur(1px)';
+// const dislikeCounter = document.querySelector('.this-dislike');
+// dislikeCounter.addEventListener('click', ()=>{
+//   let showReport = document.querySelector('.downvote-modal').style.display = 'block';
+//   let postContainer = document.querySelector('.post-content');
+//   postContainer.style.filter = 'blur(1px)';
 
-  //close modal
-   let closeDelete = document.querySelector('#close-downvote-modal');
-   closeDelete.addEventListener('click', ()=>{
-  postContainer.style.filter = 'blur(0px)';
-  let showReport = document.querySelector('.downvote-modal').style.display = 'none';
-})
-})
+//   //close modal
+//    let closeDelete = document.querySelector('#close-downvote-modal');
+//    closeDelete.addEventListener('click', ()=>{
+//   postContainer.style.filter = 'blur(0px)';
+//   let showReport = document.querySelector('.downvote-modal').style.display = 'none';
+// })
+// })
+downvoteTopicCounter()
+upvoteTopicCounter()
 
 const share = document.querySelector('#share');
 share.addEventListener('click', ()=>{

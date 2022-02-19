@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\post;
+use App\image;
 use App\thread;
 use App\followpost;
 use Illuminate\Support\Str;
@@ -42,16 +43,34 @@ class ThreadController extends Controller
             "title" => "required|string|max:255",
             "content" =>"required"
         ]);
-     
-      $thread = new thread();
-      $thread->title=$request->title;
-      $thread->content=$request->content;
-      $thread->section_id=$request->section_id;
-      $thread->slug=Str::slug($request->title);
-      $thread->user_id=auth()->user()->id;
-      $thread->save();
+        $checkduplicate = thread::where('slug','=',Str::slug($request->title))->get();
+        
 
-      
+        $thread = new thread();
+        $thread->title=$request->title;
+        $thread->content=$request->content;
+        $thread->section_id=$request->section_id;
+        $checkduplicate? $thread->slug=Str::slug($request->title).'-'.rand(1000,9999): $thread->slug=Str::slug($request->title);
+        $thread->user_id=auth()->user()->id;
+        $thread->save();
+
+        if($request->TotalFiles > 0 && $thread)
+        {
+               
+           for ($x = 0; $x < $request->TotalFiles; $x++) 
+           {
+               if ($request->hasFile('files'.$x)) 
+                {
+                    $file      = $request->file('files'.$x);
+                    $path = $file->store('/images/thread','public');
+                    $image = new image();
+                    $image->thread_id=$thread->id;
+                    $image->url = 'storage/'.$path;
+                    $image->save();
+                    
+                }
+           }
+          }
       
         return response()->json($thread, 200);
       }
@@ -71,6 +90,8 @@ class ThreadController extends Controller
         }else{
           $follow=1;
         }
+        $thread->views++;
+        $thread->save();
         return view('post',["thread"=>$thread,'follow'=>$follow]);
       }
   
@@ -106,8 +127,8 @@ class ThreadController extends Controller
         if(!$thread){
             return response()->json('Thread not found or unAuthorized to edit', 400);
         }
-        $checkduplicate = thread::where('id','!=',$id)->where('slug','=',$thread->slug)->where('user_id','=',auth()->user()->id)->first();
-        $checkduplicate? $thread->slug=$thread->slug.Str::random(4):$thread->$request->title;
+       
+        $thread->title= $request->title;
         $thread->content=$request->content;
         $thread->save();
         return response()->json($thread, 200);

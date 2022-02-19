@@ -46,7 +46,7 @@ class SectionController extends Controller
     
     public function mostViewedTopics(Request $request,$id){
 
-        $section=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where("section_id","=",$id)->orderBy('views','DESC')->get();
+        $section=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where("section_id","=",$id)->orderBy('views','DESC')->paginate(5);
        
         return response()->json($section, 200);
 
@@ -54,13 +54,13 @@ class SectionController extends Controller
 
 
     public function newTopics(Request $request,$id){
-        $section=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where("section_id","=",$id)->orderBy('created_at','DESC')->get();
+        $section=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where("section_id","=",$id)->orderBy('created_at','DESC')->paginate(5);
         return response()->json($section, 200);
     }
 
     public function updatedTopics(Request $request,$id){
 
-        $section=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where("section_id","=",$id)->orderBy('updated_at','DESC')->get();
+        $section=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where("section_id","=",$id)->orderBy('updated_at','DESC')->paginate(5);
         return response()->json($section, 200);
 
     }

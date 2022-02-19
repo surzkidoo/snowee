@@ -8,6 +8,8 @@ use App\follow;
 use App\thread;
 use App\section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -130,6 +132,31 @@ class UserController extends Controller
            $blocked=-1;
        }
         return response()->json($blocked, 404);
+    }
+
+
+    public function updateProfile(Request $request){
+        $validator = Validator::make($request->all(), [
+            "bio" =>"required",
+            'avatar'  => 'mimes:jpg,png,jpeg'
+        ]);
+        if(auth()->check()){
+        $user = auth()->user();
+        $user->bio = $request->bio;
+        if($request->hasFile('avatar')){
+            $file      = $request->file('avatar');
+            $path = $file->store('/images/user','public');
+            $temp=$user->avatar;
+            if($temp!=="avatar.png"){
+                File::delete($temp);
+            }
+            $user->avatar='storage/'.$path;
+            
+        }
+        $user->save();
+        return response()->json(["message"=>"update success"], 200);
+        }
+        return response()->json(['message'=>'Unuthorized user'], 401, $headers);
     }
 
 }

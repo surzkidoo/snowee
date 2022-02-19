@@ -35,7 +35,7 @@
           </div> 
    </header>
    <div class="post-content">
-    <div class="post-container">
+    <div class="post-container body">
         <h1 class="thread-title">{{$thread->title}}</h1>
         <div class="options" id="options">
             <div class="sect1">

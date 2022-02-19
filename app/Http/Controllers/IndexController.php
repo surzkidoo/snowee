@@ -34,7 +34,7 @@ class IndexController extends Controller
            return response()->json($uuser, 200);
         }
         else if($type=="thread"){
-            $post= thread::with('upvote')->where('id','=',$id)->get();
+            $post= thread::with('upvote')->where('id','=',$id)->first();
             $uuser=$post->upvote()->paginate(15);
             return response()->json($uuser, 200);
         }
@@ -50,7 +50,7 @@ class IndexController extends Controller
            return response()->json($duser, 200);
         }
         else if($type=="thread"){
-            $post= thread::with('downvote')->where('id','=',$id)->get();
+            $post= thread::with('downvote')->where('id','=',$id)->first();
             $duser=$post->downvote()->paginate(15);
             return response()->json($duser, 200);
         }

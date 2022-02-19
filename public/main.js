@@ -101,7 +101,7 @@ comments.forEach((comment)=>{
            const newdata = data.map((user)=>{
              return `
              <li class="upvote-card">
-             <img src="http://127.0.0.1:8000/avatar.png" alt="img">
+             <img src="http://127.0.0.1:8000/${user.avatar}" alt="img">
                  <div><strong>@${user.username}</strong></div>
              </li>
              `
@@ -127,6 +127,98 @@ comments.forEach((comment)=>{
   })
   
 }
+function downvoteTopicCounter(){
+  const dislikeCounter = document.querySelectorAll('.this-dislike');
+  dislikeCounter.forEach((downvotes)=>{
+    $(downvotes).off("click").on('click', ()=>{
+      let vdata=$(downvotes).prev().attr('upid');
+      let type=vdata.split('_')[0];
+      let id = vdata.split('-')[1];
+      document.querySelector('.downvote-modal').style.display = 'block';
+      let postContainer = document.querySelector('.body');
+      postContainer.style.filter = 'blur(1px)';
+
+      jQuery.ajax({
+        url: `http://127.0.0.1:8000/downvote/${type}/${id}`,
+        method: 'get',
+        success: function(response){
+          data=response.data
+          if(data){
+            console.log(data)
+           const newdata = data.map((user)=>{
+             return `
+             <li class="upvote-card">
+             <img src="http://127.0.0.1:8000/${user.avatar}" alt="img">
+                 <div><strong>@${user.username}</strong></div>
+             </li>
+             `
+           })
+           $('#downvote-container').append(newdata);
+          
+          }
+        },
+        error: function(e){
+            console.log(e);
+        }
+      
+      });
+      let closeDelete = document.querySelector('#close-downvote-modal');
+       closeDelete.addEventListener('click', ()=>{
+      postContainer.style.filter = 'blur(0px)';
+      $('#downvote-container').empty()
+      document.querySelector('.downvote-modal').style.display = 'none';
+    })
+    
+  })
+})
+}
+
+function upvoteTopicCounter(){
+  const dislikeCounter = document.querySelectorAll('.this-counter');
+  dislikeCounter.forEach((downvotes)=>{
+    $(downvotes).off("click").on('click', ()=>{
+      let vdata=$(downvotes).prev().attr('upid');
+      let type=vdata.split('_')[0];
+      let id = vdata.split('-')[1];
+      document.querySelector('.upvote-modal').style.display = 'block';
+      let postContainer = document.querySelector('.body');
+      postContainer.style.filter = 'blur(1px)';
+
+      jQuery.ajax({
+        url: `http://127.0.0.1:8000/upvote/${type}/${id}`,
+        method: 'get',
+        success: function(response){
+          data=response.data
+          if(data){
+            console.log(data)
+           const newdata = data.map((user)=>{
+             return `
+             <li class="upvote-card">
+             <img src="http://127.0.0.1:8000/${user.avatar}" alt="img">
+                 <div><strong>@${user.username}</strong></div>
+             </li>
+             `
+           })
+           $('#upvote-container').append(newdata);
+          
+          }
+        },
+        error: function(e){
+            console.log(e);
+        }
+      
+      });
+      let closeDelete = document.querySelector('#close-upvote-modal');
+       closeDelete.addEventListener('click', ()=>{
+      postContainer.style.filter = 'blur(0px)';
+      $('#upvote-container').empty()
+      document.querySelector('.upvote-modal').style.display = 'none';
+    })
+    
+  })
+})
+}
+
 
 function downvoteCounter(){
     //comments downvotes counter
@@ -138,7 +230,7 @@ comments.forEach((comment)=>{
       let type=vdata.split('_')[0];
       let id = vdata.split('-')[1];
       
-      let showReport = document.querySelector('.downvote-modal').style.display = 'block';
+      document.querySelector('.downvote-modal').style.display = 'block';
       let postContainer = document.querySelector('.post-content');
       postContainer.style.filter = 'blur(1px)';
       //ajax call to get the downvote user
@@ -152,7 +244,7 @@ comments.forEach((comment)=>{
            const newdata = data.map((user)=>{
              return `
              <li class="upvote-card">
-             <img src="http://127.0.0.1:8000/avatar.png" alt="img">
+             <img src="http://127.0.0.1:8000/${user.avatar}" alt="img">
                  <div><strong>@${user.username}</strong></div>
              </li>
              `
@@ -289,7 +381,7 @@ function handleReplyView(){
 comments.forEach((comment)=>{
     let openReply = false;
       let reply = comment.querySelector('.edit-reply-comment');
-      reply.addEventListener('click', (e)=>{
+      $(reply).off('click').on('click', (e)=>{
         let replyDiv = comment.querySelector('.div-reply');
         if(!openReply){
           
@@ -312,8 +404,9 @@ comments.forEach((comment)=>{
               upvoteCounter()
              downvoteCounter()
              deleteReply()
+            
              comment.querySelector('.div-reply').style.display = 'block';
-             
+              initPaginationHalve(data.first_page_url.split('=')[0],2,replyDiv,false,"reply-comment")
               }
             },
             error: function(e){
@@ -350,14 +443,14 @@ function topicTemplete(data, callback) {
         return `
     <div class="card">
          <div class="image-head">
-            <img src="${post.user.avatar}" alt="thumbnail">
+            <img src="http://127.0.0.1:8000/${post.user.avatar}" alt="thumbnail">
             <div class="username"><a href="profile.html" class="this">@${
                 post.user.username
             } ${
             post.user.verified === 1
                 ? '<div class="fa fa-check-circle" id="checked"></div>'
                 : ""
-        }</a><p class="details">originally posted in<a href="section/${post.section.name.toLowerCase()}">${
+        }</a><p class="details">originally posted in<a href="http://127.0.0.1:8000/section/${post.section.name.toLowerCase()}">${
             post.section.name
         }</a></p></div>
          </div>
@@ -367,25 +460,25 @@ function topicTemplete(data, callback) {
             <div class="post-image">
                 ${
                     post.image.length != 0
-                        ? `<img src="${post.image[0].url}" alt="image">`
+                        ? `<img src="http://127.0.0.1:8000/${post.image[0].url}" alt="image">`
                         : ""
                 }
             </div>
             <div class="post-tools">
                  <p class="like"><div class="fa fa-arrow-circle-up u-vote" id="upvote" upid="thread_id-${
                      post.id
-                 }"></div> <span class="like-counter">${
+                 }"></div> <span class="like-counter this-counter">${
             post.upvote_count
         }</span></p>
                  <p class="dislike"><div class="fa fa-arrow-circle-down d-vote"id="downvote" upid="thread_id-${
                      post.id
-                 }"></div> <span class="dislike-counter">${
+                 }"></div> <span class="dislike-counter this-dislike">${
             post.downvote_count
         }</span></p> 
                  <p class="dislike"><div class="fa fa-comment"id="comment"></div> <span class="comment-counter">${
                      post.posts_count
                  }</span></p> 
-                 <button class="see-more"><a href=${
+                 <button class="see-more"><a href=http://127.0.0.1:8000/${
                      post.slug
                  }>more...</a></button>
             </div>
@@ -400,7 +493,7 @@ function commentTemplete(data, callback, type="comments",container="") {
         return`
         <div class=${type}  id="${post.id}">
         <div class='flex-comment'>
-        <img src="${post.user.avatar}" alt="commenter" class="img-avatar">
+        <img src="http://127.0.0.1:8000/${post.user.avatar}" alt="commenter" class="img-avatar">
         <div class="commenters-name">@${post.user.username}<p             
         class="date">${post.created_at}</p></div>
         </div>
@@ -478,20 +571,38 @@ function initPagination(url, page = 2, container, loading = false,type) {
             !loading && $('#more').text()!="No More"
         ) { 
            
-            $(container).append("<div id='more' class='load-action'>View More</div>")
+          $(container).append(`<div id='more-${type}' class='load-action-${type}'>View More</div>`)
             loading = true;
-            $('.load-action').on('click',function(){
+            $(`.load-action-${type}`).on('click',function(){
            
             infinteLoadMore(page, url, container,type);
             loading = false;
             page++;
-           
+            
             });
         }
     });
 }
 
-function infinteLoadMore(page, url, container,type) {
+ function  initPaginationHalve(url, page = 2, container, loading = false,type){
+
+    $(container).append(`<div id='more-${type}' class='load-action-${type}'>View More</div>`)
+    loading = true;
+    $(`.load-action-${type}`).on('click',function(){
+    alert("what the fuck")
+    infinteLoadMore(page, url, container,type,true,()=>{
+       initPaginationHalve(url,page,container,loading=false,type)
+    });
+    loading = false;
+    page++;
+  
+    });
+
+}
+
+
+ function infinteLoadMore(page, url, container,type,halve,callback) {
+   let typee=type;
     jQuery.ajax({
         url: `${url}=${page}`,
         method: "get",
@@ -502,24 +613,26 @@ function infinteLoadMore(page, url, container,type) {
                 console.log(data)
                 if (data.data.length==0) {
                     alert("dds")
-                    $('#more').text("No More")
+                    $(`#more-${type}`).text("No More")
                     return
                 }
                 if(type=="topic"){
                     topicTemplete(data.data, (newdata) => {
-                    $('#more').remove();
+                      $(`#more-${type}`).remove()
                     $(container).append(newdata);
                 });
                 upVoteHandle();
                 downVoteHandle();
-                
+                   upvoteTopicCounter()
+                downvoteTopicCounter()
+             
                 
                 }
                 else if(type=="comment"){
                     commentTemplete(data.data, (newdata) => {
-                        $('#more').remove();
-                        $(container).append(newdata);
-                    });
+                      $(`#more-${typee}`).remove()
+                        $(container).append(newdata)
+                    })
                     upvoteCounter()
                     downvoteCounter()
                     upVoteHandle()
@@ -529,7 +642,24 @@ function infinteLoadMore(page, url, container,type) {
                     handleReply()
                     deleteReply()
                 }
-                
+                else if(type=="reply-comment"){
+                  commentTemplete(data.data, (newdata) => {
+                    $(`#more-${typee}`).remove()
+                      $(container).append(newdata)
+                  },type="'comments commenters-comment'")
+                  upvoteCounter()
+                  downvoteCounter()
+                  upVoteHandle()
+                  downVoteHandle()
+                  handleReplyView()
+                  updateReply()
+                  handleReply()
+                  deleteReply()
+                }
+                else{
+                  $(container).append(newdata);
+                }
+                halve && callback();
                 
             }
         },

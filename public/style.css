@@ -154,6 +154,7 @@ input[type="file"]{
      min-height: 300px;
      background-color: #F9F9F9;
      display: none;
+     z-index: 99;
 }
 
 .edit-profile-element.downvote-modal h1{
@@ -164,7 +165,7 @@ input[type="file"]{
 
 .downvote-modal .upvotes-flex{
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     flex-direction: column;
     overflow-y: scroll;
     height: 350px;
@@ -203,6 +204,7 @@ input[type="file"]{
     min-height: 300px;
     background-color: #F9F9F9;
     display: none;
+    z-index: 99;
 }
 
 .edit-profile-element.upvote-modal h1{
@@ -213,7 +215,7 @@ input[type="file"]{
 
 .upvote-modal .upvotes-flex{
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     flex-direction: column;
     overflow-y: scroll;
     height: 350px;

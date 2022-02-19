@@ -50,7 +50,8 @@ Route::post('/upvote',"IndexController@upvote")->name('upvote');
 
 
 Route::get('/user/feed',"UserController@feed")->name('feed');
-Route::get('/user/{id}/',"UserController@profile")->name('profile');
+Route::post('/user/update',"UserController@updateProfile")->name('update-profile');
+Route::get('/user/{id}',"UserController@profile")->name('profile');
 Route::get('/user/{id}/topics',"UserController@userTopics")->name('userpost');
 Route::get('/user/{id}/posts',"UserController@userPosts")->name('usertopics');
 Route::get('/user/{id}/upvote',"UserController@userUpvoted")->name('usertopics');
@@ -67,6 +68,8 @@ Route::get('/user/{username}/getfollower',"UserController@getFollower")->name('g
 Route::post('/setfollow',"UserController@setFollow")->name('setFollower');
 
 Route::get('/thread/{id}/posts',"ThreadController@threadPost")->name('pthread');
+Route::put('/thread/{id}',"ThreadController@update")->name('Tupdate');
+Route::delete('/thread/{id}',"ThreadController@destroy")->name('Tdestroy');
 Route::get('/thread/{id}/follow',"ThreadController@followPost")->name('flthread');
 Route::post('/thread',"ThreadController@store")->name('thread');
 Route::get('/{slug}',"ThreadController@show")->name('thread');
