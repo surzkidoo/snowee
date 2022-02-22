@@ -35,8 +35,8 @@
         <div class="header-container">
             <h1>Preen</h1>
             <div class="container-header">
-            <div class="fa fa-search"></div>
             <div class="fa fa-plus-circle post-icon"></div>
+            <div class="fa fa-search search"></div>
             </div>
         </div>
     </header>
@@ -66,10 +66,10 @@
                         Snowy</span></h1>
                 <p>{{ $section->description }}</p>
             </div>
-            <div class="section-button">
-                <button><span class="most-viewed current">Most Viewed Topics</span></button>
-                <button><span class="update-topic">Updated Topics</span></button>
-                <button><span class="new-topic">New Topics</span></button>
+            <div class="section-button" id="section-btn">
+                <button><span class="most-viewed current">Most Viewed</span></button>
+                <button><span class="update-topic">Updated</span></button>
+                <button><span class="new-topic">New</span></button>
             </div>
         </div>
         <div class="post-main">

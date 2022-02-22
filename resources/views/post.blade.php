@@ -20,7 +20,7 @@
        </div>
         <div class="collapsible-menu" id="collapsible-menu">
             <ul>
-            <li class="different-li"><img src="img/img_avatar.png" alt=""> <p id="id">@muhammad</p> </li>
+            <li class="different-li"><img src="{{url($thread->user->avatar)}}" alt=""> <p id="id">@muhammad</p> </li>
             <li><a href="profile.html">View Profile</a></li>
            <li><a href="followers.html">Followers</a></li>
            <li><a href="following.html">Following</a></li>
@@ -77,15 +77,15 @@
             </div>
         <div class="comment-text">
            <textarea class="post post-emoji" placeholder="write a comment" rows="1"></textarea>
-           <button class="link"><div class="emoji-button" id="link-it"></div></button>
-           <button class="link"><div class="fa fa-paperclip link-it" id="link-it"><input type="file" id="image-upload"  class="fa fa-paperclip" multiple></div></button>
+           <button class="linkEmoji"><div class="emoji-button" id="link-it"></div></button>
+           <button class="link"><div class="fa fa-paperclip link-it" id="link-it"><input type="file" id="image-upload"  class="fa fa-paperclip this-clip" multiple></div></button>
            <button class="send"><div class="fa fa-share" id="do-comment"></div></button>
         </div>
         <div class="box-image-holder">
         </div>
     </div>
     </div>
-    <div class="comments-section">
+    <div class="comments-section comments-bottom">
         <div class="sort">
           <select>
               <option>Most upvoted</option>

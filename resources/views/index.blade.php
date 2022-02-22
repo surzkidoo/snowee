@@ -29,7 +29,7 @@
           </ul>
        </div>
           <div class="header-container">
-                <h1>Snowy</h1>
+                <h1>Preen</h1>
                 <div class="container-header">
                 <div class="fa fa-search header-search"></div>
             </div>

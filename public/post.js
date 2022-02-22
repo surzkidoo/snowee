@@ -144,7 +144,7 @@ jQuery.ajax({
             <div class="div-reply">
             <div class="comment-text comment-menu">
             <textarea class="this-textarea" placeholder="write a comment" rows="1"></textarea>
-            <button class="link"><div class="comment-emoji" id="link-it"></div></button>
+            <button class="emoji-here"><div class="comment-emoji" id="link-it"></div></button>
             <button class="link"><div class="fa fa-paperclip link-it" id="link-it"><input type="file" id="image-upload"  class="fa fa-paperclip" multiple></div></button>
             <button class="send"><div class="fa fa-share" id="do-comment"></div></button>
             </div>
@@ -212,6 +212,13 @@ jQuery.ajax({
    })
   });
 
+//Adding emoji
+comments.forEach((comment)=>{
+    EmojiButton(comment.querySelector('.comment-emoji'), function (emoji) {
+      comment.querySelector('.this-textarea').value += emoji;
+    });
+})
+
 //reply functionality
 comments.forEach((comment)=>{
   let openReply = false;
@@ -223,8 +230,7 @@ comments.forEach((comment)=>{
        openReply = true;
       } else if(openReply) {
         openReply = false;
-        let thisPost = comment.querySelector('.div-reply').style.display = 'none';
-        console.log(thisPost); 
+        let thisPost = comment.querySelector('.div-reply').style.display = 'none'; 
       }
     })
   })
@@ -255,13 +261,13 @@ comments.forEach((comment)=>{
     <div class="side-comment">
         <p class="delete-side-comment"><div class="fa fa-trash-alt delete-reply-comment"></div></p>
         <p class="edit-side-comment"><div class="fa fa-edit edit-replied-comment"></div></p>
-        <p><div class="fa fa-reply edit-reply-comment comment-reply-reply"></div><span class="comments-number"></span></p>
         <p class="edit-report-comment"><div class="fa fa-exclamation-triangle report-reply-comment"></div></p>
     </div>
     </div>
     <div class="div-reply reply-div">
     <div class="comment-text comment-menu">
     <textarea class="post this-textarea" placeholder="write a comment" rows="1"></textarea>
+    <button class="link"><div class="comment-emoji" id="link-it"></div></button>
     <button class="link"><div class="fa fa-paperclip" id="link-it"></div></button>
     <button class="send send-reply"><div class="fa fa-share" id="do-comment"></div></button>
     </div>

@@ -19,7 +19,7 @@
        </div>
         <div class="collapsible-menu" id="collapsible-menu">
             <ul>
-            <li class="different-li"><img src="img/img_avatar.png" alt=""> <p>@muhammad</p> </li>
+            <li class="different-li"><img src="http://127.0.0.1:8000/avatar.png" alt=""> <p>@muhammad</p> </li>
             <li><a href="profile.html">View profile</a></li>
            <li><a href="followers.html">Followers</a></li>
            <li><a href="following.html">Following</a></li>
@@ -35,7 +35,7 @@
              </div>
           </div> 
     </header>
-    <div class="container">
+    <div class="container-section">
      <div class="forums-catalog">
          <h1> <span>
             All Spaces
