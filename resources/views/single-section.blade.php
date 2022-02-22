@@ -74,69 +74,18 @@
         </div>
         <div class="post-main">
           <div class="most-viewed-content">
-          <div class="card">
-                <div class="image-head">
-                <img src="http://127.0.0.1:8000/avatar.png" alt="thumbnail">
-                   <div class="username"><a href="profile.html" class="this">@muhammad </a><p class="details">originally posted in<a href="section/relationship">relationship</a></p></div>
-                </div>
-                   <div class="content-box">
-                   <h1>Welcome to Snowy!</h1>
-                   <p>aaaaa</p>
-                   <div class="post-image">
-                       
-                   </div>
-                   <div class="post-tools">
-                        <p class="like"></p><div class="fa fa-arrow-circle-up u-vote" id="upvote" upid="thread_id-1"></div> <span class="like-counter">1</span><p></p>
-                        <p class="dislike"></p><div class="fa fa-arrow-circle-down d-vote" id="downvote" upid="thread_id-1"></div> <span class="dislike-counter">0</span><p></p> 
-                        <p class="dislike"></p><div class="fa fa-comment" id="comment"></div> <span class="comment-counter">28</span><p></p> 
-                        <button class="see-more"><a href="welcome-to-snowy">more...</a></button>
-                   </div>
-                    </div>
-           </div>
-           <div class="card">
-                <div class="image-head">
-                <img src="http://127.0.0.1:8000/avatar.png" alt="thumbnail">
-                   <div class="username"><a href="profile.html" class="this">@muhammad </a><p class="details">originally posted in<a href="section/relationship">relationship</a></p></div>
-                </div>
-                   <div class="content-box">
-                   <h1>Welcome to Snowy!</h1>
-                   <p>aaaaa</p>
-                   <div class="post-image">    
-                   </div>
-                   <div class="post-tools">
-                        <p class="like"></p><div class="fa fa-arrow-circle-up u-vote" id="upvote" upid="thread_id-1"></div> <span class="like-counter">1</span><p></p>
-                        <p class="dislike"></p><div class="fa fa-arrow-circle-down d-vote" id="downvote" upid="thread_id-1"></div> <span class="dislike-counter">0</span><p></p> 
-                        <p class="dislike"></p><div class="fa fa-comment" id="comment"></div> <span class="comment-counter">28</span><p></p> 
-                        <button class="see-more"><a href="welcome-to-snowy">more...</a></button>
-                   </div>
-                    </div>
-           </div>
+          
            </div>
 
     <div class="updated-topics">
-            <div class="card">
-                <div class="image-head">
-                <img src="http://127.0.0.1:8000/avatar.png" alt="thumbnail">
-                   <div class="username"><a href="profile.html" class="this">@muhammad </a><p class="details">originally posted in<a href="section/relationship">relationship</a></p></div>
-                </div>
-                   <div class="content-box">
-                   <h1>Welcome to Snowy!</h1>
-                   <p>aaaaa</p>
-                   <div class="post-image">    
-                   </div>
-                   <div class="post-tools">
-                        <p class="like"></p><div class="fa fa-arrow-circle-up u-vote" id="upvote" upid="thread_id-1"></div> <span class="like-counter">1</span><p></p>
-                        <p class="dislike"></p><div class="fa fa-arrow-circle-down d-vote" id="downvote" upid="thread_id-1"></div> <span class="dislike-counter">0</span><p></p> 
-                        <p class="dislike"></p><div class="fa fa-comment" id="comment"></div> <span class="comment-counter">28</span><p></p> 
-                        <button class="see-more"><a href="welcome-to-snowy">more...</a></button>
-                   </div>
-                    </div>
-           </div>
-        <div class="update-no-content"></div>
+            
+          
+        {{-- <div class="update-no-content"></div> --}}
     </div>
     <div class="new-topics-content">
-        <div class="new-topic-no-content"></div>
+        {{-- <div class="new-topic-no-content"></div> --}}
     </div>
+        </div>
     </div>
     <div class="no-content-display"></div>
     <div class="resting-nav-bar">

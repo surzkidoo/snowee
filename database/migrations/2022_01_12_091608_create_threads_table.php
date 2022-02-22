@@ -20,7 +20,7 @@ class CreateThreadsTable extends Migration
             $table->string("slug");
             $table->text("content");
             $table->integer('user_id');
-            $table->integer('section_id'); 
+            $table->integer('section_id');
             $table->timestamps();
         });
     }

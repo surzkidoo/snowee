@@ -32,34 +32,14 @@ mostViewed.addEventListener('click', ()=>{
         mostViewed.classList.add('current')
        let id= $('.section-name')[0].id
         jQuery.ajax({
-          url: `http://127.0.0.1:8000/section/${id}/new`,
+          url: `http://127.0.0.1:8000/section/${id}/viewed`,
           method: 'get',
           success: function(data){
             if(data){
-             const newdata =data.map(post=>{
-                 return `
-                 <div class="card">
-                      <div class="image-head">
-                         <img src="http://127.0.0.1:8000/${post.user.avatar}" alt="thumbnail">
-                         <div class="username"><a href="profile.html" class="this">@${post.user.username} ${post.user.verified===1? '<div class="fa fa-check-circle" id="checked"></div>':''}</a><p class="details">originally posted in<a href="section/${post.section.name.toLowerCase()}">${post.section.name.toLowerCase()}</a></p></div>
-                      </div>
-                         <div class="content-box">
-                         <h1>${post.title}</h1>
-                         <p>${post.content}</p>
-                         <div class="post-image">
-                             ${post.image.length !=0 ? `<img src="http://127.0.0.1:8000/${post.image[0].url}" alt="image">`:""}
-                         </div>
-                         <div class="post-tools">
-                              <p class="like"><div class="fa fa-arrow-circle-up u-vote" id="upvote" upid="thread_id-${post.id}"></div> <span class="like-counter">${post.upvote_count}</span></p>
-                              <p class="dislike"><div class="fa fa-arrow-circle-down d-vote"id="downvote" upid="thread_id-${post.id}"></div> <span class="dislike-counter">${post.downvote_count}</span></p> 
-                              <p class="dislike"><div class="fa fa-comment"id="comment"></div> <span class="comment-counter">${post.posts_count}</span></p> 
-                              <button class="see-more"><a href=${post.slug}>more...</a></button>      
-                          </div>
-                         </div>
-                          </div>
-                 `
-             });
-             $(".most-viewed-content").append(newdata);
+              topicTemplete(data.data,(newdata)=>{
+                  $(".most-viewed-content").append(newdata);
+              })
+           
              console.log(data)
              upVoteHandle()
              downVoteHandle()
@@ -92,6 +72,26 @@ updateTopic.addEventListener('click', ()=>{
       updateTopic = updateTopic;
   } else{
       updateTopic.classList.add('current');
+      let id= $('.section-name')[0].id
+        jQuery.ajax({
+          url: `http://127.0.0.1:8000/section/${id}/updated`,
+          method: 'get',
+          success: function(data){
+            if(data){
+              topicTemplete(data,(newdata)=>{
+                  $(".updated-topics").append(newdata);
+              })
+           
+             console.log(data)
+             upVoteHandle()
+             downVoteHandle()
+                  }
+          },
+          error: function(e){
+              console.log(e);
+          }
+        
+        });
   }
   //hide other subs 
   newTopicContent.style.display = 'none'
@@ -124,6 +124,26 @@ newTopic.addEventListener('click', ()=>{
         newTopic = newTopic;
     } else{
         newTopic.classList.add('current');
+        let id= $('.section-name')[0].id
+        jQuery.ajax({
+          url: `http://127.0.0.1:8000/section/${id}/new`,
+          method: 'get',
+          success: function(data){
+            if(data){
+              topicTemplete(data,(newdata)=>{
+                  $(".new-topics-content").append(newdata);
+              })
+           
+             console.log(data)
+             upVoteHandle()
+             downVoteHandle()
+                  }
+          },
+          error: function(e){
+              console.log(e);
+          }
+        
+        });
     }
     //hide other section
     let mainPost = document.querySelector('.most-viewed-content').style.display = 'none';
@@ -215,16 +235,29 @@ makePost.addEventListener('click', ()=>{
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
+        const imageUpload = document.querySelector('#upload-image');
+        let sectionid =$('.section-name')[0].id
+        formdata = new FormData()
+      
+       formdata.append('content',contentValue)
+       formdata.append('title',headerInput);
+       formdata.append('section_id',sectionid)
+
+       let TotalFiles = imageUpload.files.length; //Total files
+       let files = imageUpload.files;
+       for (let i = 0; i < TotalFiles; i++) {
+           formdata.append('files' + i, files[i]);
+       }
+       formdata.append('TotalFiles', TotalFiles)
           jQuery.ajax({
             url: "http://127.0.0.1:8000/thread",
             method: 'post',
-            data: {
-                section_id: $('.section-name')[0].id,
-                title:  headerInput,
-                content:contentValue,
-          
-            },
+            cache:false,
+            contentType: false,
+            processData: false,
+            data:formdata,
             success: function(data){
+              data && alert("success")
              console.log(data)
             },
             error: function(e){
@@ -317,8 +350,31 @@ window.addEventListener('DOMContentLoaded', () => {
   EmojiButton(document.querySelector('.text-content-emoji-icon'), function (emoji) {
    document.querySelector('.text-content-emoji').value += emoji;
    });
+
+
  });
 
+
+ let id= $('.section-name')[0].id
+        jQuery.ajax({
+          url: `http://127.0.0.1:8000/section/${id}/viewed`,
+          method: 'get',
+          success: function(data){
+            if(data){
+              topicTemplete(data,(newdata)=>{
+                  $(".most-viewed-content").append(newdata);
+              })
+           
+             console.log(data)
+             upVoteHandle()
+             downVoteHandle()
+                  }
+          },
+          error: function(e){
+              console.log(e);
+          }
+        
+        });
 
 
 

@@ -35,7 +35,7 @@
           </div> 
    </header>
    <div class="post-content">
-    <div class="post-container">
+    <div class="post-container body">
         <h1 class="thread-title">{{$thread->title}}</h1>
         <div class="options" id="options">
             <div class="sect1">
@@ -77,8 +77,8 @@
             </div>
         <div class="comment-text">
            <textarea class="post post-emoji" placeholder="write a comment" rows="1"></textarea>
-           <button class="linkEmoji"><div class="emoji-button" id="link-it"></div></button>
-           <button class="link"><div class="fa fa-paperclip link-it" id="link-it"><input type="file" id="image-upload"  class="fa fa-paperclip this-clip" multiple></div></button>
+           <button class="link"><div class="emoji-button" id="link-it"></div></button>
+           <button class="link"><div class="fa fa-paperclip link-it" id="link-it"><input type="file" id="image-upload"  class="fa fa-paperclip" multiple=""></div></button>
            <button class="send"><div class="fa fa-share" id="do-comment"></div></button>
         </div>
         <div class="box-image-holder">
@@ -88,8 +88,9 @@
     <div class="comments-section comments-bottom">
         <div class="sort">
           <select>
-              <option>Most upvoted</option>
-              <option>Most recent</option>
+            <option value="oldest">Oldest</option>
+              <option value="mostupvote">Most upvoted</option>
+              <option value="recent">Most recent</option>
           </select>
         </div>
     </div>
@@ -165,70 +166,16 @@
     <div class="edit-profile-element upvote-modal">
         <p class="close-menu" id="close-upvote-modal">x</p>
         <h1>Upvotes</h1>
-        <ul class="upvotes-flex">
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
+        <ul class="upvotes-flex" id="upvote-container">
+           
         </ul>
     </div>
 
     <div class="edit-profile-element downvote-modal">
         <p class="close-menu" id="close-downvote-modal">x</p>
         <h1>Downvotes</h1>
-        <ul class="upvotes-flex">
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
-            <li class="upvote-card">
-            <img src="http://127.0.0.1:8000/avatar.png" alt="img">
-                <div><strong>@abubakar</strong></div>
-            </li>
+        <ul class="upvotes-flex" id="downvote-container">
+            
         </ul>
     </div>
 
@@ -253,6 +200,7 @@
 <script src="main.js"></script> 
 <script src="post.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/emoji-button@0.6.0/dist/index.min.js"></script>
 <script>
       window.addEventListener('DOMContentLoaded', () => {

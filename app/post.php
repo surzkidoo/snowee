@@ -23,12 +23,16 @@ class post extends Model
     public function thread(){        
         return $this->belongsTo(thread::class);
     }
+    public function reply(){
+        return $this->hasMany(post::class,'reply_to_id','id');
+    }
 
     public function tag(){        
         return $this->hasMany(tag::class);
     }
     public function upvote(){        
         return $this->hasManyThrough('App\User', 'App\upvote', 'post_id', 'id','id','user_id');
+        
     }
     public function downvote(){        
         return $this->hasManyThrough('App\User', 'App\downvote', 'post_id', 'id','id','user_id');
