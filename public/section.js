@@ -78,7 +78,7 @@ updateTopic.addEventListener('click', ()=>{
           method: 'get',
           success: function(data){
             if(data){
-              topicTemplete(data,(newdata)=>{
+              topicTemplete(data.data,(newdata)=>{
                   $(".updated-topics").append(newdata);
               })
            
@@ -130,7 +130,7 @@ newTopic.addEventListener('click', ()=>{
           method: 'get',
           success: function(data){
             if(data){
-              topicTemplete(data,(newdata)=>{
+              topicTemplete(data.data,(newdata)=>{
                   $(".new-topics-content").append(newdata);
               })
            
@@ -361,7 +361,7 @@ window.addEventListener('DOMContentLoaded', () => {
           method: 'get',
           success: function(data){
             if(data){
-              topicTemplete(data,(newdata)=>{
+              topicTemplete(data.data,(newdata)=>{
                   $(".most-viewed-content").append(newdata);
               })
            
