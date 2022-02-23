@@ -296,16 +296,8 @@ makePost.addEventListener('click', ()=>{
       let username =  document.querySelector('.username').innerHTML;
       let avatar = document.querySelector('.avatar').src;
       let spaceName = document.querySelector('.section-name');
-      
 
-    
- 
-    
-
-   
-    
-   
-
+  
     //clearing input field
     headerInput = '';
     contentValue = '';

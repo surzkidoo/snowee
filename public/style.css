@@ -76,6 +76,18 @@ input[type="file"]{
     padding: 5px;
 }
 
+.img-avatar{
+    max-width: unset;
+    max-height: unset;
+    border-radius: 0%;
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    clip-path: circle();
+    z-index: 0;
+}
+}
+
 .commenters-comment{
    margin-left: 5%;
    width: 95%;
@@ -93,10 +105,10 @@ input[type="file"]{
     margin: 0;
     transform: translate(-50%,-50%);
     padding: 15px;
-    min-width: 16rem;
+    min-width: 14rem;
     border: 1px solid #25479F;
     border-radius: 8px;
-    min-height: 250px;
+    min-height: 100px;
     background-color: #F9F9F9;
     display: none;
 }
@@ -135,21 +147,21 @@ input[type="file"]{
     align-items: center;
 }
 
-.downvote-modal{
-    min-height: none;
+.edit-profile-element.downvote-modal{
     position: fixed;
-     top: 50%;
-     left: 50%;
-     margin: 0;
-     transform: translate(-50%,-50%);
-     padding: 10px;
-     min-width: 17rem;
-     border: 1px solid #25479F;
-     border-radius: 8px;
-     min-height: 300px;
-     background-color: #F9F9F9;
-     display: none;
-     z-index: 99;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    transform: translate(-50%,-50%);
+    padding: 10px;
+    min-width: 17rem;
+    height: 250px;
+    border: 1px solid #25479F;
+    border-radius: 8px;
+    min-height: 30vh;
+    background-color: #F9F9F9;
+    display: none;
+    z-index: 99;
 }
 
 .edit-profile-element.downvote-modal h1{
@@ -163,7 +175,7 @@ input[type="file"]{
     justify-content: start;
     flex-direction: column;
     overflow-y: scroll;
-    height: 350px;
+    height: 150px;
 }
 
 .edit-profile-element.downvote-modal .upvotes-flex .upvote-card{
@@ -181,12 +193,17 @@ input[type="file"]{
 }
 
 .edit-profile-element.downvote-modal .upvotes-flex .upvote-card img{
+    border-radius: 0%;
+    max-width: unset;
+    max-height: unset;
     width: 55px;
     height: 55px;
+    object-fit: cover;
+    clip-path: circle();
+    z-index: 0;
 }
 
-.upvote-modal{ 
-   min-height: none;
+.edit-profile-element.upvote-modal{ 
    position: fixed;
     top: 50%;
     left: 50%;
@@ -194,9 +211,10 @@ input[type="file"]{
     transform: translate(-50%,-50%);
     padding: 10px;
     min-width: 17rem;
+    height: 250px;
     border: 1px solid #25479F;
     border-radius: 8px;
-    min-height: 300px;
+    min-height: 30vh;
     background-color: #F9F9F9;
     display: none;
     z-index: 99;
@@ -217,7 +235,7 @@ input[type="file"]{
     justify-content: start;
     flex-direction: column;
     overflow-y: scroll;
-    height: 350px;
+    height: 150px;
 }
 
 .edit-profile-element.upvote-modal .upvotes-flex .upvote-card{
@@ -235,8 +253,14 @@ input[type="file"]{
 }
 
 .edit-profile-element.upvote-modal .upvotes-flex .upvote-card img{
+    border-radius: 0%;
+    max-width: unset;
+    max-height: unset;
     width: 55px;
     height: 55px;
+    object-fit: cover;
+    clip-path: circle();
+    z-index: 0;
 }
 
 .edit-profile-element.report-comment-modal h1{
@@ -296,6 +320,7 @@ font-size: 16px;
     cursor: pointer;
 }
 
+
 .comment-counter{
     color: rgb(0, 13, 128);
     font-size: 16px;
@@ -346,6 +371,7 @@ img{
     top: -15px;
     left: -50%;
     visibility: hidden;
+    z-index: 40;
    transition: all 0.9s ease; 
   }
 
@@ -366,6 +392,7 @@ img{
   .collapsible-menu.show{
     visibility: visible;
     left: 0%;
+    z-index: 30;
     transition: left 0.8s ease; 
   }
 
@@ -379,6 +406,17 @@ img{
     font-size: 16px;
     color: #fff;
     cursor: pointer;
+  }
+
+  .collapsible-menu ul li img{
+    border-radius: 0%;
+    max-width: unset;
+    max-height: unset;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    clip-path: circle();
+    z-index: 0;
   }
 
   .collapsible-menu ul li a{
@@ -874,6 +912,13 @@ header{
     margin-bottom: 65px;
 }
 
+.personalized-home{
+    width: 590px;
+    max-width: 1100px;
+    margin: auto;
+    margin-bottom: 65px;
+}
+
 .personalized-container{
     display: none;
     width: 100%;
@@ -893,6 +938,7 @@ header{
     margin-top: 10px;
     position: sticky;
     top: 53px;
+    z-index:4;
     background: rgb(241, 242, 242);
 }
 
@@ -948,6 +994,17 @@ header{
     display: flex;
    justify-content:flex-start;
   align-items: center;
+}
+
+.image-head img{
+    border-radius: 0%;
+    max-width: unset;
+    max-height: unset;
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    clip-path: circle();
+    z-index: 0;
 }
 
 .details a{
@@ -1118,7 +1175,7 @@ header{
 }
 
 .post-tools .see-more a{
-    color: #ffffff;
+    color: #8c00ff;
 }
 
 .resting-nav-bar{
@@ -1414,13 +1471,14 @@ header{
     border-bottom: 0.5px solid #8c00ff;
     position: sticky;
     top: 8%;
+    z-index: 2;
 }
 
 .comments{
     width: 100%;
     border-bottom: 2px solid rgb(199, 198, 198);
     padding-bottom: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 3px;
     padding: 20px;
     background: #ffffff;
     font-size: 16px;
@@ -2026,6 +2084,10 @@ header{
     height: 33px;
 }
 
+.comment-text .link-emoji{
+    background-color: #ec0808e8;
+}
+
 .emoji-here{
     cursor: pointer;
     flex-grow: 0.5;
@@ -2528,6 +2590,7 @@ header{
        top: -4px;
       width:200px;
       padding: 10px;
+      z-index: 50;
    }
 
    .second-header{
@@ -2820,7 +2883,7 @@ header{
 @media (max-width:690px) {
 
    .input{
-    display: none;
+       display: none;
     }
 
     .line-1{
@@ -2893,8 +2956,9 @@ header{
         margin-bottom: 66px;
     }
 
-    .image-head img{
-      width:55px;
+    .personalized-home{
+        width: 100%;
+        margin-bottom: 66px;
     }
 
     .img-avatar{
@@ -2917,8 +2981,16 @@ header{
     }
 
     .post-tools .see-more a{
-        font-size: 14px;
-        color: #ffffff;
+        color: #8c00ff;
+    }
+
+    .post-tools .see-more a{
+        font-size: 15px;
+        color: #8c00ff;
+    }
+
+    .comment-text .send{
+        height: 35px;
     }
 
     .resting-nav-bar{
@@ -2980,7 +3052,7 @@ header{
 
     .card{
         margin-top: 5px;
-        margin-bottom: 28;
+        margin-bottom: -10px;
         padding: 15px;
     }
 
@@ -2989,6 +3061,24 @@ header{
         margin: auto;
         width: 100%;
         padding-top: 10px;
+    }
+
+    .post-image{
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    .post-image img{
+        min-height: 290px;
+    }
+
+    .edit-profile-element .new-bio-data{
+        width: 285px;
+    }
+
+    .edit-profile-element.share-modal{
+        min-width: 14rem;
+        width: unset;
     }
 
     .post-tools #upvote{
@@ -3128,7 +3218,7 @@ header{
     .forums-list{
          margin: auto;
          margin-top: 20px;
-         width: 95%;
+         width: 100%;
          grid-template-columns: 1fr;
          grid-gap: 8px;
     }
@@ -3161,8 +3251,18 @@ header{
     }
 
     #profile-envelope{
-        font-size: 20px;
+        font-size: 19px;
         padding-right: 10px ;
+        text-align: center;
+        padding-left: 7px;
+        padding-top: 9px;
+        padding-bottom: 0.5px;
+        border-bottom: 5px solid #8c00ff;
+        margin-right: 18px;
+    }
+
+    .profile-grid-container{
+        margin-bottom: 15px;
     }
 
     .profile-grid{
@@ -3170,8 +3270,12 @@ header{
         border-radius: 8px;
     }
 
+    .topic{
+        width: 100%;
+    }
+
     .profile-grid div p{
-        font-size: 15px;
+        font-size: 13px;
     }
 
     .forums-catalog h1 span{
@@ -3212,15 +3316,32 @@ header{
         align-items: center;
     }
 
-    #profile-grid img{
+  .image-div img{
+    border-radius: 0%;
+    max-width: unset;
+    max-height: unset;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    clip-path: circle();
+    z-index: 0;
+  }
+
+   /* #profile-grid img{
         max-width: 100px;
         max-height: 200px;
        border-radius: 50%;
+   }*/
+
+   .postf{
+       width: 102%;
+       margin-top: -15px;
    }
 
     .profile-grid button{
        max-width: 400px;
        padding: 5px;
+       font-size: 12px;
     }
 
     .profile-container{
@@ -3371,6 +3492,7 @@ header{
     .profile-section{
         font-size: 14px;
         padding: 2px;
+        top:43px;
     }
 
     form .forgot-password{
@@ -3467,6 +3589,7 @@ header{
       margin-bottom: 7px;
       white-space: pre-wrap;
       font-size: 15px;
+      width: 100%;
     }
    
     .comments-section .commenters-name{

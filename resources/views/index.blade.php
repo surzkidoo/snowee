@@ -20,7 +20,7 @@
        </div>
         <div class="collapsible-menu" id="collapsible-menu">
             <ul>
-            <li class="different-li"><img src="http://127.0.0.1:8000/avatar.png" alt=""> <p id="id">@muhammad</p> </li>
+            <li class="different-li"><img src="http://127.0.0.1:8000/storage/images/user/93Pj8Y0lOxsyyEPOW67wyxSrZqp9AcKCfs8Mv81l.jpg" alt=""> <p id="id">@muhammad</p> </li>
             <li><a href="profile.html">View Profile</a></li>
            <li><a href="followers.html">Followers</a></li>
            <li><a href="following.html">Following</a></li>
@@ -55,6 +55,9 @@
         </ul>
     </div>
        <div class="body container-home ">
+          <!-- postsec -->
+    </div>
+    <div class="body personalized-home ">
           <!-- postsec -->
     </div>
     </div>

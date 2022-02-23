@@ -55,7 +55,7 @@
                <img src="{{url($thread->user->avatar)}}" alt="thumbnail" class="user-avatar">
                <div class="username">{{"@".$thread->user->username}} <div class="fa fa-check-circle" id="checked"></div><p             
                class="details">originally posted in<a 
-               href="{{$thread->section->name}}.toLowerCase()">{{$thread->section->name}}</a></p></div>
+               href="{{$thread->section->name}}">{{$thread->section->name}}</a></p></div>
             </div>
             <p class="content">{{$thread->content}}</p>
             @foreach($thread->image as $image)
@@ -77,7 +77,7 @@
             </div>
         <div class="comment-text">
            <textarea class="post post-emoji" placeholder="write a comment" rows="1"></textarea>
-           <button class="link"><div class="emoji-button" id="link-it"></div></button>
+           <button class="link link-emoji"><div class="emoji-button" id="link-it"></div></button>
            <button class="link"><div class="fa fa-paperclip link-it" id="link-it"><input type="file" id="image-upload"  class="fa fa-paperclip" multiple=""></div></button>
            <button class="send"><div class="fa fa-share" id="do-comment"></div></button>
         </div>
