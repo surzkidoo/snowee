@@ -20,7 +20,7 @@
        </div>
         <div class="collapsible-menu" id="collapsible-menu">
             <ul>
-            <li class="different-li"><img src="{{url($thread->user->avatar)}}" alt=""> <p id="id">@muhammad</p> </li>
+            <li class="different-li"><img src="{{url($thread->user->avatar)}}" alt=""> <p id="id"   loggin-id="{{auth()->check()? auth()->user()->id :0}}">@muhammad</p> </li>
             <li><a href="profile.html">View Profile</a></li>
            <li><a href="followers.html">Followers</a></li>
            <li><a href="following.html">Following</a></li>
@@ -36,13 +36,13 @@
    </header>
    <div class="post-content">
     <div class="post-container body">
-        <h1 class="thread-title">{{$thread->title}}</h1>
+        <h1 class="thread-title" id="{{$thread->id}}">{{$thread->title}}</h1>
         <div class="options" id="options">
             <div class="sect1">
                 <p class="views">{{$thread->views}} <span class="fa fa-eye"></span></p>
                 <p class="commnt">{{count($thread->posts)}} <span class="fa fa-comment"></span></p>
             </div>
-            <button class="follow-topic" id="{{$thread->id}}">
+            <button class="thread {{ !auth()->check()? 'login-to-action':'follow-topic'}} ">
             @if($follow)
                  Following
             @else
@@ -55,7 +55,7 @@
                <img src="{{url($thread->user->avatar)}}" alt="thumbnail" class="user-avatar">
                <div class="username">{{"@".$thread->user->username}} <div class="fa fa-check-circle" id="checked"></div><p             
                class="details">originally posted in<a 
-               href="{{$thread->section->name}}.toLowerCase()">{{$thread->section->name}}</a></p></div>
+               href="section/{{strtolower($thread->section->name)}}">{{$thread->section->name}}</a></p></div>
             </div>
             <p class="content">{{$thread->content}}</p>
             @foreach($thread->image as $image)
@@ -66,20 +66,22 @@
             @endforeach
             <div class="edited">(edited)</div>
             <div class="post-tools">
-                 <p class="like"><div class="fa fa-arrow-circle-up u-vote" id="upvote" upid="thread_id-{{$thread->id}}"></div> <span class="like-counter this-counter">{{count($thread->upvote)}}</span></p>
-                 <p class="dislike"><div class="fa fa-arrow-circle-down d-vote" id="downvote" upid="thread_id-{{$thread->id}}"></div> <span class="dislike-counter this-dislike">{{count($thread->downvote)}}</span></p> 
+                 <p class="like"><div class="fa fa-arrow-circle-up {{auth()->check()? 'u-vote': 'login-to-action' }}" id="upvote" upid="thread_id-{{$thread->id}}"></div> <span class="like-counter this-counter">{{count($thread->upvote)}}</span></p>
+                 <p class="dislike"><div class="fa fa-arrow-circle-down {{auth()->check()? 'd-vote': 'login-to-action' }}" id="downvote" upid="thread_id-{{$thread->id}}"></div> <span class="dislike-counter this-dislike">{{count($thread->downvote)}}</span></p> 
                  <p class="share"><div class="fa fa-share-alt" id="share"></div></p>
+                @if(auth()->check() && auth()->user()->id==$thread->user->id)
                 <div class="side-comment">
                  <p><div id="delete-icon" class="fa fa-trash-alt delete-post-post"></div></p>
                 <p><div id="edit-icon" class="fa fa-edit edit-post-post"></div></p>
                  <p><div id="report-icon" class="fa fa-exclamation-triangle report-post"></div></p>
+                 @endif
             </div> 
             </div>
         <div class="comment-text">
            <textarea class="post post-emoji" placeholder="write a comment" rows="1"></textarea>
            <button class="link"><div class="emoji-button" id="link-it"></div></button>
            <button class="link"><div class="fa fa-paperclip link-it" id="link-it"><input type="file" id="image-upload"  class="fa fa-paperclip" multiple=""></div></button>
-           <button class="send"><div class="fa fa-share" id="do-comment"></div></button>
+           <button class="sendbtn {{ auth()->check() ? 'send': 'login-to-action'}}"><div class="fa fa-share" id="do-comment"></div></button>
         </div>
         <div class="box-image-holder">
         </div>

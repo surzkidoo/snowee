@@ -13,54 +13,53 @@ $.ajaxSetup({
   }
 });
 
-//add event listeners
-const upVote = document.querySelectorAll('.like');
-upVote.forEach((upvotes)=>{
-   let counter = 0;
-   let hasClicked = false;
-  upvotes.addEventListener('click', (e)=>{
-      let upvote = e.target;
-      if(!hasClicked){
-       counter++
-       hasClicked = true;
-       let voteCounter = upvote.querySelector('.like-counter');
-       voteCounter.innerHTML = counter;
-      } else if(hasClicked){
-          counter = 0;
-           hasClicked = false;
-           let voteCounter = upvote.querySelector('.like-counter');
-           voteCounter.innerHTML = counter;
-       }
-      let add = document.querySelector('.add')
-      upvotes.classList.toggle('add')
-  }) 
-})
+// //add event listeners
+// const upVote = document.querySelectorAll('.like');
+// upVote.forEach((upvotes)=>{
+//    let counter = 0;
+//    let hasClicked = false;
+//   upvotes.addEventListener('click', (e)=>{
+//       let upvote = e.target;
+//       if(!hasClicked){
+//        counter++
+//        hasClicked = true;
+//        let voteCounter = upvote.querySelector('.like-counter');
+//        voteCounter.innerHTML = counter;
+//       } else if(hasClicked){
+//           counter = 0;
+//            hasClicked = false;
+//            let voteCounter = upvote.querySelector('.like-counter');
+//            voteCounter.innerHTML = counter;
+//        }
+//       let add = document.querySelector('.add')
+//       upvotes.classList.toggle('add')
+//   }) 
+// })
 //Downvote
-const downVote = document.querySelectorAll('.dislike');
-downVote.forEach((downvotes)=>{
-    let p = document.querySelector('.dislike-counter');
-   let counter = 0;
-   let hasClicked = false;
-  downvotes.addEventListener('click', (e)=>{
-      let downvote = e.target;
-      if(!hasClicked){
-       counter++
-       hasClicked = true;
-       let voteCounter = downvote.querySelector('.dislike-counter');
-       voteCounter.innerHTML = counter;
-      } else if(hasClicked){
-          counter = 0;
-           hasClicked = false;
-           let voteCounter = downvote.querySelector('.dislike-counter');
-           voteCounter.innerHTML = counter;
-       }
-      let add = document.querySelector('.add')
-      downvotes.classList.toggle('add')
-  }) 
-})
-//show menu
-if(editProfile){
-editProfile.addEventListener('click',()=>{
+// const downVote = document.querySelectorAll('.dislike');
+// downVote.forEach((downvotes)=>{
+//     let p = document.querySelector('.dislike-counter');
+//    let counter = 0;
+//    let hasClicked = false;
+//   downvotes.addEventListener('click', (e)=>{
+//       let downvote = e.target;
+//       if(!hasClicked){
+//        counter++
+//        hasClicked = true;
+//        let voteCounter = downvote.querySelector('.dislike-counter');
+//        voteCounter.innerHTML = counter;
+//       } else if(hasClicked){
+//           counter = 0;
+//            hasClicked = false;
+//            let voteCounter = downvote.querySelector('.dislike-counter');
+//            voteCounter.innerHTML = counter;
+//        }
+//       let add = document.querySelector('.add')
+//       downvotes.classList.toggle('add')
+//   }) 
+// })
+// //show menu
+editProfile && editProfile.addEventListener('click',()=>{
         let editProfileMenu = document.querySelector('.edit-profile-element');
       let body = document.querySelector('.profile-container');
       let body2 = document.querySelector('.profile-grid');
@@ -68,7 +67,7 @@ editProfile.addEventListener('click',()=>{
       body.style.filter = 'blur(1px)';
       editProfileMenu.style.display = 'block';
 })
-}
+
 //hide menu
 closeMenu.addEventListener('click', ()=>{
     let editProfileMenu = document.querySelector('.edit-profile-element');
@@ -182,9 +181,9 @@ posts.addEventListener('click', ()=>{
     posts = posts;
   } else{
     posts.classList.add('current')
-    let userid=$('.user')[0].id
+    let get_user_id=$('.user')[0].id
     jQuery.ajax({
-      url: `http://127.0.0.1:8000/user/${userid}/posts`,
+      url: `http://127.0.0.1:8000/user/${get_user_id}/posts`,
       method: 'get',
       success: function(data){
         if(data){
@@ -196,8 +195,11 @@ posts.addEventListener('click', ()=>{
          })
         
          upVoteHandle()
-    downVoteHandle()
-        }
+         downVoteHandle()
+         upvoteCounter()
+         downvoteCounter()
+         handleLogin()
+        } 
       },
       error: function(e){
           console.log(e);
@@ -218,6 +220,31 @@ upvotes.addEventListener('click', ()=>{
     upvotes = upvotes;
   } else{
     upvotes.classList.add('current')
+    let get_user_id=$('.user')[0].id
+    jQuery.ajax({
+      url: `http://127.0.0.1:8000/user/${get_user_id}/upvote`,
+      method: 'get',
+      success: function(data){
+        if(data){
+          console.log(data);
+        
+         
+         commentTemplete(data,(newdata)=>{
+            $(".upvote").append(newdata);
+         })
+        
+         upVoteHandle()
+         downVoteHandle()
+         upvoteCounter()
+         downvoteCounter()
+         handleLogin()
+        } 
+      },
+      error: function(e){
+          console.log(e);
+      }
+    
+    });
   }
   let upvote = document.querySelector('.upvote');
   upvote.style.display = 'block';
@@ -228,9 +255,9 @@ upvotes.addEventListener('click', ()=>{
 })
 
 
-let userid=$('.user')[0].id
+let get_user_id=$('.user')[0].id
 jQuery.ajax({
-  url: `http://127.0.0.1:8000/user/${userid}/topics`,
+  url: `http://127.0.0.1:8000/user/${get_user_id}/topics`,
   method: 'get',
 
   success: function(data){
@@ -243,6 +270,9 @@ jQuery.ajax({
      console.log(data)
      upVoteHandle()
      downVoteHandle()
+     upvoteCounter()
+     downvoteCounter()
+     handleLogin()
           }
   },
   error: function(e){

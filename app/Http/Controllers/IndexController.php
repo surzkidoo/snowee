@@ -55,7 +55,7 @@ class IndexController extends Controller
             return response()->json($duser, 200);
         }
         else{
-            return response()->json("Request no Recognized", 400);
+            return response()->json("request not recognized", 400);
         }
     }
     public function upvote(Request $request){
@@ -67,14 +67,17 @@ class IndexController extends Controller
                 $upvote->user_id=auth()->user()->id;
                 $upvote->thread_id=$request->thread_id;
                 $upvote->save();
-                $count=upvote::where("thread_id","=",$request->thread_id)->get();
-                $count=count($count);
-                return response()->json($count, 200);
+                $upvote_count=upvote::where("thread_id","=",$request->thread_id)->get();
+                downvote::where("thread_id","=",$request->thread_id)->where("user_id","=",auth()->user()->id)->delete();
+                $downvote_count=downvote::where("thread_id","=",$request->thread_id)->get();
+                $downvote_count=count($downvote_count);
+                $upvote_count=count($upvote_count);
+                return response()->json(['upvote_count'=>$upvote_count,'downvote_count'=>$downvote_count,'insert'=>true], 200);
             }else{
                 $result=upvote::where("user_id","=",auth()->user()->id)->where("thread_id","=",$request->thread_id)->delete();
                 $count=upvote::where("thread_id","=",$request->thread_id)->get();
-                $count=count($count);
-                return response()->json($count, 200);
+                $upvote_count=count($count);
+                return response()->json(["upvote_count"=>$upvote_count], 200);
             }
         }
         else if($request->post_id){
@@ -85,15 +88,17 @@ class IndexController extends Controller
                 $upvote->user_id=auth()->user()->id;
                 $upvote->post_id=$request->post_id;
                 $upvote->save();
-                $count=upvote::where("post_id","=",$request->post_id)->get();
-                $count=count($count);
-                return response()->json($count, 200);
+                $upvote_count=upvote::where("post_id","=",$request->post_id)->get();
+                downvote::where("post_id","=",$request->post_id)->where("user_id","=",auth()->user()->id)->delete();
+                $downvote_count=count(downvote::where("post_id","=",$request->post_id)->get());
+                $upvote_count=count($upvote_count);
+                return response()->json(['upvote_count'=>$upvote_count,'downvote_count'=>$downvote_count,'insert'=>true], 200);
             }
             else{
                     $result=upvote::where("user_id","=",auth()->user()->id)->where("post_id","=",$request->post_id)->delete();
                     $count=upvote::where("post_id","=",$request->post_id)->get();
-                    $count=count($count);
-                    return response()->json($count, 200);
+                    $upvote_count=count($count);
+                    return response()->json(["upvote_count"=>$upvote_count], 200);
               }
         }
 
@@ -114,14 +119,16 @@ class IndexController extends Controller
                 $downvote->user_id=auth()->user()->id;
                 $downvote->thread_id=$request->thread_id;
                 $downvote->save();
-                $count=downvote::where("thread_id","=",$request->thread_id)->get();
-                $count=count($count);
-                return response()->json($count, 200);
+                $downvote_count=downvote::where("thread_id","=",$request->thread_id)->get();
+                upvote::where("thread_id","=",$request->thread_id)->where("user_id","=",auth()->user()->id)->delete();
+                $upvote_count=count(upvote::where("thread_id","=",$request->thread_id)->get());
+                $downvote_count=count($downvote_count);
+                 return response()->json(['upvote_count'=>$upvote_count,'downvote_count'=>$downvote_count,'insert'=>true], 200);
             }else{
                 $result=downvote::where("user_id","=",auth()->user()->id)->where("thread_id","=",$request->thread_id)->delete();
-                $count=downvote::where("thread_id","=",$request->thread_id)->get();
-                $count=count($count);
-                return response()->json($count, 200);
+                $downvote_count=downvote::where("thread_id","=",$request->thread_id)->get();
+                $downvote_count=count($downvote_count);
+                return response()->json(["downvote_count"=>$downvote_count], 200);
             }
         }
         else if($request->post_id){
@@ -131,15 +138,17 @@ class IndexController extends Controller
                 $downvote->user_id=auth()->user()->id;
                 $downvote->post_id=$request->post_id;
                 $downvote->save();
-                $count=downvote::where("post_id","=",$request->post_id)->get();
-                $count=count($count);
-                return response()->json($count, 200);
+                $downvote_count=downvote::where("post_id","=",$request->post_id)->get();
+                upvote::where("post_id","=",$request->post_id)->where("user_id","=",auth()->user()->id)->delete();
+                $upvote_count=count(upvote::where("post_id","=",$request->post_id)->get());
+                $downvote_count=count($downvote_count);
+                return response()->json(['upvote_count'=>$upvote_count,'downvote_count'=>$downvote_count,'insert'=>true], 200);
             }
             else{
                     $result=downvote::where("user_id","=",auth()->user()->id)->where("post_id","=",$request->post_id)->delete();
-                    $count=downvote::where("post_id","=",$request->post_id)->get();
-                    $count=count($count);
-                    return response()->json($count, 200);
+                    $downvote_count=downvote::where("post_id","=",$request->post_id)->get();
+                    $downvote_count=count($downvote_count);
+                    return response()->json(["downvote_count"=>$downvote_count], 200);
               }
         }
             else{
