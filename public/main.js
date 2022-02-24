@@ -577,21 +577,21 @@ function initPagination(url, page = 2, container, loading = false,type) {
     });
 }
 
- function  initPaginationHalve(url, page = 2, container, loading = false,type){
+//  function  initPaginationHalve(url, page = 2, container, loading = false,type){
 
-    $(container).append(`<div id='more-${type}' class='load-action-${type}'>View More</div>`)
-    loading = true;
-    $(`.load-action-${type}`).on('click',function(){
-    alert("what the fuck")
-    infinteLoadMore(page, url, container,type,true,()=>{
-       initPaginationHalve(url,page,container,loading=false,type)
-    });
-    loading = false;
-    page++;
+//     $(container).append(`<div id='more-${type}' class='load-action-${type}'>View More</div>`)
+//     loading = true;
+//     $(`.load-action-${type}`).on('click',function(){
+//     alert("what the fuck")
+//     infinteLoadMore(page, url, container,type,true,()=>{
+//        initPaginationHalve(url,page,container,loading=false,type)
+//     });
+//     loading = false;
+//     page++;
   
-    });
+//     });
 
-}
+// }
 
 
  function infinteLoadMore(page, url, container,type,halve,callback) {
@@ -605,7 +605,6 @@ function initPagination(url, page = 2, container, loading = false,type) {
             if (data) {
                 console.log(data)
                 if (data.data.length==0) {
-                    alert("dds")
                     $(`#more-${type}`).text("No More")
                     return
                 }

@@ -87,10 +87,6 @@ class PostController extends Controller
     
         return response()->json('post not found or unauthorized to delete', 400);
     
-    
-
-    
-
     }
 
 
