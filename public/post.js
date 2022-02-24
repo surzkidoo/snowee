@@ -159,7 +159,7 @@ jQuery.ajax({
     if(data){
       console.log(data);
     
-     commentTemplete(data.data,(newdata)=>{
+     commentTemplete(data,(newdata)=>{
          $(".comments-section").append(newdata);
      })
      upvoteCounter()
@@ -171,7 +171,7 @@ jQuery.ajax({
      handleReply()
      deleteReply()
      !userid && handleLogin()
-     initPagination(data.first_page_url.split('=')[0],2,'.comments-section',false,"comment")
+    //  initPagination(data.first_page_url.split('=')[0],2,'.comments-section',false,"comment")
 
     }
   },

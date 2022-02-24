@@ -96,7 +96,7 @@ class PostController extends Controller
 
     public function replyPost($id){
 
-      $postreply=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote')->where('reply_to_id','=',$id)->paginate(5);
+      $postreply=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote')->where('reply_to_id','=',$id)->get();
       return response()->json($postreply, 200);
     }
 
