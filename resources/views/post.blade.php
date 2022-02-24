@@ -79,7 +79,7 @@
             </div>
         <div class="comment-text">
            <textarea class="post post-emoji" placeholder="write a comment" rows="1"></textarea>
-           <button class="link"><div class="emoji-button" id="link-it"></div></button>
+           <button class="link link-emoji"><div class="emoji-button" id="link-it"></div></button>
            <button class="link"><div class="fa fa-paperclip link-it" id="link-it"><input type="file" id="image-upload"  class="fa fa-paperclip" multiple=""></div></button>
            <button class="sendbtn {{ auth()->check() ? 'send': 'login-to-action'}}"><div class="fa fa-share" id="do-comment"></div></button>
         </div>

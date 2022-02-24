@@ -57,6 +57,9 @@
        <div class="body container-home ">
           <!-- postsec -->
     </div>
+    <div class="body personalized-home ">
+          <!-- postsec -->
+    </div>
     </div>
     <div class="resting-nav-bar">
         <li> <a href="/"><div class="hello fa fa-home"></div></a></li>

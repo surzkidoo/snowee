@@ -76,13 +76,10 @@ imageUpload.addEventListener('change', function(){
      figure.insertBefore(img, figCap);
     }
     imagesContainer.appendChild(figure);
-    reader.readAsDataURL(i)
+    imagesContainer.innerHTML = `${files.length} images added`
+    reader.readAsDataURL(i);
   }
 })
-
-
-
-
 
  let commentList = document.querySelector('.comments-section');
 

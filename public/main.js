@@ -444,7 +444,7 @@ function topicTemplete(data, callback) {
                 ? '<div class="fa fa-check-circle" id="checked"></div>'
                 : ""
         }</a><p class="details">originally posted in<a href="http://127.0.0.1:8000/section/${post.section.name.toLowerCase()}">${
-            post.section.name
+            post.section.name.toLowerCase()
         }</a></p></div>
          </div>
             <div class="content-box">
@@ -471,9 +471,9 @@ function topicTemplete(data, callback) {
                  <p class="dislike"><div class="fa fa-comment"id="comment"></div> <span class="comment-counter">${
                      post.posts_count
                  }</span></p> 
-                 <button class="see-more"><a href=http://127.0.0.1:8000/${
+                 <button class="see-more"><a class="fa fa-ellipsis-h" href=http://127.0.0.1:8000/${
                      post.slug
-                 }>more...</a></button>
+                 }></a></button>
             </div>
              </div>
     `;
