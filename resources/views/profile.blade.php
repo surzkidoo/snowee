@@ -70,7 +70,7 @@
                 <p class="posts"><span>Posts</span></p>
                 <p class="upvotes"><span>Upvoted</span></p>
             </div>
-            <div class="upvote">oops!, no upvoted post</div>
+            <div class="upvote"></div>
             <div class="postf"></div>
             <div class="topic"></div>
         </div>

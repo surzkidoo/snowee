@@ -71,7 +71,8 @@ class ThreadController extends Controller
                 }
            }
           }
-      
+          $thread=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where('id','=',$thread->id)->first();
+
         return response()->json($thread, 200);
       }
   

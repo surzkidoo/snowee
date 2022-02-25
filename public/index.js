@@ -1,29 +1,8 @@
-//Downvote
-const downVote = document.querySelectorAll('.dislike');
- downVote.forEach((downvotes)=>{
-     let p = document.querySelector('.dislike-counter');
-    let counter = 0;
-    let hasClicked = false;
-   downvotes.addEventListener('click', (e)=>{
-       let downvote = e.target;
-       if(!hasClicked){
-        counter++
-        hasClicked = true;
-        let voteCounter = downvote.querySelector('.dislike-counter');
-        voteCounter.innerHTML = counter;
-       } else if(hasClicked){
-           counter = 0;
-            hasClicked = false;
-            let voteCounter = downvote.querySelector('.dislike-counter');
-            voteCounter.innerHTML = counter;
-        }
-       let add = document.querySelector('.add')
-       downvotes.classList.toggle('add')
-   }) 
- })
 
 //popular page 
 
+let initpopular=true;
+let initPersonerlizd=true;
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -67,15 +46,16 @@ popular.addEventListener('click', (e)=>{
     
     const active = document.querySelector('.active');
 
-    active.classList.remove('active');
+    !popular.classList.contains('active') && active.classList.remove('active');
 
     if(popular.classList.contains('active')){
         popular = popular;
     } else{
         popular.classList.add('active')
+     
     }
     const cardArray = document.querySelector('.container-home').style.display = 'block';
-    const personalizedContainer = document.querySelector('.personalized-container').style.display = 'none'
+    const personalizedContainer = document.querySelector('.personalized-home').style.display = 'none'
 })
 
 //personalized page
@@ -84,16 +64,42 @@ personalized.addEventListener('click', (e)=>{
     
     const active = document.querySelector('.active')
 
-    active.classList.remove('active');
+    ! personalized.classList.contains('active') && active.classList.remove('active');
 
     if(personalized.classList.contains('active')){
         personalized = personalized;
     } else{
+       
         personalized.classList.add('active')
+        initPersonerlizd && jQuery.ajax({
+            url: "http://127.0.0.1:8000/user/feed",
+            method: 'get',
+        
+            success: function(data){
+              if(data){
+                  console.log(data)
+               topicTemplete(data,(newdata)=>{
+                 $(".personalized-home").append(newdata);
+               })
+               
+                upVoteHandle()
+                downVoteHandle()
+                downvoteTopicCounter()
+                upvoteTopicCounter()
+                initPersonerlizd=false;
+            //    initPagination(data.first_page_url.split('=')[0],2,'.container-home',false,"topic")
+             
+            }
+            },
+            error: function(e){
+                console.log(e);
+            }
+          
+          });
     }
-
     const card = document.querySelector('.container-home').style.display = 'none';
-    const personalizedContainer = document.querySelector('.personalized-container').style.display = 'block'
+    const personalizedContainer = document.querySelector('.personalized-home').style.display = 'block'
+
 
 })
 

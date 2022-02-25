@@ -229,7 +229,7 @@ upvotes.addEventListener('click', ()=>{
           console.log(data);
         
          
-         commentTemplete(data,(newdata)=>{
+         topicTemplete(data,(newdata)=>{
             $(".upvote").append(newdata);
          })
         

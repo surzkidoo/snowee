@@ -90,9 +90,9 @@
     <div class="comments-section comments-bottom">
         <div class="sort">
           <select>
-            <option value="oldest">Oldest</option>
-              <option value="mostupvote">Most upvoted</option>
-              <option value="recent">Most recent</option>
+            <option value="old">Oldest</option>
+              <option value="upvote">Most upvoted</option>
+              <option value="new">Most recent</option>
           </select>
         </div>
     </div>

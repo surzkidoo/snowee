@@ -156,7 +156,7 @@ jQuery.ajax({
     if(data){
       console.log(data);
     
-     commentTemplete(data,(newdata)=>{
+     commentTemplete(data.data,(newdata)=>{
          $(".comments-section").append(newdata);
      })
      upvoteCounter()
@@ -168,7 +168,7 @@ jQuery.ajax({
      handleReply()
      deleteReply()
      !userid && handleLogin()
-    //  initPagination(data.first_page_url.split('=')[0],2,'.comments-section',false,"comment")
+     initPagination(data.first_page_url.split('=')[0],2,'.comments-section',false,"comment")
 
     }
   },
@@ -346,7 +346,36 @@ share.addEventListener('click', ()=>{
 //Sorting
 $("select").on('change',function(){
   
-  console.log(this.selectedIndex)
-  $(".comments").empty()
+  let value=this.value
+  $(".comments-section").empty()
+
+  jQuery.ajax({
+    url: `http://127.0.0.1:8000/thread/${thread_id}/posts?sort=${value}`,
+    method: 'get',
+    success: function(data){
+      if(data){
+        console.log(data);
+      
+       commentTemplete(data.data,(newdata)=>{
+           $(".comments-section").append(newdata);
+       })
+       upvoteCounter()
+       downvoteCounter()
+       upVoteHandle()
+       downVoteHandle()
+       handleReplyView()
+       updateReply()
+       handleReply()
+       deleteReply()
+       !userid && handleLogin()
+       let url=data.first_page_url.split('?')[0]+"?sort="+value+"&page"
+       initPagination(url,2,'.comments-section',false,"comment")
+  
+      }
+    },
+    error: function(e){
+      console.log(e);
+  }
+    })
 })
 handleLogin()

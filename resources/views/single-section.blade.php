@@ -22,8 +22,8 @@
         </div>
         <div class="collapsible-menu" id="collapsible-menu">
             <ul>
-                <li class="different-li"><img src="http://127.0.0.1:8000/avatar.png" alt="thumbnail" class="avatar">
-                    <p class="username">@muhammad</p>
+                <li class="different-li"><img src="{{url(auth()->user()->avatar)}}" alt=""> <p id="id"   loggin-id="{{auth()->check()? auth()->user()->id :0}}">@muhammad</p> </li>
+
                 </li>
                 <li><a href="profile.html">View profile</a></li>
                 <li><a href="followers.html">Followers</a></li>

@@ -7,6 +7,11 @@ toggleMenu.addEventListener("click", () => {
     var toggleItem = document.querySelector(".collapsible-menu");
     toggleItem.classList.toggle("show");
 });
+$.ajaxSetup({
+  headers: {
+      'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+  }
+});
 
 const upVoteHandle = () => {
     const upVote = document.querySelectorAll(".u-vote");
@@ -386,7 +391,7 @@ comments.forEach((comment)=>{
             success: function(data){
                 console.log(data)
               if(data){
-              commentTemplete(data.data,(newdata,container)=>{
+              commentTemplete(data,(newdata,container)=>{
                 
                 $(container).append(newdata);
               
@@ -399,7 +404,7 @@ comments.forEach((comment)=>{
              deleteReply()
              !userid && handleLogin()
              comment.querySelector('.div-reply').style.display = 'block';
-              initPaginationHalve(data.first_page_url.split('=')[0],2,replyDiv,false,"reply-comment")
+              // initPaginationHalve(data.first_page_url.split('=')[0],2,replyDiv,false,"reply-comment")
               }
             },
             error: function(e){
@@ -556,19 +561,19 @@ imageUpload.addEventListener('change', function(){
 //scroll
 
 
-function initPagination(url, page = 2, container, loading = false,type) {
+function initPagination(url, page = 2, container, loading = false,type,label=null) {
     $(window).scroll(function () {
         if (
             $(window).scrollTop() + $(window).height() >=
                 $(document).height() &&
-            !loading && $(`#more-${type}`).text()!="No More"
+            !loading && $(`#more-${label || type}`).text()!="No More"
         ) { 
            
-          $(container).append(`<div id='more-${type}' class='load-action-${type}'>View More</div>`)
+          $(container).append(`<div id='more-${label || type}' class='load-action-${label || type}'>View More</div>`)
             loading = true;
-            $(`.load-action-${type}`).on('click',function(){
+            $(`.load-action-${label || type}`).on('click',function(){
            
-            infinteLoadMore(page, url, container,type);
+            infinteLoadMore(page, url, container,type,label);
             loading = false;
             page++;
             
@@ -594,7 +599,7 @@ function initPagination(url, page = 2, container, loading = false,type) {
 // }
 
 
- function infinteLoadMore(page, url, container,type,halve,callback) {
+ function infinteLoadMore(page, url, container,type,label) {
    let typee=type;
     jQuery.ajax({
         url: `${url}=${page}`,
@@ -605,12 +610,12 @@ function initPagination(url, page = 2, container, loading = false,type) {
             if (data) {
                 console.log(data)
                 if (data.data.length==0) {
-                    $(`#more-${type}`).text("No More")
+                    $(`#more-${label || type}`).text("No More")
                     return
                 }
                 if(type=="topic"){
                     topicTemplete(data.data, (newdata) => {
-                      $(`#more-${type}`).remove()
+                      $(`#more-${label || type}`).remove()
                     $(container).append(newdata);
                 });
                 upVoteHandle();
@@ -622,7 +627,7 @@ function initPagination(url, page = 2, container, loading = false,type) {
                 }
                 else if(type=="comment"){
                     commentTemplete(data.data, (newdata) => {
-                      $(`#more-${typee}`).remove()
+                      $(`#more-${label || typee}`).remove()
                         $(container).append(newdata)
                     })
                     upvoteCounter()
@@ -636,7 +641,7 @@ function initPagination(url, page = 2, container, loading = false,type) {
                 }
                 else if(type=="reply-comment"){
                   commentTemplete(data.data, (newdata) => {
-                    $(`#more-${typee}`).remove()
+                    $(`#more-${label || typee}`).remove()
                       $(container).append(newdata)
                   },type="'comments commenters-comment'")
                   upvoteCounter()
@@ -651,7 +656,7 @@ function initPagination(url, page = 2, container, loading = false,type) {
                 else{
                   $(container).append(newdata);
                 }
-                halve && callback();
+                // halve && callback();
                 
             }
         },

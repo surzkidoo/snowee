@@ -13,10 +13,17 @@ const newTopicCards = newTopicContent.querySelectorAll('.card');
 updateTopicSection.style.display = 'none';
 newTopicContent.style.display = 'none';
 
+let initMostViewd=true;
+let initUpdated=true;
+let initNewTopic=true;
 //add event listener for local storage 
  //document.addEventListener("DOMContentLoaded", showContent);
 
-
+ $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
 
 //check most view is empty
 //most viewed options
@@ -30,26 +37,27 @@ mostViewed.addEventListener('click', ()=>{
         mostViewed = mostViewed;
     } else{
         mostViewed.classList.add('current')
-       let id= $('.section-name')[0].id
-        jQuery.ajax({
-          url: `http://127.0.0.1:8000/section/${id}/viewed`,
-          method: 'get',
-          success: function(data){
-            if(data){
-              topicTemplete(data.data,(newdata)=>{
-                  $(".most-viewed-content").append(newdata);
-              })
+      //  let id= $('.section-name')[0].id
+      //  initMostViewd && jQuery.ajax({
+      //     url: `http://127.0.0.1:8000/section/${id}/viewed`,
+      //     method: 'get',
+      //     success: function(data){
+      //       if(data){
+      //         topicTemplete(data.data,(newdata)=>{
+      //             $(".most-viewed-content").append(newdata);
+      //         })
            
-             console.log(data)
-             upVoteHandle()
-             downVoteHandle()
-                  }
-          },
-          error: function(e){
-              console.log(e);
-          }
+      //        console.log(data)
+      //        upVoteHandle()
+      //        downVoteHandle()
+      //         initMostViewd = false;
+      //       }
+      //     },
+      //     error: function(e){
+      //         console.log(e);
+      //     }
         
-        });
+      //   });
     }
     //hide other subs on click
     let mainPost = document.querySelector('.most-viewed-content').style.display = 'block';
@@ -73,7 +81,7 @@ updateTopic.addEventListener('click', ()=>{
   } else{
       updateTopic.classList.add('current');
       let id= $('.section-name')[0].id
-        jQuery.ajax({
+      initUpdated && jQuery.ajax({
           url: `http://127.0.0.1:8000/section/${id}/updated`,
           method: 'get',
           success: function(data){
@@ -85,7 +93,12 @@ updateTopic.addEventListener('click', ()=>{
              console.log(data)
              upVoteHandle()
              downVoteHandle()
-                  }
+             upvoteCounter()
+             downvoteCounter()
+             initPagination(data.first_page_url.split('=')[0],2,'.updated-topics',false,"topic","updated")
+             initUpdated = false;
+
+              }
           },
           error: function(e){
               console.log(e);
@@ -100,12 +113,12 @@ updateTopic.addEventListener('click', ()=>{
   if(updateTopicCards.length <= 0){
       let updateTopicNoContent =  document.querySelector('.update-no-content');
       updateTopicSection.style.display = 'block';
-      updateTopicNoContent.innerHTML = 'no topics at the moment';
+      // updateTopicNoContent.innerHTML = 'no topics at the moment';
     } else{
       let updateTopicNoContent =  document.querySelector('.update-no-content');
      // updateTopicNoContent.innerHTML = '';
      updateTopicSection.style.display = 'block';
-      updateTopicNoContent.style.display = 'none'
+      // updateTopicNoContent.style.display = 'none'
     } 
     
   //adjust the height of make post;
@@ -125,7 +138,7 @@ newTopic.addEventListener('click', ()=>{
     } else{
         newTopic.classList.add('current');
         let id= $('.section-name')[0].id
-        jQuery.ajax({
+        initNewTopic && jQuery.ajax({
           url: `http://127.0.0.1:8000/section/${id}/new`,
           method: 'get',
           success: function(data){
@@ -137,6 +150,10 @@ newTopic.addEventListener('click', ()=>{
              console.log(data)
              upVoteHandle()
              downVoteHandle()
+             upvoteCounter()
+             downvoteCounter()
+             initPagination(data.first_page_url.split('=')[0],2,'.new-topics-content',false,"topic","newtopic")
+             initNewTopic = false;
                   }
           },
           error: function(e){
@@ -152,11 +169,11 @@ newTopic.addEventListener('click', ()=>{
     if(newTopicCards.length <= 0){
      let newTopicNoContent =  document.querySelector('.new-topic-no-content');
      newTopicContent.style.display = 'block';
-     newTopicNoContent.innerHTML = 'no topics at the moment';
+    //  newTopicNoContent.innerHTML = 'no topics at the moment';
     } else{
      let newTopicNoContent =  document.querySelector('.new-topic-no-content');
      newTopicContent.style.display = 'block';
-     newTopicNoContent.style.display = 'none';
+    //  newTopicNoContent.style.display = 'none';
     }
     
   //adjust the height of make post;
@@ -230,11 +247,7 @@ makePost.addEventListener('click', ()=>{
 
 
         
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
+       
         const imageUpload = document.querySelector('#upload-image');
         let sectionid =$('.section-name')[0].id
         formdata = new FormData()
@@ -257,8 +270,18 @@ makePost.addEventListener('click', ()=>{
             processData: false,
             data:formdata,
             success: function(data){
-              data && alert("success")
-             console.log(data)
+              if(data && !initNewTopic){
+                topicTemplete([data],(newdata)=>{
+                
+                $(".new-topics-content").prepend(newdata);
+                })
+                
+       
+               upVoteHandle()
+               downVoteHandle()
+               upvoteCounter()
+               downvoteCounter()
+                    }
             },
             error: function(e){
   
@@ -272,30 +295,31 @@ makePost.addEventListener('click', ()=>{
 
 
 
-        let header = document.querySelector('#heading-header');
-        header.style.border = 'none';
+    //     let header = document.querySelector('#heading-header');
+    //     header.style.border = 'none';
     
-        let content = document.querySelector('#heading-content');
-        content.style.border = 'none';
-      //changing the current class to 'new topic' section
-      const newTopicMenu = document.querySelector('.new-topic');
-      const current = document.querySelector('.current');
-      newTopicContent.style.display = 'block';
-       //hide other section
-     let mainPost = document.querySelector('.post-main').style.display = 'none';
-     let updateTopicSection = document.querySelector('.updated-topics').style.display = 'none';
-      current.classList.remove('current');
-      if(newTopicMenu.classList.contains('current')){
-          newTopicMenu= newTopicMenu;
-      } else{
-          newTopicMenu.classList.add('current')
-      };
-    //getting element to append   
-      const newTopic = document.querySelector('.new-topics-content');
-      let msg = document.querySelector('.new-topic-no-content');
-      let username =  document.querySelector('.username').innerHTML;
-      let avatar = document.querySelector('.avatar').src;
-      let spaceName = document.querySelector('.section-name');
+    //     let content = document.querySelector('#heading-content');
+    //     content.style.border = 'none';
+    //   //changing the current class to 'new topic' section
+    //   const newTopicMenu = document.querySelector('.new-topic');
+    //   const current = document.querySelector('.current');
+    //   newTopicContent.style.display = 'block';
+    //    //hide other section
+    //  let mainPost = document.querySelector('.post-main').style.display = 'none';
+    //  let updateTopicSection = document.querySelector('.updated-topics').style.display = 'none';
+    //   current.classList.remove('current');
+    //   if(newTopicMenu.classList.contains('current')){
+    //       newTopicMenu= newTopicMenu;
+    //   } else{
+    //       newTopicMenu.classList.add('current')
+         
+    //   }
+    // //getting element to append   
+    //   const newTopic = document.querySelector('.new-topics-content');
+    //   let msg = document.querySelector('.new-topic-no-content');
+    //   let username =  document.querySelector('.username').innerHTML;
+    //   let avatar = document.querySelector('.avatar').src;
+    //   let spaceName = document.querySelector('.section-name');
 
   
     //clearing input field
@@ -316,7 +340,7 @@ makePost.addEventListener('click', ()=>{
     updateTopicfilter.style.filter = 'none';
     newTopicfilter.style.filter = 'none'
     getPost.style.display = 'none';
-    }
+     }
  })
  
 //check is mostviewed section is empty
@@ -360,6 +384,7 @@ window.addEventListener('DOMContentLoaded', () => {
              console.log(data)
              upVoteHandle()
              downVoteHandle()
+             initPagination(data.first_page_url.split('=')[0],2,'.most-viewed-content',false,"topic","mostviewed")
                   }
           },
           error: function(e){

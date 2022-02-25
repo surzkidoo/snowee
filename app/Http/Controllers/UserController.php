@@ -20,7 +20,7 @@ class UserController extends Controller
     public function Feed(Request $request){
         if(auth()->check()){
             $user=User::with('feed')->where('id','=',auth()->user()->id)->first();
-            $result=$user->feed->map(function($item,$key){
+            $result=$user->feed()->paginate(10)->map(function($item,$key){
                 $thread=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where('id','=',$item->id)->first();
                 return $thread;
             });
@@ -130,19 +130,14 @@ class UserController extends Controller
     public function userUpvoted(Request $request,$id){
         // $thread=User::with("upvote")->where('id','=',$id)->get();
         $container=[];
-        $upvote=upvote::where('user_id','=',$id)->get();
+        $upvote=upvote::where('user_id','=',$id)->where('thread_id','!=',null)->paginate(50);
         foreach($upvote as $up){
-            if($up->thread_id){
+          
                $single= thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where('id','=',$up->thread_id)->first();
                $single && array_push($container,$single);
-               continue;
-            }
-           
-            $single2=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote')->where('id','=',$up->post_id)->first();
-           $single2 && array_push($container,$single2);
+
             
         }
-
         return response()->json($container, 200);
     }
     public function setBlock(Request $request,$id){
