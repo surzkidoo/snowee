@@ -87,14 +87,15 @@
         </div>
     </div>
     </div>
+    <div class="sort">
+        <select>
+          <option value="old">Oldest</option>
+            <option value="upvote">Most upvoted</option>
+            <option value="new">Most recent</option>
+        </select>
+      </div>
     <div class="comments-section comments-bottom">
-        <div class="sort">
-          <select>
-            <option value="old">Oldest</option>
-              <option value="upvote">Most upvoted</option>
-              <option value="new">Most recent</option>
-          </select>
-        </div>
+        
     </div>
 </div>
     

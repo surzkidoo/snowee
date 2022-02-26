@@ -2,6 +2,7 @@
 //menu toggler function
 const toggleMenu = document.querySelector(".container-div");
 const userid=parseInt($('#id').attr('loggin-id'));
+const pageNum=4;
 /* toggling functionality */
 toggleMenu.addEventListener("click", () => {
     var toggleItem = document.querySelector(".collapsible-menu");
@@ -85,7 +86,7 @@ comments.forEach((comment)=>{
       let id = vdata.split('-')[1];
       
       let showReport = document.querySelector('.upvote-modal').style.display = 'block';
-      let postContainer = document.querySelector('.post-content');
+      let postContainer = document.querySelector('.body');
       postContainer.style.filter = 'blur(1px)';
       //ajax call to get the upvote user
       jQuery.ajax({
@@ -228,7 +229,7 @@ comments.forEach((comment)=>{
       let id = vdata.split('-')[1];
       
       document.querySelector('.downvote-modal').style.display = 'block';
-      let postContainer = document.querySelector('.post-content');
+      let postContainer = document.querySelector('.body');
       postContainer.style.filter = 'blur(1px)';
       //ajax call to get the downvote user
       jQuery.ajax({

@@ -60,7 +60,7 @@ class SectionController extends Controller
 
     public function updatedTopics(Request $request,$id){
 
-        $section=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where("section_id","=",$id)->orderBy('updated_at','DESC')->paginate(5);
+        $section=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where("section_id","=",$id)->whereColumn('updated_at', '!=', 'created_at')->orderBy('updated_at','DESC')->paginate(5);
         return response()->json($section, 200);
 
     }

@@ -24,7 +24,7 @@ $.ajaxSetup({
         downVoteHandle()
         downvoteTopicCounter()
         upvoteTopicCounter()
-       initPagination(data.first_page_url.split('=')[0],2,'.container-home',false,"topic")
+        data.data.length > pageNum && initPagination(data.first_page_url.split('=')[0],2,'.container-home',false,"topic")
      
     }
     },
@@ -78,7 +78,7 @@ personalized.addEventListener('click', (e)=>{
             success: function(data){
               if(data){
                   console.log(data)
-               topicTemplete(data,(newdata)=>{
+               topicTemplete(data.data,(newdata)=>{
                  $(".personalized-home").append(newdata);
                })
                
@@ -86,9 +86,8 @@ personalized.addEventListener('click', (e)=>{
                 downVoteHandle()
                 downvoteTopicCounter()
                 upvoteTopicCounter()
-                initPersonerlizd=false;
-            //    initPagination(data.first_page_url.split('=')[0],2,'.container-home',false,"topic")
-             
+                data.data.length > pageNum && initPagination(data.url.split('=')[0],2,'.personalized-home',false,"topic","personlized")
+              initPersonerlizd=false;
             }
             },
             error: function(e){

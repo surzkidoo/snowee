@@ -40,7 +40,22 @@
             </div>
         </div>
     </header>
-    <div class="full-content">
+    <div class="edit-profile-element upvote-modal">
+        <p class="close-menu" id="close-upvote-modal">x</p>
+        <h1>Upvotes</h1>
+        <ul class="upvotes-flex" id="upvote-container">
+           
+        </ul>
+    </div>
+
+    <div class="edit-profile-element downvote-modal">
+        <p class="close-menu" id="close-downvote-modal">x</p>
+        <h1>Downvotes</h1>
+        <ul class="upvotes-flex" id="downvote-container">
+            
+        </ul>
+    </div>
+    <div class="full-content body">
         <div class="section-part-container">
             <div class="make-post">
                 <div class="post-flex">

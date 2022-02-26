@@ -6,7 +6,10 @@ const topics = document.querySelector('.topics');
 const posts = document.querySelector('.posts');
 const upvotes = document.querySelector('.upvotes');
 
-
+intiPost = true;
+initTopic=true;
+initUpvoted = true;
+let get_user_id=$('.user')[0].id
 $.ajaxSetup({
   headers: {
       'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -181,8 +184,7 @@ posts.addEventListener('click', ()=>{
     posts = posts;
   } else{
     posts.classList.add('current')
-    let get_user_id=$('.user')[0].id
-    jQuery.ajax({
+    intiPost && jQuery.ajax({
       url: `http://127.0.0.1:8000/user/${get_user_id}/posts`,
       method: 'get',
       success: function(data){
@@ -190,16 +192,20 @@ posts.addEventListener('click', ()=>{
           console.log(data);
         
          
-         commentTemplete(data,(newdata)=>{
+         commentTemplete(data.data,(newdata)=>{
             $(".postf").append(newdata);
          })
         
          upVoteHandle()
          downVoteHandle()
+         upVoteHandle()
          upvoteCounter()
          downvoteCounter()
          handleLogin()
-        } 
+         data.data.length > pageNum &&  initPagination(data.first_page_url.split('=')[0],2,'.postf',false,"comment","post")
+         intiPost = false;
+        }
+
       },
       error: function(e){
           console.log(e);
@@ -220,8 +226,7 @@ upvotes.addEventListener('click', ()=>{
     upvotes = upvotes;
   } else{
     upvotes.classList.add('current')
-    let get_user_id=$('.user')[0].id
-    jQuery.ajax({
+      initUpvoted &&  jQuery.ajax({
       url: `http://127.0.0.1:8000/user/${get_user_id}/upvote`,
       method: 'get',
       success: function(data){
@@ -229,15 +234,17 @@ upvotes.addEventListener('click', ()=>{
           console.log(data);
         
          
-         topicTemplete(data,(newdata)=>{
+         topicTemplete(data.data,(newdata)=>{
             $(".upvote").append(newdata);
          })
         
          upVoteHandle()
          downVoteHandle()
-         upvoteCounter()
-         downvoteCounter()
+         upvoteTopicCounter()
+         downvoteTopicCounter()
          handleLogin()
+         data.data.length > pageNum &&  initPagination(data.url.split('=')[0],2,'.upvote',false,"topic","upvoted")
+         initUpvoted = false;
         } 
       },
       error: function(e){
@@ -255,7 +262,7 @@ upvotes.addEventListener('click', ()=>{
 })
 
 
-let get_user_id=$('.user')[0].id
+
 jQuery.ajax({
   url: `http://127.0.0.1:8000/user/${get_user_id}/topics`,
   method: 'get',
@@ -263,16 +270,17 @@ jQuery.ajax({
   success: function(data){
     console.log(data)
     if(data){
-     topicTemplete(data,(newdata)=>{
+     topicTemplete(data.data,(newdata)=>{
         $(".topic").append(newdata);
      })
     
      console.log(data)
      upVoteHandle()
      downVoteHandle()
-     upvoteCounter()
-     downvoteCounter()
+     upvoteTopicCounter()
+     downvoteTopicCounter()
      handleLogin()
+     data.data.length > pageNum && initPagination(data.first_page_url.split('=')[0],2,'.topic',false,"topic","topics")
           }
   },
   error: function(e){

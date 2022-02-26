@@ -93,9 +93,9 @@ updateTopic.addEventListener('click', ()=>{
              console.log(data)
              upVoteHandle()
              downVoteHandle()
-             upvoteCounter()
-             downvoteCounter()
-             initPagination(data.first_page_url.split('=')[0],2,'.updated-topics',false,"topic","updated")
+             downvoteTopicCounter()
+              upvoteTopicCounter()
+              data.data.length > pageNum && initPagination(data.first_page_url.split('=')[0],2,'.updated-topics',false,"topic","updated")
              initUpdated = false;
 
               }
@@ -150,9 +150,9 @@ newTopic.addEventListener('click', ()=>{
              console.log(data)
              upVoteHandle()
              downVoteHandle()
-             upvoteCounter()
-             downvoteCounter()
-             initPagination(data.first_page_url.split('=')[0],2,'.new-topics-content',false,"topic","newtopic")
+             downvoteTopicCounter()
+             upvoteTopicCounter()
+             data.data.length > pageNum &&  initPagination(data.first_page_url.split('=')[0],2,'.new-topics-content',false,"topic","newtopic")
              initNewTopic = false;
                   }
           },
@@ -279,8 +279,8 @@ makePost.addEventListener('click', ()=>{
        
                upVoteHandle()
                downVoteHandle()
-               upvoteCounter()
-               downvoteCounter()
+               downvoteTopicCounter()
+               upvoteTopicCounter()
                     }
             },
             error: function(e){
@@ -384,7 +384,9 @@ window.addEventListener('DOMContentLoaded', () => {
              console.log(data)
              upVoteHandle()
              downVoteHandle()
-             initPagination(data.first_page_url.split('=')[0],2,'.most-viewed-content',false,"topic","mostviewed")
+             downvoteTopicCounter()
+             upvoteTopicCounter()
+             data.data.length > pageNum && initPagination(data.first_page_url.split('=')[0],2,'.most-viewed-content',false,"topic","mostviewed")
                   }
           },
           error: function(e){

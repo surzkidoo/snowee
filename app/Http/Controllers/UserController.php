@@ -19,12 +19,14 @@ class UserController extends Controller
     // }
     public function Feed(Request $request){
         if(auth()->check()){
+            $container=[];
             $user=User::with('feed')->where('id','=',auth()->user()->id)->first();
-            $result=$user->feed()->paginate(10)->map(function($item,$key){
-                $thread=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where('id','=',$item->id)->first();
-                return $thread;
-            });
-            return response()->json($result, 200);
+            $result=$user->feed()->orderBy('created_at','DESC')->paginate(10);
+            foreach($result->items() as $rs){
+            $thread=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where('id','=',$rs->id)->first();
+             array_push($container,$thread);
+            }
+            return response()->json(["url"=>$result->url(1),"data"=>$container], 200);
         }
         return response()->json(["error"=>"UnAuthorized user"], 403);
         }
@@ -118,27 +120,27 @@ class UserController extends Controller
     }
 
     public function userTopics(Request $request,$id){
-        $thread=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where('user_id','=',$id)->get();
+        $thread=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where('user_id','=',$id)->paginate(5);
         return response()->json($thread, 200);
     }
 
     public function userPosts(Request $request,$id){
-        $thread=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote')->where('user_id','=',$id)->get();
+        $thread=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote')->where('user_id','=',$id)->paginate(5);
         return response()->json($thread, 200);
     }
 
     public function userUpvoted(Request $request,$id){
         // $thread=User::with("upvote")->where('id','=',$id)->get();
         $container=[];
-        $upvote=upvote::where('user_id','=',$id)->where('thread_id','!=',null)->paginate(50);
-        foreach($upvote as $up){
+        $upvote=upvote::where('user_id','=',$id)->where('thread_id','!=',null)->paginate(5);
+        foreach($upvote->items() as $up){
           
                $single= thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where('id','=',$up->thread_id)->first();
                $single && array_push($container,$single);
 
             
         }
-        return response()->json($container, 200);
+        return response()->json(["url"=>$upvote->url(1),"data"=>$container], 200);
     }
     public function setBlock(Request $request,$id){
         $user=User::where("id",'=',$id)->first();
