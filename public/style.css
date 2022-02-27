@@ -2082,7 +2082,7 @@ header{
     align-items: flex-end;
 }
 
-.comment-text .send{
+.comment-text .sendbtn{
     cursor: pointer;
     height: 33px;
     background-color:#8c00ff;

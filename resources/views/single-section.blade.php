@@ -22,8 +22,8 @@
         </div>
         <div class="collapsible-menu" id="collapsible-menu">
             <ul>
-                <li class="different-li"><img src="http://127.0.0.1:8000/avatar.png" alt="thumbnail" class="avatar">
-                    <p class="username">@muhammad</p>
+                <li class="different-li"><img src="{{url(auth()->user()->avatar)}}" alt=""> <p id="id"   loggin-id="{{auth()->check()? auth()->user()->id :0}}">@muhammad</p> </li>
+
                 </li>
                 <li><a href="profile.html">View profile</a></li>
                 <li><a href="followers.html">Followers</a></li>
@@ -40,7 +40,22 @@
             </div>
         </div>
     </header>
-    <div class="full-content">
+    <div class="edit-profile-element upvote-modal">
+        <p class="close-menu" id="close-upvote-modal">x</p>
+        <h1>Upvotes</h1>
+        <ul class="upvotes-flex" id="upvote-container">
+           
+        </ul>
+    </div>
+
+    <div class="edit-profile-element downvote-modal">
+        <p class="close-menu" id="close-downvote-modal">x</p>
+        <h1>Downvotes</h1>
+        <ul class="upvotes-flex" id="downvote-container">
+            
+        </ul>
+    </div>
+    <div class="full-content body">
         <div class="section-part-container">
             <div class="make-post">
                 <div class="post-flex">

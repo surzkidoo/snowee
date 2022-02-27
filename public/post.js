@@ -20,8 +20,8 @@ views.addEventListener("DOMContentLoad", ()=>{
 })
 
 //setting up follow
-follow.addEventListener('click', ()=>{
-  let id= $('.follow-topic')[0].id
+follow && follow.addEventListener('click', ()=>{
+  let id= $('.thread-title')[0].id
   jQuery.ajax({
     url: `http://127.0.0.1:8000/thread/${id}/follow`,
     method: 'get',
@@ -85,7 +85,10 @@ imageUpload.addEventListener('change', function(){
 
  //setting up commenting functionality
  const doComment = document.querySelector('.send');
- doComment.addEventListener('click',()=>{ 
+
+
+  userid &&  doComment.addEventListener('click',()=>{
+  
     //  //removing no-comment message
     //  let noCommentMessage = document.querySelector('.no-comment-message');
     //  noCommentMessage.style.display = 'none'
@@ -99,7 +102,7 @@ imageUpload.addEventListener('change', function(){
        //postBox.style.color = 'rgb(114, 114, 110)'
      } else {
        
- let id= $('.follow-topic')[0].id
+ let id= $('.thread-title')[0].id
        formdata = new FormData()
       
        formdata.append('content',commentContent)
@@ -146,7 +149,7 @@ imageUpload.addEventListener('change', function(){
      }  
 })
 
-let thread_id=$('.follow-topic')[0].id;
+let thread_id=$('.thread-title')[0].id;
 jQuery.ajax({
   url: `http://127.0.0.1:8000/thread/${thread_id}/posts`,
   method: 'get',
@@ -165,7 +168,8 @@ jQuery.ajax({
      updateReply()
      handleReply()
      deleteReply()
-     initPagination(data.first_page_url.split('=')[0],2,'.comments-section',false,"comment")
+     !userid && handleLogin()
+     data.data.length > pageNum && initPagination(data.first_page_url.split('=')[0],2,'.comments-section',false,"comment")
 
     }
   },
@@ -179,15 +183,15 @@ const deletepostPost = document.querySelector('.delete-post-post');
 const editpostPost = document.querySelector('.edit-post-post');
 const reportPost = document.querySelector('.report-post');
 
-reportPost.addEventListener('click', ()=>{
+reportPost && reportPost.addEventListener('click', ()=>{
   reportThisPost()
 })
 
-deletepostPost.addEventListener('click', ()=>{
+deletepostPost && deletepostPost.addEventListener('click', ()=>{
   deleteThisPost()
 });
 
-editpostPost.addEventListener('click', ()=>{
+editpostPost && editpostPost.addEventListener('click', ()=>{
   editThisPost()
 });
 
@@ -313,7 +317,37 @@ share.addEventListener('click', ()=>{
 //Sorting
 $("select").on('change',function(){
   
-  console.log(this.selectedIndex)
-  $(".comments").empty()
-})
+  let value=this.value
 
+   $(".comments-section").empty()
+  jQuery.ajax({
+    url: `http://127.0.0.1:8000/thread/${thread_id}/posts?sort=${value}`,
+    method: 'get',
+    success: function(data){
+      if(data){
+        console.log(data);
+      
+       commentTemplete(data.data,(newdata)=>{
+     
+           $(".comments-section").append(newdata);
+       })
+       upvoteCounter()
+       downvoteCounter()
+       upVoteHandle()
+       downVoteHandle()
+       handleReplyView()
+       updateReply()
+       handleReply()
+       deleteReply()
+       !userid && handleLogin()
+       let url=data.first_page_url.split('?')[0]+"?sort="+value+"&page"
+      data.data.length > pageNum && initPagination(url,2,'.comments-section',false,"comment")
+  
+      }
+    },
+    error: function(e){
+      console.log(e);
+  }
+    })
+})
+handleLogin()

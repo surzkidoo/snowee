@@ -6,61 +6,63 @@ const topics = document.querySelector('.topics');
 const posts = document.querySelector('.posts');
 const upvotes = document.querySelector('.upvotes');
 
-
+intiPost = true;
+initTopic=true;
+initUpvoted = true;
+let get_user_id=$('.user')[0].id
 $.ajaxSetup({
   headers: {
       'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
   }
 });
 
-//add event listeners
-const upVote = document.querySelectorAll('.like');
-upVote.forEach((upvotes)=>{
-   let counter = 0;
-   let hasClicked = false;
-  upvotes.addEventListener('click', (e)=>{
-      let upvote = e.target;
-      if(!hasClicked){
-       counter++
-       hasClicked = true;
-       let voteCounter = upvote.querySelector('.like-counter');
-       voteCounter.innerHTML = counter;
-      } else if(hasClicked){
-          counter = 0;
-           hasClicked = false;
-           let voteCounter = upvote.querySelector('.like-counter');
-           voteCounter.innerHTML = counter;
-       }
-      let add = document.querySelector('.add')
-      upvotes.classList.toggle('add')
-  }) 
-})
+// //add event listeners
+// const upVote = document.querySelectorAll('.like');
+// upVote.forEach((upvotes)=>{
+//    let counter = 0;
+//    let hasClicked = false;
+//   upvotes.addEventListener('click', (e)=>{
+//       let upvote = e.target;
+//       if(!hasClicked){
+//        counter++
+//        hasClicked = true;
+//        let voteCounter = upvote.querySelector('.like-counter');
+//        voteCounter.innerHTML = counter;
+//       } else if(hasClicked){
+//           counter = 0;
+//            hasClicked = false;
+//            let voteCounter = upvote.querySelector('.like-counter');
+//            voteCounter.innerHTML = counter;
+//        }
+//       let add = document.querySelector('.add')
+//       upvotes.classList.toggle('add')
+//   }) 
+// })
 //Downvote
-const downVote = document.querySelectorAll('.dislike');
-downVote.forEach((downvotes)=>{
-    let p = document.querySelector('.dislike-counter');
-   let counter = 0;
-   let hasClicked = false;
-  downvotes.addEventListener('click', (e)=>{
-      let downvote = e.target;
-      if(!hasClicked){
-       counter++
-       hasClicked = true;
-       let voteCounter = downvote.querySelector('.dislike-counter');
-       voteCounter.innerHTML = counter;
-      } else if(hasClicked){
-          counter = 0;
-           hasClicked = false;
-           let voteCounter = downvote.querySelector('.dislike-counter');
-           voteCounter.innerHTML = counter;
-       }
-      let add = document.querySelector('.add')
-      downvotes.classList.toggle('add')
-  }) 
-})
-//show menu
-if(editProfile){
-editProfile.addEventListener('click',()=>{
+// const downVote = document.querySelectorAll('.dislike');
+// downVote.forEach((downvotes)=>{
+//     let p = document.querySelector('.dislike-counter');
+//    let counter = 0;
+//    let hasClicked = false;
+//   downvotes.addEventListener('click', (e)=>{
+//       let downvote = e.target;
+//       if(!hasClicked){
+//        counter++
+//        hasClicked = true;
+//        let voteCounter = downvote.querySelector('.dislike-counter');
+//        voteCounter.innerHTML = counter;
+//       } else if(hasClicked){
+//           counter = 0;
+//            hasClicked = false;
+//            let voteCounter = downvote.querySelector('.dislike-counter');
+//            voteCounter.innerHTML = counter;
+//        }
+//       let add = document.querySelector('.add')
+//       downvotes.classList.toggle('add')
+//   }) 
+// })
+// //show menu
+editProfile && editProfile.addEventListener('click',()=>{
         let editProfileMenu = document.querySelector('.edit-profile-element');
       let body = document.querySelector('.profile-container');
       let body2 = document.querySelector('.profile-grid');
@@ -68,7 +70,7 @@ editProfile.addEventListener('click',()=>{
       body.style.filter = 'blur(1px)';
       editProfileMenu.style.display = 'block';
 })
-}
+
 //hide menu
 closeMenu.addEventListener('click', ()=>{
     let editProfileMenu = document.querySelector('.edit-profile-element');
@@ -182,22 +184,28 @@ posts.addEventListener('click', ()=>{
     posts = posts;
   } else{
     posts.classList.add('current')
-    let userid=$('.user')[0].id
-    jQuery.ajax({
-      url: `http://127.0.0.1:8000/user/${userid}/posts`,
+    intiPost && jQuery.ajax({
+      url: `http://127.0.0.1:8000/user/${get_user_id}/posts`,
       method: 'get',
       success: function(data){
         if(data){
           console.log(data);
         
          
-         commentTemplete(data,(newdata)=>{
+         commentTemplete(data.data,(newdata)=>{
             $(".postf").append(newdata);
          })
         
          upVoteHandle()
-    downVoteHandle()
+         downVoteHandle()
+         upVoteHandle()
+         upvoteCounter()
+         downvoteCounter()
+         handleLogin()
+         data.data.length > pageNum &&  initPagination(data.first_page_url.split('=')[0],2,'.postf',false,"comment","post")
+         intiPost = false;
         }
+
       },
       error: function(e){
           console.log(e);
@@ -218,6 +226,32 @@ upvotes.addEventListener('click', ()=>{
     upvotes = upvotes;
   } else{
     upvotes.classList.add('current')
+      initUpvoted &&  jQuery.ajax({
+      url: `http://127.0.0.1:8000/user/${get_user_id}/upvote`,
+      method: 'get',
+      success: function(data){
+        if(data){
+          console.log(data);
+        
+         
+         topicTemplete(data.data,(newdata)=>{
+            $(".upvote").append(newdata);
+         })
+        
+         upVoteHandle()
+         downVoteHandle()
+         upvoteTopicCounter()
+         downvoteTopicCounter()
+         handleLogin()
+         data.data.length > pageNum &&  initPagination(data.url.split('=')[0],2,'.upvote',false,"topic","upvoted")
+         initUpvoted = false;
+        } 
+      },
+      error: function(e){
+          console.log(e);
+      }
+    
+    });
   }
   let upvote = document.querySelector('.upvote');
   upvote.style.display = 'block';
@@ -228,21 +262,25 @@ upvotes.addEventListener('click', ()=>{
 })
 
 
-let userid=$('.user')[0].id
+
 jQuery.ajax({
-  url: `http://127.0.0.1:8000/user/${userid}/topics`,
+  url: `http://127.0.0.1:8000/user/${get_user_id}/topics`,
   method: 'get',
 
   success: function(data){
     console.log(data)
     if(data){
-     topicTemplete(data,(newdata)=>{
+     topicTemplete(data.data,(newdata)=>{
         $(".topic").append(newdata);
      })
     
      console.log(data)
      upVoteHandle()
      downVoteHandle()
+     upvoteTopicCounter()
+     downvoteTopicCounter()
+     handleLogin()
+     data.data.length > pageNum && initPagination(data.first_page_url.split('=')[0],2,'.topic',false,"topic","topics")
           }
   },
   error: function(e){

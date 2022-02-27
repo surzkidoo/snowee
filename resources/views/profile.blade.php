@@ -22,8 +22,7 @@
         </div>
         <div class="collapsible-menu" id="collapsible-menu">
             <ul>
-                <li class="different-li"><img src="http://127.0.0.1:8000/avatar.png" alt="commenter">
-                    <p>@muhammad</p>
+                <li class="different-li"><img src="http://127.0.0.1:8000/avatar.png" alt=""> <p id='id'  loggin-id="{{auth()->check()? auth()->user()->id :0}}">@muhammad</p> </li>
                 </li>
                 <li><a href="profile.html">View profile</a></li>
                 <li><a href="followers.html">Followers</a></li>
@@ -39,7 +38,22 @@
             </div>
         </div>
     </header>
-    <div class="main">
+    <div class="edit-profile-element upvote-modal">
+        <p class="close-menu" id="close-upvote-modal">x</p>
+        <h1>Upvotes</h1>
+        <ul class="upvotes-flex" id="upvote-container">
+           
+        </ul>
+    </div>
+
+    <div class="edit-profile-element downvote-modal">
+        <p class="close-menu" id="close-downvote-modal">x</p>
+        <h1>Downvotes</h1>
+        <ul class="upvotes-flex" id="downvote-container">
+            
+        </ul>
+    </div>
+    <div class="main body">
         <div class="profile-grid-container">   
             <h2><span>Profile</span></h2>
             <span class="fa fa-envelope" id="profile-envelope"></span>
@@ -74,7 +88,7 @@
                 <p class="posts"><span>Posts</span></p>
                 <p class="upvotes"><span>Upvoted</span></p>
             </div>
-            <div class="upvote">oops!, no upvoted post</div>
+            <div class="upvote"></div>
             <div class="postf"></div>
             <div class="topic"></div>
         </div>

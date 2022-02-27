@@ -43,7 +43,7 @@ class ThreadController extends Controller
             "title" => "required|string|max:255",
             "content" =>"required"
         ]);
-        $checkduplicate = thread::where('slug','=',Str::slug($request->title))->get();
+        $checkduplicate = thread::where('slug','=',Str::slug($request->title))->first();
         
 
         $thread = new thread();
@@ -71,7 +71,8 @@ class ThreadController extends Controller
                 }
            }
           }
-      
+          $thread=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where('id','=',$thread->id)->first();
+
         return response()->json($thread, 200);
       }
   
@@ -84,12 +85,15 @@ class ThreadController extends Controller
       public function show($slug)
       {
         $thread= thread::where('slug','=',$slug)->first();
+        $follow=null;
+        if(auth()->check()){
         $follow= followpost::where('user_id','=',auth()->user()->id)->where('thread_id','=',$thread->id)->get();
         if($follow->count()==0){
           $follow=0;
         }else{
           $follow=1;
         }
+      }
         $thread->views++;
         $thread->save();
         return view('post',["thread"=>$thread,'follow'=>$follow]);

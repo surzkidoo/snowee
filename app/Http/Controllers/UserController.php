@@ -6,21 +6,27 @@ use App\post;
 use App\User;
 use App\follow;
 use App\thread;
+use App\upvote;
 use App\section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
-{
+ {   
+    //  public function __construct(){
+    //     $this->middleware(['auth'])->only('following');
+    // }
     public function Feed(Request $request){
         if(auth()->check()){
+            $container=[];
             $user=User::with('feed')->where('id','=',auth()->user()->id)->first();
-            $result=$user->feed->map(function($item,$key){
-                $thread=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where('id','=',$item->id)->first();
-                return $thread;
-            });
-            return response()->json($result, 200);
+            $result=$user->feed()->orderBy('created_at','DESC')->paginate(10);
+            foreach($result->items() as $rs){
+            $thread=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where('id','=',$rs->id)->first();
+             array_push($container,$thread);
+            }
+            return response()->json(["url"=>$result->url(1),"data"=>$container], 200);
         }
         return response()->json(["error"=>"UnAuthorized user"], 403);
         }
@@ -70,6 +76,7 @@ class UserController extends Controller
     }
 
     public function getFollowing(Request $request,$username){
+        
         $user=User::with('following')->where("username",'=',$username)->first();
        
         $multiplied = $user->following->map(function ($item, $key) {
@@ -86,10 +93,19 @@ class UserController extends Controller
     } 
     
     public function profile(Request $request,$id){
+        $follow= null;
+        $followb= null;
+        $blocked=null;
         $user=User::where("username",'=',$id)->first();
+        if (!$user){
+            return abort(404);
+        }
+        if(auth()->check()){
+
         $follow= follow::where('follower_id','=',auth()->user()->id)->where('follow_id','=',$user->id)->get();
         $followb= follow::where('follower_id','=',$user->id)->where('follow_id','=',auth()->user()->id)->first();
-       if($followb){
+        
+        if($followb){
              $blocked= $followb->blocked;
         } else{
             $blocked=-1;
@@ -99,22 +115,32 @@ class UserController extends Controller
         }else{
             $follow=1;
         }
+    }
         return view('profile',['user'=>$user,'follow'=>$follow,'blocked'=>$blocked]);
     }
 
     public function userTopics(Request $request,$id){
-        $thread=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where('user_id','=',$id)->get();
+        $thread=thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where('user_id','=',$id)->paginate(5);
         return response()->json($thread, 200);
     }
 
     public function userPosts(Request $request,$id){
-        $thread=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote')->where('user_id','=',$id)->get();
+        $thread=post::with('user:username,id,avatar,verified','image')->withCount('upvote','downvote')->where('user_id','=',$id)->paginate(5);
         return response()->json($thread, 200);
     }
 
     public function userUpvoted(Request $request,$id){
-        $thread=User::with("upvote")->where('id','=',$id)->get();
-        return response()->json($thread, 200);
+        // $thread=User::with("upvote")->where('id','=',$id)->get();
+        $container=[];
+        $upvote=upvote::where('user_id','=',$id)->where('thread_id','!=',null)->paginate(5);
+        foreach($upvote->items() as $up){
+          
+               $single= thread::with('user:username,id,avatar,verified','section:id,name','image')->withCount('posts','upvote','downvote')->where('id','=',$up->thread_id)->first();
+               $single && array_push($container,$single);
+
+            
+        }
+        return response()->json(["url"=>$upvote->url(1),"data"=>$container], 200);
     }
     public function setBlock(Request $request,$id){
         $user=User::where("id",'=',$id)->first();

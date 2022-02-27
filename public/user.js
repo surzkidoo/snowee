@@ -5,7 +5,7 @@ const block = document.querySelector('.block');
 //Upvote
 //adding event listeners
     let followBackClicked =  true;
-  followBack.addEventListener('click', (e)=>{
+  followBack && followBack.addEventListener('click', (e)=>{
     let follow_id=$(followBack).attr("fbid");
     alert(follow_id)
     jQuery.ajax({
@@ -43,7 +43,7 @@ const block = document.querySelector('.block');
   })
 
   let blockClicked =  true;
-  block.addEventListener('click', (e)=>{
+  block && block.addEventListener('click', (e)=>{
     let follow_id=$(followBack).attr("fbid");
     jQuery.ajax({
         url: `http://127.0.0.1:8000/user/${follow_id}/block`,
