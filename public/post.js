@@ -106,7 +106,8 @@ imageUpload.addEventListener('change', function(){
        formdata.append('reply_to_id',0);
        formdata.append('thread_id',id)
 
-       let TotalFiles = imageUpload.files.length; //Total files
+       let TotalFiles = imageUpload.files.length;
+       //Total files
        let files = imageUpload.files;
        for (let i = 0; i < TotalFiles; i++) {
            formdata.append('files' + i, files[i]);
@@ -292,36 +293,6 @@ function reportThisPost(){
     let showReport = document.querySelector('.report-post-modal').style.display = 'none';
   })
 }
-
-//Upvotes users
-// const likeCounter = document.querySelector('.this-counter');
-// likeCounter.addEventListener('click', ()=>{
-//   let showReport = document.querySelector('.upvote-modal').style.display = 'block';
-//   let postContainer = document.querySelector('.post-content');
-//   postContainer.style.filter = 'blur(1px)';
-
-//   //close modal
-//    let closeDelete = document.querySelector('#close-upvote-modal');
-//    closeDelete.addEventListener('click', ()=>{
-//   postContainer.style.filter = 'blur(0px)';
-//   let showReport = document.querySelector('.upvote-modal').style.display = 'none';
-// })
-// })
-
-//Downvotes users
-// const dislikeCounter = document.querySelector('.this-dislike');
-// dislikeCounter.addEventListener('click', ()=>{
-//   let showReport = document.querySelector('.downvote-modal').style.display = 'block';
-//   let postContainer = document.querySelector('.post-content');
-//   postContainer.style.filter = 'blur(1px)';
-
-//   //close modal
-//    let closeDelete = document.querySelector('#close-downvote-modal');
-//    closeDelete.addEventListener('click', ()=>{
-//   postContainer.style.filter = 'blur(0px)';
-//   let showReport = document.querySelector('.downvote-modal').style.display = 'none';
-// })
-// })
 downvoteTopicCounter()
 upvoteTopicCounter()
 

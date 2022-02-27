@@ -50,7 +50,10 @@
                 <p class="user" id="{{ $user->id }}">{{ '@' . $user->username }}<span class="fa fa-check-circle profile-check"></span></p>
                 <p class="profile-bio">{{ $user->bio }}</p>
             </div>
-
+            <div class="followers-following-container">
+            <div class="followers">Followers: 1000</div>
+            <div class="following">Following: 1000</div>
+            </div>
             @if (auth()->check())
                 @if (auth()->user()->id == $user->id)
                     <button class="edit-profile">Edit profile</button>
