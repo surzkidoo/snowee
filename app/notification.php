@@ -11,4 +11,13 @@ class notification extends Model
         return $this->belongsTo(notification_type::class);
     }
     
+    public function user(){        
+        return $this->belongsTo(User::class);
+    }
+
+    public function userInvoker(){
+          
+        return $this->belongsTo(User::class,'event_user_id');
+    
+    }
 }

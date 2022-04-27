@@ -67,7 +67,7 @@
         <li><a href="notifications.html"><div class="hello fa fa-bell"></div></a></li>
         <li><a href="messages.html"><div class="hello fa fa-envelope"></div></a></li>
     </div>
-    <script src="index.js"></script>
     <script src="main.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

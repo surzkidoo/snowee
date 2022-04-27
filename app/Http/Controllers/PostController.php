@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\post;
 use App\image;
 use App\thread;
+use App\notification;
+use App\Jobs\NewPostAlert;
+use App\Jobs\UserTopicAlert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,6 +19,7 @@ class PostController extends Controller
         $data=post::where('thread_id','=',$threadID);        
         return response()->json($data, 200);
       }
+
 
     public function store(Request $request){
 
@@ -34,6 +38,36 @@ class PostController extends Controller
         $post->save();
         $post->touch();
 
+        // //getting user followers
+        // $npost = Post::where('id',$post->id)->first();
+        // $followers = auth()->user()->followers();
+        // foreach ($followers as $follower) {
+        //   if($post->reply_to_id!==0 && $follower->user_id === $npost->user_id){
+
+        //     $noti= new Notification();
+        //     $noti->message = auth()->user()->username. " Replied Your comment posted in ".$post->title;
+        //     $noti->user->$follower->id;
+        //     $noti->event_user_id->$post->user_id;
+        //     $noti->notification_type_id=1; //New comment
+        //     $noti->save();
+        //   }
+        //   $noti= new Notification();
+        //   $noti->message = $follower->username. " New comment posted in ".$post->title;
+        //   $noti->user->$follower->id;
+        //   $noti->event_user_id->$post->user_id;
+        //   $noti->notification_type_id=1; //New comment
+        //   $noti->save();
+        // }
+
+        $thread= thread::where('id',$post->thread_id)->first();
+        
+        $postNotification = new NewPostAlert($thread,$post->user_id);
+        $this->dispatch($postNotification);
+        
+        $userNotification = new UserTopicAlert($thread,$post->user_id);
+        $this->dispatch($userNotification);
+        
+        
         if($request->TotalFiles > 0 && $post)
         {
                

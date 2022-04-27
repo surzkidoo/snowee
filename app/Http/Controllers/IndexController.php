@@ -6,7 +6,9 @@ use App\post;
 use App\thread;
 use App\upvote;
 use App\downvote;
+use App\Jobs\UpvoteAlert;
 use Illuminate\Http\Request;
+use App\Jobs\UpvoteCommentAlert;
 
 class IndexController extends Controller
 {
@@ -61,12 +63,17 @@ class IndexController extends Controller
     public function upvote(Request $request){
         if($request->thread_id){
             $result=upvote::where("user_id","=",auth()->user()->id)->where("thread_id","=",$request->thread_id)->get();
-            
+            $thread= thread::where('id',$request->thread_id)->first();
             if($result->count()==0){
                 $upvote= new upvote();
                 $upvote->user_id=auth()->user()->id;
                 $upvote->thread_id=$request->thread_id;
                 $upvote->save();
+                $user = auth()->user();
+
+                $postNotification = new UpvoteAlert($user,$thread);
+                $this->dispatch($postNotification);
+                
                 $upvote_count=upvote::where("thread_id","=",$request->thread_id)->get();
                 downvote::where("thread_id","=",$request->thread_id)->where("user_id","=",auth()->user()->id)->delete();
                 $downvote_count=downvote::where("thread_id","=",$request->thread_id)->get();
@@ -82,12 +89,17 @@ class IndexController extends Controller
         }
         else if($request->post_id){
             $result=upvote::where("user_id","=",auth()->user()->id)->where("post_id","=",$request->post_id)->get();
+            $post= post::where('id',$request->post_id)->first();
 
             if($result->count()==0){
                 $upvote= new upvote();
                 $upvote->user_id=auth()->user()->id;
                 $upvote->post_id=$request->post_id;
                 $upvote->save();
+                $user = auth()->user();
+                $postNotification = new UpvoteCommentAlert($user,$post);
+                $this->dispatch($postNotification);
+
                 $upvote_count=upvote::where("post_id","=",$request->post_id)->get();
                 downvote::where("post_id","=",$request->post_id)->where("user_id","=",auth()->user()->id)->delete();
                 $downvote_count=count(downvote::where("post_id","=",$request->post_id)->get());

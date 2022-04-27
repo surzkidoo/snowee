@@ -8,6 +8,8 @@ use App\follow;
 use App\thread;
 use App\upvote;
 use App\section;
+use App\notification;
+use App\Jobs\FollowerAlert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -36,6 +38,27 @@ class UserController extends Controller
         return view('followers',['user'=>$user]);
     }
 
+    public function notification(Request $request){
+        $notifications = notification::with('user','userInvoker')->where('user_id',auth()->user()->id)->where('seen',0)->paginate(5);
+
+        return response()->json($notifications, 200);
+    }
+
+    public function notificationPage(Request $request){
+        return view('notification');
+    }
+
+    public function clearNotification(Request $request){
+        //clearing readed otification
+        $update = notification::where('user_id',auth()->user()->id)->update(['seen'=>1]);
+
+        if(!$update){
+            return response()->json(['message'=>'failed to clear'], 400);
+        }
+
+        return response()->json(['message'=>'success'], 200);
+    }
+
     public function getFollower(Request $request,$username){
         $user=User::with('follower')->where("username",'=',$username)->first();
         $multiplied = $user->follower->map(function ($item, $key) {
@@ -59,6 +82,10 @@ class UserController extends Controller
             $follow->follow_id=$request->follow_id;
             $follow->follower_id=auth()->user()->id;
             $follow->save();
+
+            $postNotification = new FollowerAlert(auth()->user()->username,$follow);
+            $this->dispatch($postNotification);
+        
             $follow=1;
         }
         else{

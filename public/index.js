@@ -38,8 +38,8 @@ $.ajaxSetup({
 
 
 
-const popular = document.querySelector('.first-second-header');
-const personalized = document.querySelector('.second-second-header');
+let popular = document.querySelector('.first-second-header');
+let personalized = document.querySelector('.second-second-header');
 
 popular.addEventListener('click', (e)=>{
     e.preventDefault();

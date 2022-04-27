@@ -26,6 +26,9 @@ Route::post('/login',"AuthController@login")->name('login');
 Route::get('/',"IndexController@index")->name('index');
 Route::get('/popular',"IndexController@popular")->name('getThread');
 
+Route::get('/getnotification',"UserController@notification")->name('notification');
+Route::get('/notification',"UserController@notificationPage")->name('notification');
+
 Route::get('/section',"SectionController@index")->name('section');
 Route::get('/section-data',"SectionController@indexData")->name('section-data');
 
