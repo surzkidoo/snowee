@@ -18,7 +18,9 @@ class CreateNotificationsTable extends Migration
             $table->integer('user_id');
             $table->integer('notification_type_id');
             $table->integer('event_user_id');
-            $table->smallInteger('seen')->default(1);
+            $table->string('message');
+            $table->string('url');
+            $table->boolean('seen')->default(0);
             $table->timestamps();
         });
     }

@@ -531,6 +531,17 @@ function commentTemplete(data, callback, type="comments",container="") {
 }
 
 
+    function notificationTemplete(data,callback,container) {
+      const newdata = data.map((noti)=>{
+      return `
+      <div class="notifis-head">
+      <img src="${noti.user_invoker.avatar}" alt="">
+      <p><strong>@${noti.user_invoker.username}</strong> ${noti.message}</p>
+      </div>
+      `
+  })
+  return callback(newdata,container);
+}
 function handleImage (){
   const imageUpload = document.querySelector('#image-upload');
 const imagesContainer= document.querySelector('.box-image-holder');
@@ -561,6 +572,7 @@ imageUpload.addEventListener('change', function(){
 
 
 function initPagination(url, page = 2, container, loading = false,type,label=null) {
+
     $(window).scroll(function () {
         if (
             $(window).scrollTop() + $(window).height() >=
@@ -571,7 +583,7 @@ function initPagination(url, page = 2, container, loading = false,type,label=nul
           $(container).append(`<div id='more-${label || type}' class='load-action-${label || type}'>View More</div>`)
             loading = true;
             $(`.load-action-${label || type}`).on('click',function(){
-           
+
             infinteLoadMore(page, url, container,type,label);
             loading = false;
             page++;
@@ -617,6 +629,7 @@ function initPagination(url, page = 2, container, loading = false,type,label=nul
                       $(`#more-${label || type}`).remove()
                     $(container).append(newdata);
                 });
+
                 upVoteHandle();
                 downVoteHandle();
                    upvoteTopicCounter()
@@ -652,8 +665,14 @@ function initPagination(url, page = 2, container, loading = false,type,label=nul
                   handleReply()
                   deleteReply()
                 }
+                if(type=="noti"){
+                  notificationTemplete(data.data, (newdata) => {
+                    $(`#more-${label || type}`).remove()
+                    $(container).append(newdata)
+                  } )
+                }
                 else{
-                  $(container).append(newdata);
+                  $(container).append(data);
                 }
                 // halve && callback();
                 
@@ -919,3 +938,7 @@ comments.forEach((comment)=>{
     alert('please login to perform this task')
   })
 }
+
+//Notificaation RealTime
+
+

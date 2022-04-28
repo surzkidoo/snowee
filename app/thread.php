@@ -33,7 +33,12 @@ class thread extends Model
         return $this->hasMany(image::class);
     }
 
-    public function section(){        
+    public function section(){
         return $this->belongsTo(section::class);
+    }
+
+    public function followers(){
+        return $this->hasManyThrough('App\User', 'App\followpost', 'thread_id', 'id','id','user_id');
+
     }
 }

@@ -6,8 +6,10 @@ use App\post;
 use App\image;
 use App\thread;
 use App\followpost;
+use App\Jobs\NewTopicAlert;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Jobs\PostFollowerAlert;
 use Illuminate\Support\Facades\Validator;
 
 class ThreadController extends Controller
@@ -54,6 +56,10 @@ class ThreadController extends Controller
         $thread->user_id=auth()->user()->id;
         $thread->save();
 
+        $user = auth()->user();
+        $postNotification = new NewTopicAlert($user,$thread);
+        $this->dispatch($postNotification);
+        
         if($request->TotalFiles > 0 && $thread)
         {
                
@@ -108,6 +114,10 @@ class ThreadController extends Controller
           $follow->user_id=auth()->user()->id;
           $follow->thread_id=$threadid;
           $follow->save();
+          $thread = thread::where('id',$threadid)->first();
+          $user = auth()->user();
+          $postNotification = new PostFollowerAlert($user,$thread);
+          $this->dispatch($postNotification);
           return response()->json(1, 200);
       }
       $valid = followpost::where('thread_id','=',$threadid)->where('user_id','=',auth()->user()->id)->delete();

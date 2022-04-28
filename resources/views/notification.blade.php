@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    https://who.zoom.us/w/93494952663?tk=Z41z6f-00EFKt1SbdhUj7eRE8QOcgx47lVEpk8-BrjQ.DQMAAAAVxLvC1xY4RnNkRnUxbVNDV29hYWNCbDdyX0xRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&uuid=WN_L3AjsK-vRyiaEPcrwhQZ9g
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_token" content="{{csrf_token()}}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
     <title>Notifications | Snowy</title>
+    <script src="/js/app.js"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">   </script>
 </head>
 <body>
     <header>
@@ -17,7 +20,7 @@
        </div>
         <div class="collapsible-menu" id="collapsible-menu">
             <ul>
-            <li class="different-li"><img src="img/img_avatar.png" alt=""> <p>@muhammad</p> </li>
+            <li class="different-li"><img src="avatar.png" alt=""> <p>@muhammad</p> </li>
             <li><a href="profile.html">View profile</a></li>
            <li><a href="followers.html">Followers</a></li>
            <li><a href="following.html">Following</a></li>
@@ -38,23 +41,8 @@
             <h2><span>Notifications</span></h2> 
             <p>Mark all as read</p>
         </div>
-        <div class="notification-menu">
-            <div class="notifis-head">
-                <img src="img/img_avatar.png" alt="">
-                <p><strong>@muhammad</strong> likes your post</p>
-            </div>
-            <div class="notifis-head">
-                <img src="img/img_avatar.png" alt="">
-                <p><strong>@abubakar</strong> mentions you</p>
-            </div>
-            <div class="notifis-head">
-                <img src="img/img_avatar.png" alt="">
-                <p><strong>@muhammad</strong> message you</p>
-            </div>
-            <div class="notifis-head">
-                <img src="img/img_avatar.png" alt="">
-                <p><strong>@abubakar</strong> follows you</p>
-            </div>
+        <div class="notification-menu" id="notification-menu">
+           
         </div>
     </div>
     <div class="resting-nav-bar">
@@ -65,5 +53,38 @@
     </div> 
       
  <script src="main.js"></script>
+
+ <script>
+let NpageNum = 5;
+jQuery.ajax({
+                url: "http://127.0.0.1:8000/getnotification",
+                    method: "get",
+                    success: function (data) {
+                        console.log(data)
+                        notificationTemplete(data.data,(newdata)=>{
+                            $('#notification-menu').append(newdata)
+                        });
+                        initPagination(data.first_page_url.split('=')[0],2,'#notification-menu',false,"noti")
+
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    },
+                });
+
+
+ Echo.private('notification.{{auth()->user()->id}}').listen('NewNotification',(e)=>{
+     console.log(e)
+    let newdata = `
+             <div class="notifis-head">
+                <img src="${e.notification.user_invoker.avatar}" alt="">
+                <p><strong>@${e.notification.user_invoker.username}</strong> ${e.notification.message}</p>
+            </div>
+             `
+    $('#notification-menu').prepend(newdata);
+
+
+ })              
+ </script>
 </body>
 </html>
