@@ -1,12 +1,36 @@
 
 //menu toggler function
-const toggleMenu = document.querySelector(".container-div");
+const toggleMenu = document.querySelector(".profile-up");
 const userid=parseInt($('#id').attr('loggin-id'));
 const pageNum=4;
 /* toggling functionality */
-toggleMenu.addEventListener("click", () => {
+let togglebool = true;
+toggleMenu && toggleMenu.addEventListener("click", () => {
+   if(togglebool){
     var toggleItem = document.querySelector(".collapsible-menu");
-    toggleItem.classList.toggle("show");
+    toggleItem.style.display= 'block';
+    togglebool = false;
+   } else {
+       var toggleItem = document.querySelector(".collapsible-menu");
+       toggleItem.style.display= 'none';
+        togglebool = true;
+   }
+
+
+   window.onclick = function(event) {
+    if (!event.target.matches('.profile-up')) {
+      var dropdowns = document.getElementsByClassName("collapsible-menu");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.style.display = 'block') {
+          openDropdown.style.display = 'none';
+          togglebool = true
+        }
+      }
+    }
+  }
+    
 });
 $.ajaxSetup({
   headers: {

@@ -360,21 +360,24 @@ img{
 
 /* Collapsible-menu*/
 .collapsible-menu{
-    background-color: #8c00ff;
+    background-color: #f0e6e6;
     opacity: 0.97;
     margin-top: 60px;
     width: 200px;
-    height: 100vh;
+    height: 35vh;
+    border: 2px solid #ffffff;
+    border-radius: 7px;
     position: absolute;
-    top: -15px;
-    left: -50%;
-    visibility: hidden;
-    z-index: 40;
+    top: 17px;
+    left: 57%;
+    display: none;
+    visibility: visible;
+    z-index: 10;
    transition: all 0.9s ease; 
   }
 
   .collapsible-menu p{
-    font-size: 16px;
+    font-size: 15px;
     border-bottom: none;
     font-weight: bold;
   } 
@@ -386,41 +389,29 @@ img{
       justify-content: center;
       align-items: flex-start;
   }
-  
-  .collapsible-menu.show{
-    visibility: visible;
-    left: 0%;
-    z-index: 30;
-    transition: left 0.8s ease; 
-  }
 
   .collapsible-menu ul{
-    padding: 10px;
     list-style: none;
   }
   
   .collapsible-menu ul li{
     line-height: 2.5;
     font-size: 16px;
-    color: #fff;
+    color: #ffffff;
     cursor: pointer;
-  }
-
-  .collapsible-menu ul li img{
-    border-radius: 0%;
-    max-width: unset;
-    max-height: unset;
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    clip-path: circle();
-    z-index: 0;
+    padding: 4px;
+    border-bottom: 1px solid #ffffff;
   }
 
   .collapsible-menu ul li a{
-      color: #ffffff;
-      font-weight: bold;
+     color: rgb(157, 99, 180);
+     font-weight: bold;
   }
+
+  .collapsible-menu ul li:hover{
+     background: #ffffff;
+
+}
 
   .collapsible-menu ul .stat{
       position: fixed;
@@ -894,17 +885,100 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+}
+
+.profile-up{
+    margin-right: 30px;
+}
+
+.avatar{
+    margin-bottom: 5px;
+
+    border-radius: 0%;
+    max-width: unset;
+    max-height: unset;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    clip-path: circle();
+}
+
+.profile-up {
+    margin-left: 4px;
+    cursor: pointer;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 8px solid rgb(255, 255, 255);
+    width: 0px;
+    height: 0px;
+}
+
+.cont .login-button{
+    padding-top: 8px;
+    margin-right: 9px;
+    padding-bottom: 8px;
+    outline: none;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 5px;
+    font-weight: 590;
+    border: solid 1px #8c00ff;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 3px;
+    background-color: rgb(157, 99, 180);
+}
+
+.cont .sign-up-button{
+    padding-top: 8px;
+    margin-right: 9px;
+    padding-bottom: 8px;
+    outline: none;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 5px;
+    font-weight: 590;
+    border: solid 1px #8c00ff;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 3px;
+    background-color: rgb(157, 99, 180);
 }
 
 .header-container h1{
-    margin-left: 70px;
+    margin-left: 40px;
     font-size: 34px;
     padding-bottom: 6.5px;
 }
 
+.header-container .cont{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contain-header{
+   margin-right: 45px;
+}
+
+.contain-header div{
+    padding-right: 15px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.profile-dropdown{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .container-header{
     margin-bottom: 3px;
-    margin-right: 45px;
+    margin-right: 55px;
     background-color: white;
     padding-left: 7px;
     border-radius: 7px;
@@ -952,6 +1026,7 @@ header{
     max-width: 1100px;
     margin: auto;
     margin-bottom: 65px;
+    height: 100vh;
 }
 
 .personalized-container{
@@ -961,7 +1036,7 @@ header{
     margin: auto;
     padding-top: 3px;
     margin-bottom: 25px;
-}
+} 
 
 .second-header{
     display:flex;
@@ -970,7 +1045,6 @@ header{
     padding-right: 12px;
     width: 100%;
     margin-top: 10px;
-    z-index:4;
     background: rgb(241, 242, 242);
 }
 
@@ -981,9 +1055,42 @@ header{
     margin: auto;
 }
 
+.forums-list.home{
+    position: fixed;
+    left: 11%;
+    display: grid;
+    grid-template-columns: 1fr;
+    z-index: -1;
+}
+
+.forums-list.home a{
+    width: 21%;
+    z-index: 10;
+    height: 7vh;
+}
+
+.ad-spaces{
+    position: fixed;
+    right: 12%;
+    top: 106px;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.ad-spaces div:nth-child(1){
+    width: 200px;
+    height: 450px;
+    border-radius: 5px;
+    margin-top: 12px;
+    object-fit: contain;
+    margin-bottom: 7px;
+    background: url('img/ad.png') no-repeat center center/cover;
+}
+
 .second-header-upper{
     position: sticky;
-    top: 10%;
+    top: 8.7%;
+    z-index: 2;
 }
 
 .second-header .first-second-header{
@@ -1303,7 +1410,7 @@ header{
 .notification-container{
     margin: auto;
     width: 90%;
-    max-width: 1100px;
+    max-width: 950px;
 }
 
 .first-notification-head{
@@ -1320,23 +1427,66 @@ header{
 
 .first-notification-head h2 span{
     border-bottom: 4px solid #8c00ff;
+    font-size: 23px;
+}
+
+.notification-relative{
+    position: relative;
+}
+
+.span-notification{
+    position: absolute;
+    top: 8px;
+    right: 4px;
+    background: red;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    font-size: 11px;
+    padding-top: 3px;
+    border-radius: 50%;
+    color: #ffffff;
 }
 
 .first-notification-head p{
-    color: #7F6792;
+    color: #ffffff;
     border: 1px solid rgb(140, 0, 255);
-    border-radius: 6px;
+    border-radius: 7px;
     padding: 8px;
-    font-weight: 700;
+    background: #8c00ff;
+    font-size: 15px;
+    font-weight: 400;
     cursor: pointer;
+}
+
+.notification-menu{
+    width: 620px;
+    max-width: 1100px;
+    margin: auto;
+    margin-bottom: 65px;
 }
 
 .notifis-head{
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    border-bottom: 2px solid #cdc3c3;
-    padding: 8px;
+    background-color: #ffffff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 7px;
+    
+    padding: 15px;
+}
+
+.notifis-head img{
+    border-radius: 0%;
+    max-width: unset;
+    max-height: unset;
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    clip-path: circle();
+    z-index: 0;
 }
 
 .notifis-head p{
@@ -2655,7 +2805,7 @@ header{
        top: -4px;
       width:200px;
       padding: 10px;
-      z-index: 50;
+      z-index: 10;
    }
 
    .second-header{
@@ -3093,6 +3243,7 @@ header{
     .collapsible-menu{
         top: -16px;
         width: 180px;
+        z-index: 10;
     }
 
     .collapsible-menu ul{

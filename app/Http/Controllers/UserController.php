@@ -39,7 +39,7 @@ class UserController extends Controller
     }
 
     public function notification(Request $request){
-        $notifications = notification::with('user','userInvoker')->where('user_id',auth()->user()->id)->where('seen',0)->paginate(5);
+        $notifications = notification::with('user','userInvoker')->where('user_id',auth()->user()->id)->where('seen',1)->paginate(5);
 
         return response()->json($notifications, 200);
     }

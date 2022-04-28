@@ -11,30 +11,34 @@
     </script>
 </head>
 <body>
-    <header>
-        <div class="container-div">
-            <div class="line-1"></div>
-            <div class="line-2"></div>
-            <div class="line-3"></div>
-       </div>
-        <div class="collapsible-menu" id="collapsible-menu">
-            <ul>
-            <li class="different-li"><img src="http://127.0.0.1:8000/avatar.png" alt=""> <p>@muhammad</p> </li>
-            <li><a href="profile.html">View profile</a></li>
-           <li><a href="followers.html">Followers</a></li>
-           <li><a href="following.html">Following</a></li>
-           <li><a href="signup.html">Log out</a></li>
-           <li class="stat">Stats: 208,456 members</li>
-       </ul>
-     </div>
-          <div class="header-container">
-                <h1>Snowy</h1>
-                <div class="container-header">
-                    <div class="fa fa-search"></div>
-                </div>
-             </div>
-          </div> 
-    </header>
+<header>
+       
+       <div class="collapsible-menu" id="collapsible-menu">
+           <ul>
+           <li><a href="/user/muhammad">View Profile</a></li>
+          <li><a href="/user/followers">Followers</a></li>
+          <li><a href="/user/following">Following</a></li>
+          <li><a href="/login">Log out</a></li>
+          <li class="stat">Stats: 208,456 members</li>
+         </ul>
+      </div>
+         <div class="header-container">
+               <h1>Loopy</h1>
+               <div class="cont">
+               <button class="login-button">Login</button>
+               <button class="sign-up-button">Sign up</button>
+               <div class="profile-dropdown">
+               <img src="http://127.0.0.1:8000/{{auth()->user()->avatar}}" alt="avatar" class="avatar"> 
+               <div class="profile-up"></div> 
+               </div>
+                  <div class="container-header">
+                  <input type="text" placeholder="search here">
+                   <div class="fa fa-search header-search" style="color:#8c00ff;"></div>
+               </div>
+           </div>
+         </div> 
+         
+  </header>
     <div class="container-section">
      <div class="forums-catalog">
          <h1> <span>
@@ -91,7 +95,7 @@
     </div> 
     <div class="resting-nav-bar">
         <li> <a href="/"><div class="hello fa fa-home"></div></a></li>
-        <li><a href="/section"><div class="hello fa fa-users"></div></a></li>
+        <li><a href="/section" style="border-bottom: 2px solid #ffffff"><div class="hello fa fa-users"></div></a></li>
         <li><a href="notifications.html"><div class="hello fa fa-bell"></div></a></li>
         <li><a href="messages.html"><div class="hello fa fa-envelope"></div></a></li>
     </div>

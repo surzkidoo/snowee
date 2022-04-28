@@ -34,7 +34,7 @@
         </div>
         <div class="header-container">
             <h1>Preen</h1>
-            <div class="container-header">
+            <div class="contain-header">
             <div class="fa fa-plus-circle post-icon"></div>
             <div class="fa fa-search search"></div>
             </div>
@@ -83,7 +83,7 @@
             </div>
             <div class="section-button" id="section-btn">
                 <button><span class="most-viewed current">Most Viewed</span></button>
-                <button><span class="update-topic">Updated</span></button>
+                <button><span class="update-topic">Trending</span></button>
                 <button><span class="new-topic">New</span></button>
             </div>
         </div>
