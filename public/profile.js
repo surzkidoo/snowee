@@ -288,3 +288,11 @@ jQuery.ajax({
   }
 
 });
+
+/* Profie image lightbox */
+const profileImage = document.querySelector('#changed-image');
+
+profileImage.addEventListener('click', ()=>{
+  const tututt = document.querySelector('.full-image');
+  tututt.style.display = 'block'
+})

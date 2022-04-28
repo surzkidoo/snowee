@@ -21,23 +21,27 @@
         <div class="collapsible-menu" id="collapsible-menu">
             <ul>
             <li class="different-li"><img src="http://127.0.0.1:8000/avatar.png" alt=""> <p id='id'  loggin-id="{{auth()->check()? auth()->user()->id :0}}">@muhammad</p> </li>
-            <li><a href="profile.html">View Profile</a></li>
-           <li><a href="followers.html">Followers</a></li>
-           <li><a href="following.html">Following</a></li>
-           <li><a href="signup.html">Log out</a></li>
+            <li><a href="/user/muhammad">View Profile</a></li>
+           <li><a href="/user/followers">Followers</a></li>
+           <li><a href="/user/following">Following</a></li>
+           <li><a href="/login">Log out</a></li>
            <li class="stat">Stats: 208,456 members</li>
           </ul>
        </div>
           <div class="header-container">
-                <h1>Preen</h1>
+                <h1>Loopy</h1>
                 <div class="container-header">
-                <div class="fa fa-search header-search"></div>
+                <input type="text" placeholder="search here">
+                <div class="fa fa-search header-search" style="color:#8c00ff;"></div>
             </div>
           </div> 
    </header>
+        <div class="second-header-upper">
         <div class="second-header">
             <h4 class="popular"><span class="first-second-header active">Popular <span class="fa fa-fire fire-emoji"></span></span></h4>
             <h4 class="personalized"><span class="second-second-header">Personal  <span class="fa fa-user fire-emoji-2"></span></span></h4>
+       </div>
+       <div class="second-header-line"></div>
        </div>
        <div class="edit-profile-element upvote-modal">
         <p class="close-menu" id="close-upvote-modal">x</p>

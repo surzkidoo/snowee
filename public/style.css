@@ -10,7 +10,6 @@
 body{
     background-color: rgb(241, 242, 242);
     position: relative;
-    overflow-x: hidden;
 }
 
 .div-reply{
@@ -85,7 +84,6 @@ input[type="file"]{
     object-fit: cover;
     clip-path: circle();
     z-index: 0;
-}
 }
 
 .commenters-comment{
@@ -905,12 +903,27 @@ header{
 }
 
 .container-header{
-    margin-right: 30px;
+    margin-bottom: 3px;
+    margin-right: 45px;
+    background-color: white;
+    padding-left: 7px;
+    border-radius: 7px;
+    padding-right: 7px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.container-header input{
+  border: none;
+  width: 300px;
+  font-size: 16px;
+  padding: 6px;
+  outline: none;
 }
 
 .container-header div{
-    padding-right: 20px;
-    font-size: 24px;
+    padding-right: 15px;
+    font-size: 21px;
     cursor: pointer;
 }
 
@@ -955,13 +968,22 @@ header{
     justify-content: space-between;
     padding-top:15px; 
     padding-right: 12px;
-    border-bottom:2px solid rgb(157, 99, 180);
     width: 100%;
     margin-top: 10px;
-    position: sticky;
-    top: 53px;
     z-index:4;
     background: rgb(241, 242, 242);
+}
+
+.second-header-line{
+    width: 1052px;
+    height: 2px;
+    background: rgb(157, 99, 180);
+    margin: auto;
+}
+
+.second-header-upper{
+    position: sticky;
+    top: 10%;
 }
 
 .second-header .first-second-header{
@@ -978,12 +1000,12 @@ header{
 
 .fire-emoji{
     color: #E25822;
-    font-size: 20px;
+    font-size: 19px;
 }
 
 .fire-emoji-2{
     color: #7F6792;
-    font-size: 20px;
+    font-size: 19px;
 }
 
 .second-header .active{
@@ -992,14 +1014,12 @@ header{
 
 .second-header .first-second-header{
     font-weight: 900;
-    padding-left: 10px;
     cursor: pointer;
     padding-right: 10px;
 }
 
 .second-header .second-second-header{
     font-weight: 900;
-    padding-right: 10px;
     cursor: pointer;
     padding-left: 10px;
 }
@@ -2009,6 +2029,29 @@ header{
     color: #8c00ff;
 }
 
+/*Light box profile*/
+.edit-profile-element.full-image{
+     z-index: 20;
+     background-color: #000000;
+    
+}
+
+.edit-profile-element.full-image .flex-input{
+    display: unset;
+    flex-direction: unset;
+    width: 100%;
+    padding:unset;
+}
+
+.edit-profile-element.full-image img{
+    max-width: unset;
+    margin: auto;
+    width:100%;
+    border-radius: 0%;
+    max-height: unset;
+    height: 400px;
+}
+
 /*personalized sub*/
 
 .followed-topics{
@@ -2107,7 +2150,7 @@ header{
 }
 
 .comment-text .link-emoji{
-    background-color: #ec0808e8;
+    background-color: rgba(228, 228, 29, 0.938);
 }
 
 .emoji-here{

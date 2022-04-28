@@ -32,7 +32,7 @@
             </ul>
         </div>
         <div class="header-container">
-            <h1>Preen</h1>
+            <h1>Loopy</h1>
             <div class="container-header">
                 <div class="fa fa-search"></div>
             </div>
@@ -103,6 +103,11 @@
         <li><a href="notifications.html"><div class="hello fa fa-bell"></div></a></li>
         <li><a href="messages.html"><div class="hello fa fa-envelope"></div></a></li>
 
+    </div>
+
+    <div class="edit-profile-element full-image">
+        <p class="close-menu">x</p>
+           <img src="{{ url($user->avatar) }}" alt="" srcset="">
     </div>
 
     <div class="edit-profile-element">

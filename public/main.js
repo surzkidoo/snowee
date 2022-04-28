@@ -16,7 +16,7 @@ $.ajaxSetup({
 
 const upVoteHandle = () => {
     const upVote = document.querySelectorAll(".u-vote");
-   upvote && upVote.forEach((upvotes) => {
+   upVote && upVote.forEach((upvotes) => {
         $(upvotes)
             .off("click")
             .on("click", (e) => {
