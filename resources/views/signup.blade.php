@@ -37,13 +37,10 @@
             <input type="text" placeholder="Full Name" class="full-name"><br>
             <input type="text" placeholder="E-mail" class="sign-up-email"> <br>
             <input type="text" placeholder="DD-MM-YYYY" class="date-of-birth"> <br>
-            <input type="text" 
-            placeholder="Username" class="signUpUsername"> <br>
+            <input type="text" placeholder="Username" class="signUpUsername"> <br>
             <input type="password" placeholder='Password' class="signUpPassword"><br>
             <input type="button" id="submit" class="sign-up-submit" value ='Sign up'>
         </form>
-        <div class="circle-signup"></div>
-        <div class="circle-signup-1"></div>
     </div>
     <script src="main.js"></script>
     <script src="signup.js"></script>

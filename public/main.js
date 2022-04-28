@@ -520,9 +520,7 @@ function commentTemplete(data, callback, type="comments",container="") {
         <button class="link"><div class="fa fa-paperclip link-it" id="link-it"><input type="file" id="image-upload"  class="fa fa-paperclip" multiple></div></button>
         <button class="sendbtn ${userid?  'send': 'login-to-action'}"><div class="fa fa-share" id="do-comment"></div></button>
         </div>
-        <div class="box-image-holder">
-        
-        
+        <div class="box-image-holder">        
         </div>
         </div>
         </div>
@@ -722,7 +720,7 @@ comments.forEach((comment)=>{
   makeComment && makeComment.addEventListener('click', (e)=>{
     let replyDiv = comment.querySelector('.div-reply')
     let replyElement = comment.querySelector('.this-textarea');
-
+    log
     jQuery.ajax({
         url: "http://127.0.0.1:8000/post",
         method: 'post',

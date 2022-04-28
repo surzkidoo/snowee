@@ -487,6 +487,22 @@ img{
    font-size: 40px;
 }
 
+.followers-following-container{
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.followers-following-container div{
+    margin-left: 5px;
+    font-size: 12px;
+    background: rgb(27, 1, 145);
+    padding: 5px;
+}
+
+.followers-following-container .following{
+    background: rgb(122, 8, 8);
+}
+
 #start-up:hover{
     background-color: rgb(148, 133, 161);
     transition: all 0.5s ease;
@@ -851,9 +867,15 @@ header{
 
 .sort{
     display: flex;
-    justify-content: right;
-    align-items: center;
-    width: 100%;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-bottom: 50px;
+    margin: auto;
+    width: 690px;
+    max-width: 1100px;
+    background: #ffffff;
+    padding: 10px;
 }
 
 .sort select{
@@ -3169,6 +3191,11 @@ header{
          font-size: 19px;
     }
 
+    .sort{
+        width: 97%;
+        margin-top: 10px;
+    }
+
     .dislike-counter{
         padding-right: 30px;
         font-size: 14px;
@@ -3440,6 +3467,11 @@ header{
 
     .sect1{
         font-size: 14px;
+    }
+
+    .button-container .add{
+        background-color: rgb(68, 0, 255);
+        width: 80px;
     }
 
     .post-container{

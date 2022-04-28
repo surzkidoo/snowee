@@ -8,7 +8,6 @@ const signUpUsername = document.querySelector('.signUpUsername');
 const signUpPassword = document.querySelector('.signUpPassword');
 const submitSignUp = document.querySelector('.sign-up-submit');
 const form = document.querySelector('.signup-form');
-
 //adding event listener to the sign up form
 submitSignUp.addEventListener('click', (e)=>{
 
