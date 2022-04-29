@@ -64,6 +64,7 @@ $.ajaxSetup({
 // //show menu
 editProfile && editProfile.addEventListener('click',()=>{
         let editProfileMenu = document.querySelector('.edit-profile-element');
+        console.log(editProfileMenu);
       let body = document.querySelector('.profile-container');
       let body2 = document.querySelector('.profile-grid');
       body2.style.filter = 'blur(1px)';

@@ -16,6 +16,7 @@
        
         <div class="collapsible-menu" id="collapsible-menu">
             <ul>
+            <p id="id"   loggin-id="{{auth()->check()? auth()->user()->id :0}}"></p>
             <li><a href="/user/muhammad">View Profile</a></li>
            <li><a href="/user/followers">Followers</a></li>
            <li><a href="/user/following">Following</a></li>
@@ -62,27 +63,22 @@
             
         </ul>
     </div>
-    <div class="forums-list home" id="forums-list">
+    <div class="forums-list home" id="forums-list home">
     <a href="contest.html"><p><span class="fa fa-layer-group"></span> Contest</p></a>
     <a href="finance.html"><p><span class="fa fa-euro-sign"></span> Finance</p></a>
           <a href="diary.html"><p><span class="fa fa-book-open"></span> Diaries</p></a>
           <a href="education.html"><p><span class="fa fa-school"></span> Education</p></a>
           <a href="entertainment.html"><p><span class="fa fa-glass-cheers"></span> Entertainment</p></a>
         </div>
-         <div class="body container-home ">
-
-         <div class="ad-spaces">
-             <div class='ad-1'></div>
         
+        <div class="ad-spaces">
+             <div class='ad-1'></div>
          </div>
+         <div class="body container-home ">
           <!-- postsec -->
     </div>
     <div class="body personalized-home " style='display:none;'>
           <!-- postsec -->
-          
-         <div class="ad-spaces">
-             <div class='ad-1'></div>
-        
          </div>
     </div>
     </div>

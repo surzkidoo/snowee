@@ -11,6 +11,8 @@ const form = document.querySelector('.signup-form');
 //adding event listener to the sign up form
 submitSignUp.addEventListener('click', (e)=>{
 
+  submitSignUp.value = 'Loading🚀'
+
   if(fullName.value.length < 5 || fullName.value === ''){
     fullName.style.border = '2.5px solid red';
     fullName.placeholder = 'please input a valid name';
@@ -74,6 +76,7 @@ submitSignUp.addEventListener('click', (e)=>{
           success: function(data){
             if(data.status){
               window.location= data.redirect_location
+              submitSignUp.value = 'Success🎉'
             }
           },
           error: function(e){
@@ -101,6 +104,7 @@ submitSignUp.addEventListener('click', (e)=>{
                 dateBirth.placeholder = e.responseJSON.dob;
               }
               console.log(e);
+              submitSignUp.value = 'Error⚠'
           }
         
         });

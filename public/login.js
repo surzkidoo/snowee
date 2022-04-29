@@ -4,19 +4,7 @@ const signInPassword = document.querySelector('.sign-in-password');
 const submitSignIn = document.querySelector('#submit-login');
 //adding event listener to the sign in form
 submitSignIn.addEventListener('click', (e)=>{
- 
-  // if(signInUsername.value !== 'muhammad' || signInPassword.value !== '12345'){
-  //   signInUsername.value = '';
-  //   signInUsername.style.border = '2.5px solid red';
-  //   signInUsername.placeholder = 'please input a correct username'
-
-  //   signInPassword.value = '';
-  //   signInPassword.style.border = '2.5px solid red';
-  //   signInPassword.placeholder = 'please input a correct password'
-  // } else{
-  //   signInUsername.style.border = '2.5px solid green';
-  //   signInPassword.style.border = '2.5px solid green';
-  // }
+  submitSignIn.value = 'Loading🚀'
        $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -35,10 +23,7 @@ submitSignIn.addEventListener('click', (e)=>{
             window.location.href=data.redirect_location
             signInUsername.style.border = '2.5px solid green';
             signInPassword.style.border = '2.5px solid green';
-            console.log(data);
-
-
-
+            submitSignIn.value = 'Success🎉'
           },
           error: function(e){
             if(e.status==422){
@@ -50,8 +35,7 @@ submitSignIn.addEventListener('click', (e)=>{
               signInPassword.style.border = '2.5px solid red';
               signInPassword.placeholder = 'please input a correct password'
             }
-            
-            
+            submitSignIn.value = 'Error⚠'
           }});
 
   

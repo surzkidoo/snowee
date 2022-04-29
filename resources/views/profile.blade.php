@@ -14,49 +14,53 @@
 </head>
 
 <body>
-    <header>
-        <div class="container-div">
-            <div class="line-1"></div>
-            <div class="line-2"></div>
-            <div class="line-3"></div>
-        </div>
-        <div class="collapsible-menu" id="collapsible-menu">
-            <ul>
-                <li class="different-li"><img src="http://127.0.0.1:8000/avatar.png" alt=""> <p id='id'  loggin-id="{{auth()->check()? auth()->user()->id :0}}">@muhammad</p> </li>
-                </li>
-                <li><a href="profile.html">View profile</a></li>
-                <li><a href="followers.html">Followers</a></li>
-                <li><a href="following.html">Following</a></li>
-                <li><a href="signup.html">Log out</a></li>
-                <li class="stat">Stats: 208,456 members</li>
-            </ul>
-        </div>
-        <div class="header-container">
-            <h1>Loopy</h1>
-            <div class="container-header">
-                <div class="fa fa-search"></div>
-            </div>
-        </div>
-    </header>
-    <div class="edit-profile-element upvote-modal">
+<header>
+       
+       <div class="collapsible-menu" id="collapsible-menu">
+           <ul>
+           <p id="id"   loggin-id="{{auth()->check()? auth()->user()->id :0}}"></p>
+           <li><a href="/user/muhammad">View Profile</a></li>
+          <li><a href="/user/followers">Followers</a></li>
+          <li><a href="/user/following">Following</a></li>
+          <li><a href="/login">Log out</a></li>
+          <li class="stat">Stats: 208,456 members</li>
+         </ul>
+      </div>
+         <div class="header-container">
+               <h1>Loopy</h1>
+               <div class="cont">
+               <a href="/login"> <button class="login-button">Login</button> </a>
+               <a href="/signup"><button class="sign-up-button">Sign up</button> </a> 
+               <div class="profile-dropdown">
+               <img src="http://127.0.0.1:8000/{{auth()->user()->avatar}}" alt="avatar" class="avatar"> 
+               <div class="profile-up"></div> 
+               </div>
+                <div class="container-header">
+                  <input type="text" placeholder="search here">
+                   <div class="fa fa-search header-search" style="color:#8c00ff;"></div>
+               </div>
+           </div>
+         </div> 
+         
+  </header>
+    <!--<div class="edit-profile-element upvote-modal">
         <p class="close-menu" id="close-upvote-modal">x</p>
         <h1>Upvotes</h1>
         <ul class="upvotes-flex" id="upvote-container">
            
         </ul>
-    </div>
+    </div>-->
 
-    <div class="edit-profile-element downvote-modal">
+   <!--<div class="edit-profile-element downvote-modal">
         <p class="close-menu" id="close-downvote-modal">x</p>
         <h1>Downvotes</h1>
         <ul class="upvotes-flex" id="downvote-container">
             
         </ul>
-    </div>
+    </div>-->
     <div class="main body">
         <div class="profile-grid-container">   
             <h2><span>Profile</span></h2>
-            <span class="fa fa-envelope" id="profile-envelope"></span>
         </div>
         <div class="profile-grid" id="profile-grid">
           <div class="image-div"><img src="{{ url($user->avatar) }}" alt="profile" id="changed-image"></div>
@@ -105,10 +109,10 @@
 
     </div>
 
-    <div class="edit-profile-element full-image">
+   <!-- <div class="edit-profile-element full-image">
         <p class="close-menu">x</p>
            <img src="{{ url($user->avatar) }}" alt="" srcset="">
-    </div>
+    </div> -->
 
     <div class="edit-profile-element">
         <p class="close-menu">x</p>
