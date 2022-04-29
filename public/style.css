@@ -12,6 +12,10 @@ body{
     position: relative;
 }
 
+button{
+    outline: none;
+}
+
 .div-reply{
     display: none;
 }
@@ -413,6 +417,11 @@ img{
 
 }
 
+.post-icon{
+    font-size: 25px;
+    padding-left: 20px;
+}
+
   .collapsible-menu ul .stat{
       position: fixed;
       bottom: 8%;
@@ -456,7 +465,6 @@ img{
     display: grid;
     position: relative;
     overflow: hidden;
-    height: 80vh;
     align-content: center;
 }
 
@@ -702,6 +710,25 @@ img{
 
 .sign-up-submit{
     font-weight: normal;
+    outline: none;
+    border: 1px solid #8c00ff;
+}
+
+.infinite-scroll{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infinite-scroll div{
+    text-align: center;
+    width: 100px;
+    padding: 5px;
+    cursor: pointer;
+    background: rgba(140, 0, 255, 0.705);
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: bold;
 }
 
 .container form input{
@@ -717,10 +744,13 @@ img{
 #submit{
     width: 405px;
      color: white;
+     text-align: center;
     font-size: 18px;
     cursor: pointer;
     margin-top: 8px;
-    border-radius: 6px;
+    border-radius: 2px;
+   margin-bottom: 20px;
+    height: 40px;
     background-color: #8c00ff;
 }
 
@@ -731,7 +761,7 @@ img{
 }
 
 .sign-up-h1{
-    margin-top: 15px;
+    margin-top: 35px;
     padding-top: 10px;
     padding-bottom: 10px;
     color: #7F6792;
@@ -804,6 +834,12 @@ img{
     background-color: #8c00ff;
     color: #ffffff;
     font-size: 18px;
+}
+
+.center-loader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* home page */
@@ -1018,6 +1054,7 @@ header{
     width: 590px;
     max-width: 1100px;
     margin: auto;
+    z-index: 4!important;
     margin-bottom: 65px;
 }
 
@@ -1057,15 +1094,14 @@ header{
 
 .forums-list.home{
     position: fixed;
-    left: 11%;
+    left: 10%;
     display: grid;
     grid-template-columns: 1fr;
-    z-index: -1;
+    z-index: 1;
+    width: 18%;
 }
 
 .forums-list.home a{
-    width: 21%;
-    z-index: 10;
     height: 7vh;
 }
 
@@ -1075,6 +1111,25 @@ header{
     top: 106px;
     display: grid;
     grid-template-columns: 1fr;
+}
+
+.ad-spaces.post{
+    right: 7%;
+    z-index: -1;
+    top: 75px;
+}
+
+.ad-spaces.post-1{
+    position: fixed;
+    left: 7%;
+    z-index: -1;
+    top: 75px;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.edit-profile-element.edit-comment{
+    min-height: unset;
 }
 
 .ad-spaces div:nth-child(1){
@@ -2171,8 +2226,6 @@ header{
     cursor: pointer;
     font-weight: 800;
     font-size: 16px;
-    position: sticky;
-    top: 53px;
 }
 
  button .current{
@@ -2998,6 +3051,8 @@ header{
     max-width: 1100px;
     margin: auto;
     margin-bottom: 25px;
+    position: sticky;
+    top: 5%;
    }
 
    .comments-section .no-comment-message{
@@ -3078,7 +3133,7 @@ header{
 #signup-form{
     margin:auto;
     width: 100%;
-    margin-top: 20px;
+    padding-top: 20px;
   }
 
 .post-main{

@@ -596,7 +596,6 @@ imageUpload.addEventListener('change', function(){
 
 
 function initPagination(url, page = 2, container, loading = false,type,label=null) {
-
     $(window).scroll(function () {
         if (
             $(window).scrollTop() + $(window).height() >=
@@ -604,10 +603,10 @@ function initPagination(url, page = 2, container, loading = false,type,label=nul
             !loading && $(`#more-${label || type}`).text()!="No More"
         ) { 
            
-          $(container).append(`<div id='more-${label || type}' class='load-action-${label || type}'>View More</div>`)
+          $(container).append(`<div class='infinite-scroll'><div id='more-${label || type}' class='load-action-${label || type}'>View More</div></div>`)
             loading = true;
+            console.log(loading);
             $(`.load-action-${label || type}`).on('click',function(){
-
             infinteLoadMore(page, url, container,type,label);
             loading = false;
             page++;
@@ -615,24 +614,8 @@ function initPagination(url, page = 2, container, loading = false,type,label=nul
             });
         }
     });
+
 }
-
-//  function  initPaginationHalve(url, page = 2, container, loading = false,type){
-
-//     $(container).append(`<div id='more-${type}' class='load-action-${type}'>View More</div>`)
-//     loading = true;
-//     $(`.load-action-${type}`).on('click',function(){
-//     alert("what the fuck")
-//     infinteLoadMore(page, url, container,type,true,()=>{
-//        initPaginationHalve(url,page,container,loading=false,type)
-//     });
-//     loading = false;
-//     page++;
-  
-//     });
-
-// }
-
 
  function infinteLoadMore(page, url, container,type,label) {
    let typee=type;
@@ -644,6 +627,7 @@ function initPagination(url, page = 2, container, loading = false,type,label=nul
           
             if (data) {
                 console.log(data)
+
                 if (data.data.length==0) {
                     $(`#more-${label || type}`).text("No More")
                     return
@@ -652,6 +636,8 @@ function initPagination(url, page = 2, container, loading = false,type,label=nul
                     topicTemplete(data.data, (newdata) => {
                       $(`#more-${label || type}`).remove()
                     $(container).append(newdata);
+                    //let centerLoader = document.querySelector('.center-loader');
+                    //centerLoader.style.display = 'none'
                 });
 
                 upVoteHandle();
@@ -777,182 +763,6 @@ comments.forEach((comment)=>{
         }
       
       });
-    
-   
-//     //Delete Reply
-//     let replyDeletes = comment.querySelectorAll('.delete-reply-comment');
-//     replyDeletes.forEach((replyDelete)=>{
-//       replyDelete.addEventListener('click',(e)=>{
-//         let deleteModal = document.querySelector('.delete-comment').style.display = 'block';
-//         let postContainer = document.querySelector('.post-content');
-//         postContainer.style.filter = 'blur(1px)';
-//         //delete functionality
-//         let deleteThis = document.querySelector('.yes-reply-comment');
-//         deleteThis.addEventListener('click', ()=>{
-//           let deleteReply = e.target.parentElement.parentElement.parentElement;
-//           deleteReply.remove();
-//           postContainer.style.filter = 'blur(0px)';
-//           let deleteModal = document.querySelector('.delete-comment').style.display = 'none';
-//         })
-//         let noDeleteThis = document.querySelector('.no-reply-comment');
-//         noDeleteThis.addEventListener('click', ()=>{
-//           postContainer.style.filter = 'blur(0px)';
-//           let deleteModal = document.querySelector('.delete-comment').style.display = 'none';
-//         })
-//         //close modal
-//         let closeDelete = document.querySelector('.close-comment');
-//         closeDelete.addEventListener('click', ()=>{
-//           postContainer.style.filter = 'blur(0px)';
-//           let deleteModal = document.querySelector('.delete-comment').style.display = 'none';
-//         })
-//        })
-//     })
-   
-    
-//   //Edit Reply
-//      let commentDeletes = comment.querySelectorAll('.edit-replied-comment');
-//      commentDeletes.forEach((commentDelete)=>{
-//       commentDelete.addEventListener('click', (e)=>{
-//       let editComment = document.querySelector('.edit-comment').style.display = 'block';
-//        let target = e.target.parentElement.parentElement.parentElement;
-//       let inputName = target.querySelector('.comment-content').innerHTML;
-  
-//      let postContainer = document.querySelector('.post-content');
-//      let textareaContent = document.querySelector('.comment-textarea');
-//      textareaContent.value = inputName;
-//      postContainer.style.filter = 'blur(1px)';
-
-//      let updateComment = document.querySelector('.update-comment');
-//      updateComment.addEventListener('click', ()=>{
-//       let textareaContent = document.querySelector('.comment-textarea');
-//       let inputName = target.querySelector('.comment-content');
-//       inputName.innerHTML = textareaContent.value
-//       let editComment = document.querySelector('.edit-comment').style.display = 'none';
-//       let postContainer = document.querySelector('.post-content');
-//       let edited = target.querySelector('.edited').style.display = 'block'
-//       postContainer.style.filter = 'blur(0px)';
-//      })
-//      let closeEdit = document.querySelector('#close-edit-menu');
-//      closeEdit.addEventListener('click', ()=>{
-//        postContainer.style.filter = 'blur(0px)';
-//        let editComment = document.querySelector('.edit-comment').style.display = 'none';
-//      })
-//    })
-//    })
- 
-//    //Report funtionality
-//     let reportReplies = comment.querySelectorAll('.report-reply-comment');
-//     reportReplies.forEach((reportReply)=>{
-//        reportReply.addEventListener('click', ()=>{
-//       let showReport = document.querySelector('.report-comment-modal').style.display = 'block';
-//       let postContainer = document.querySelector('.post-content');
-//       postContainer.style.filter = 'blur(1px)';
-  
-//       //close modal
-//     let closeDelete = document.querySelector('#close-report-comment');
-//     closeDelete.addEventListener('click', ()=>{
-//       postContainer.style.filter = 'blur(0px)';
-//       let showReport = document.querySelector('.report-comment-modal').style.display = 'none';
-//     })
-//     })
-//     })
-
-//   //reply upvote counter
-//     let likeCounters = comment.querySelectorAll('.reply-like-counter');
-//     likeCounters.forEach((likeCounter)=>{
-//       likeCounter.addEventListener('click', ()=>{
-//       let showReport = document.querySelector('.upvote-modal').style.display = 'block';
-//       let postContainer = document.querySelector('.post-content');
-//       postContainer.style.filter = 'blur(1px)';
-    
-//       //close modal
-//        let closeDelete = document.querySelector('#close-upvote-modal');
-//        closeDelete.addEventListener('click', ()=>{
-//       postContainer.style.filter = 'blur(0px)';
-//       let showReport = document.querySelector('.upvote-modal').style.display = 'none';
-//      })
-//      })
-//     })
-      
-//     //reply downvote counter
-//      let dislikeCounters = comment.querySelectorAll('.reply-dislike-counter');
-//      dislikeCounters.forEach((dislikeCounter)=>{
-//         dislikeCounter.addEventListener('click', ()=>{
-//       let showReport = document.querySelector('.downvote-modal').style.display = 'block';
-//       let postContainer = document.querySelector('.post-content');
-//       postContainer.style.filter = 'blur(1px)';
-    
-//       //close modal
-//        let closeDelete = document.querySelector('#close-downvote-modal');
-//        closeDelete.addEventListener('click', ()=>{
-//       postContainer.style.filter = 'blur(0px)';
-//       let showReport = document.querySelector('.downvote-modal').style.display = 'none';
-//     })
-//      })
-//      })
-
-//     //Comment reply's reply😂😂😂
-//      let replyReplies = comment.querySelectorAll('.comment-reply-reply')
-//      replyReplies.forEach((replyReply)=>{
-//         let repReply = false;
-//     replyReply.addEventListener('click', (e)=>{
-//       let thisTarget = e.target.parentElement.parentElement.parentElement;
-//         if(!repReply){
-//           let replyDiv = thisTarget.querySelector('.reply-div');
-//          replyDiv.style.display = "block";
-//          repReply = true;
-//         } else if(repReply) {
-//           repReply = false;
-//           let thisPost = thisTarget.querySelector('.reply-div').style.display = 'none'; 
-//         }
-//        })
-
-//       })
-    
-//     //Comment reply's reply reply hahaha😂😂😂
-//     let openReplyContents = comment.querySelectorAll('.send-reply');
-//     openReplyContents.forEach((openReplyContent)=>{
-//     openReplyContent.addEventListener('click', (e)=>{
-//       let thisTarget = e.target.parentElement.parentElement.parentElement.parentElement;
-//       let replyDiv = thisTarget.querySelector('.div-reply')
-//       let avatar = thisTarget.querySelector('.img-avatar')
-//       let username = thisTarget.querySelector('.commenters-name').innerHTML.slice(0,9);
-//       let reply = comment.querySelector('.post').value;
-//       let replyBlock = document.createElement('div');
-//       replyBlock.classList.add('commenters-comment');
-//       replyBlock.innerHTML = `
-//       <div class='flex-comment'>
-//       <img src="${avatar.src}" alt="commenter" class="img-avatar">
-//       <div class="commenters-name">${username}<p             
-//       class="date">2 minutes ago</p></div>
-//       </div>
-//       <p class="comment-content">${reply}</p>
-//       <div class="edited">(edited)</div>
-//       <div class="post-tools" id="comments-icons">
-//       <p class="like"><div class="fa fa-arrow-circle-up u-vote"id="upvote"></div> <span class="like-counter reply-like-counter">0</span></p>
-//       <p class="dislike"><div class="fa fa-arrow-circle-down d-vote"id="downvote"></div> <span class="dislike-counter reply-dislike-counter">0</span></p> 
-//       <div class="side-comment">
-//           <p class="delete-side-comment delete-reply-comment">delete</p>
-//           <p class="edit-side-comment edit-replied-comment">edit</p>
-//           <p class="edit-reply-comment comment-reply-reply">reply<span class="comments-number"></span></p>
-//           <p class="edit-report-comment report-reply-comment">report</p>
-//       </div>
-//       </div>
-//       <div class="div-reply reply-div">
-//       <div class="comment-text comment-menu">
-//       <textarea class="post this-textarea" placeholder="write a comment" rows="1"></textarea>
-//       <button class="link"><div class="fa fa-paperclip" id="link-it"></div></button>
-//       <button class="send send-reply"><div class="fa fa-share" id="do-comment"></div></button>
-//       </div>
-//       </div>
-//       `
-//       //Reply counter
-//       let length = comment.querySelectorAll('.commenters-comment')
-//       let commentNumbers = comment.querySelector('.comments-number').innerHTML = `(${length.length+1})`
-//       let appendDiv = thisTarget.querySelector('.div-reply')
-//       appendDiv.append(replyBlock)
-//     })
-//     })
  })
 })
  }

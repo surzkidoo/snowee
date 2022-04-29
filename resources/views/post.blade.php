@@ -12,28 +12,41 @@
     </script>
 </head>
 <body>
-    <header>
-        <div class="container-div">
-            <div class="line-1"></div>
-            <div class="line-2"></div>
-            <div class="line-3"></div>
-       </div>
-        <div class="collapsible-menu" id="collapsible-menu">
-            <ul>
-            <li class="different-li"><img src="{{url($thread->user->avatar)}}" alt=""> <p id="id"   loggin-id="{{auth()->check()? auth()->user()->id :0}}">@muhammad</p> </li>
-            <li><a href="profile.html">View Profile</a></li>
-           <li><a href="followers.html">Followers</a></li>
-           <li><a href="following.html">Following</a></li>
-           <li><a href="signup.html">Log out</a></li>
-          </ul>
-       </div>
-          <div class="header-container">
-                <h1>Snowy</h1>
+<header>
+       
+       <div class="collapsible-menu" id="collapsible-menu">
+           <ul>
+           <p id="id"   loggin-id="{{auth()->check()? auth()->user()->id :0}}"></p>
+           <li><a href="/user/muhammad">View Profile</a></li>
+          <li><a href="/user/followers">Followers</a></li>
+          <li><a href="/user/following">Following</a></li>
+          <li><a href="/login">Log out</a></li>
+          <li class="stat">Stats: 208,456 members</li>
+         </ul>
+      </div>
+         <div class="header-container">
+               <h1>Loopy</h1>
+               <div class="cont">
+               <a href="/login"> <button class="login-button">Login</button> </a>
+               <a href="/signup"><button class="sign-up-button">Sign up</button> </a> 
+               <div class="profile-dropdown">
+               <img src="http://127.0.0.1:8000/{{auth()->user()->avatar}}" alt="avatar" class="avatar"> 
+               <div class="profile-up"></div> 
+               </div>
                 <div class="container-header">
-                <div class="fa fa-search"></div>
-            </div>
-          </div> 
-   </header>
+                  <input type="text" placeholder="search here">
+                   <div class="fa fa-search header-search" style="color:#8c00ff;"></div>
+               </div>
+           </div>
+         </div> 
+         
+  </header>
+  <div class="ad-spaces post">
+     <div class='ad-1'></div>
+   </div>
+   <div class="ad-spaces post-1">
+     <div class='ad-1'></div>
+    </div>
    <div class="post-content">
     <div class="post-container body">
         <h1 class="thread-title" id="{{$thread->id}}">{{$thread->title}}</h1>
