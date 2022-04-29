@@ -36,9 +36,11 @@ class NewPostAlert implements ShouldQueue
     public function handle()
     {
         foreach ($this->thread->followers as $follower) {
-
+            if($follower->id == $this->user_id){
+                continue;
+            }
             $noti= new notification();
-            $noti->message = $follower->username. "New comment posted in ".$this->thread->title;
+            $noti->message = "New comment posted in ".$this->thread->title;
             $noti->user_id= $follower->id;
             $noti->url= $this->thread->slug;
             $noti->event_user_id=$this->user_id;
