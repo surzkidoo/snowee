@@ -38,7 +38,9 @@ class NewTopicAlert implements ShouldQueue
     {
 
         foreach ($this->user->follower as $follower) {
-
+            if($follower->id == $this->thread->user_id){
+                continue;
+            }
               $noti= new notification();
               $noti->message = $this->user->username."Just Created A New Topic ".$this->thread->section->name;
               $noti->user_id = $follower->id;

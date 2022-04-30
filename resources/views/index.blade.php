@@ -26,12 +26,16 @@
           <div class="header-container">
                 <h1>Loopy</h1>
                 <div class="cont">
+                @guest
                 <button class="login-button">Login</button>
                 <button class="sign-up-button">Sign up</button>
+                @endguest
+                @auth
                 <div class="profile-dropdown">
                 <img src="http://127.0.0.1:8000/{{auth()->user()->avatar}}" alt="avatar" class="avatar"> 
                 <div class="profile-up"></div> 
                 </div>
+                @endauth
                    <div class="container-header">
                    <input type="text" placeholder="search here">
                     <div class="fa fa-search header-search" style="color:#8c00ff;"></div>
