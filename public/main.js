@@ -1,6 +1,6 @@
-
 //menu toggler function
 const toggleMenu = document.querySelector(".profile-up");
+const profilePiture = document.querySelector('.profile-picture')
 const userid=parseInt($('#id').attr('loggin-id'));
 const pageNum=4;
 /* toggling functionality */
@@ -15,7 +15,6 @@ toggleMenu && toggleMenu.addEventListener("click", () => {
        toggleItem.style.display= 'none';
         togglebool = true;
    }
-
 
    window.onclick = function(event) {
     if (!event.target.matches('.profile-up')) {
@@ -32,6 +31,39 @@ toggleMenu && toggleMenu.addEventListener("click", () => {
   }
     
 });
+/* toggling functionality ends */
+
+/*profile picture starts*/
+    let togglebol = true;   
+    let profilePicture = document.querySelector('.avatar');
+    profilePicture && profilePicture.addEventListener("click", () => {
+      if(togglebol){
+       var toggleItem = document.querySelector(".collapsible-menu");
+       toggleItem.style.display= 'block';
+       togglebol = false;
+      } else {
+          var toggleItem = document.querySelector(".collapsible-menu");
+          toggleItem.style.display= 'none';
+           togglebol = true;
+      }
+   
+      window.onclick = function(event) {
+       if (!event.target.matches('.avatar')) {
+         var dropdowns = document.getElementsByClassName("collapsible-menu");
+         var i;
+         for (i = 0; i < dropdowns.length; i++) {
+           var openDropdown = dropdowns[i];
+           if (openDropdown.style.display = 'block') {
+             openDropdown.style.display = 'none';
+             togglebol = true
+           }
+         }
+       }
+     }
+       
+   });
+/*profille picture ends*/
+
 $.ajaxSetup({
   headers: {
       'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')

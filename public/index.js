@@ -1,4 +1,3 @@
-
 //popular page 
 
 let initpopular=true;
@@ -15,9 +14,15 @@ $.ajaxSetup({
 
     success: function(data){
       if(data){
-          console.log(data)
+        console.log(data)
+        let contHome = document.querySelector('.container-home')
+         let loader = document.querySelector('.loader');
+         loader.style.display = 'block';
+         contHome.appendChild(loader)
        topicTemplete(data.data,(newdata)=>{
          $(".container-home").append(newdata);
+         let loader = document.querySelector('.loader');
+         loader.style.display = 'none'
        })
        
         upVoteHandle()
@@ -25,7 +30,6 @@ $.ajaxSetup({
         downvoteTopicCounter()
         upvoteTopicCounter()
         data.data.length > pageNum && initPagination(data.first_page_url.split('=')[0],2,'.container-home',false,"topic")
-     
     }
     },
     error: function(e){

@@ -16,12 +16,11 @@
        
         <div class="collapsible-menu" id="collapsible-menu">
             <ul>
-            <p id="id"   loggin-id="{{auth()->check()? auth()->user()->id :0}}"></p>
-            <li><a href="/user/muhammad">View Profile</a></li>
-           <li><a href="/user/followers">Followers</a></li>
-           <li><a href="/user/following">Following</a></li>
-           <li><a href="/login">Log out</a></li>
-           <li class="stat">Stats: 208,456 members</li>
+            <p id="id"   loggin-id="{{auth()->check()? auth()->user()->id :0}}" class="profile-picture"></p>
+            <a href="/user/muhammad"><li>View Profile</li></a>
+            <a href="/user/followers"><li>Followers</li></a>
+            <a href="/user/following"><li>Following</li></a>
+            <a href="/login"><li>Log out</li></a>
           </ul>
        </div>
           <div class="header-container">
@@ -74,7 +73,8 @@
         <div class="ad-spaces">
              <div class='ad-1'></div>
          </div>
-         <div class="body container-home ">
+         <div class="body container-home">
+             <div class="loader"><img src="/img/loopy-loader.gif" alt="loader"></div>
           <!-- postsec -->
     </div>
     <div class="body personalized-home " style='display:none;'>

@@ -22,6 +22,7 @@ views.addEventListener("DOMContentLoad", ()=>{
 //setting up follow
 follow && follow.addEventListener('click', ()=>{
   let id= $('.thread-title')[0].id
+  follow.innerHTML = 'Loading🚀'
   jQuery.ajax({
     url: `http://127.0.0.1:8000/thread/${id}/follow`,
     method: 'get',
@@ -36,6 +37,7 @@ follow && follow.addEventListener('click', ()=>{
     },
     error: function(e){
         console.log(e);
+        follow.innerHTML = 'Error⚠'
     }
   
   });
@@ -88,15 +90,14 @@ imageUpload.addEventListener('change', function(){
 
 
   userid &&  doComment.addEventListener('click',()=>{
-  
     //  //removing no-comment message
     //  let noCommentMessage = document.querySelector('.no-comment-message');
     //  noCommentMessage.style.display = 'none'
      //getting comment content
-     let commentContent = document.querySelector('.post').value;
+     let commentContent = document.querySelector('.post-emoji').value;
      //check if comment value is empty
      if(commentContent === ''){
-       let postBox = document.querySelector('.post');
+       let postBox = document.querySelector('.post-emoji');
        postBox.style.border = '2px solid red';
        postBox.placeholder = 'please input comment';
        //postBox.style.color = 'rgb(114, 114, 110)'

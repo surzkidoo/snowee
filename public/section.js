@@ -242,12 +242,9 @@ makePost.addEventListener('click', ()=>{
       let contentValue = document.querySelector('#heading-content');
       contentValue.style.border = '2.5px solid red'
       contentValue.placeholder = 'please input some contents'
+      send.innerHTML = 'Error⚠'
      }else{
-
-
-
-        
-       
+       send.innerHTML = 'Success🎉'
         const imageUpload = document.querySelector('#upload-image');
         let sectionid =$('.section-name')[0].id
         formdata = new FormData()
@@ -270,6 +267,7 @@ makePost.addEventListener('click', ()=>{
             processData: false,
             data:formdata,
             success: function(data){
+              console.log(123);
               if(data && !initNewTopic){
                 topicTemplete([data],(newdata)=>{
                 
@@ -284,7 +282,7 @@ makePost.addEventListener('click', ()=>{
                     }
             },
             error: function(e){
-  
+              console.log(456);
               
                 console.log(e);
             }

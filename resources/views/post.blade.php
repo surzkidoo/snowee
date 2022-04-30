@@ -13,27 +13,26 @@
 </head>
 <body>
 <header>
-       
        <div class="collapsible-menu" id="collapsible-menu">
            <ul>
-           <p id="id"   loggin-id="{{auth()->check()? auth()->user()->id :0}}"></p>
-           <li><a href="/user/muhammad">View Profile</a></li>
-          <li><a href="/user/followers">Followers</a></li>
-          <li><a href="/user/following">Following</a></li>
-          <li><a href="/login">Log out</a></li>
-          <li class="stat">Stats: 208,456 members</li>
+           <p id="id"   loggin-id="{{auth()->check()? auth()->user()->id :0}}" class="profile-picture"></p>
+           <a href="/user/muhammad"><li>View Profile</li></a>
+           <a href="/user/followers"><li>Followers</li></a>
+           <a href="/user/following"><li>Following</li></a>
+           <a href="/login"><li>Log out</li></a>
          </ul>
       </div>
          <div class="header-container">
+
                <h1>Loopy</h1>
                <div class="cont">
-               <a href="/login"> <button class="login-button">Login</button> </a>
-               <a href="/signup"><button class="sign-up-button">Sign up</button> </a> 
+               <button class="login-button">Login</button>
+               <button class="sign-up-button">Sign up</button>
                <div class="profile-dropdown">
                <img src="http://127.0.0.1:8000/{{auth()->user()->avatar}}" alt="avatar" class="avatar"> 
                <div class="profile-up"></div> 
                </div>
-                <div class="container-header">
+                  <div class="container-header">
                   <input type="text" placeholder="search here">
                    <div class="fa fa-search header-search" style="color:#8c00ff;"></div>
                </div>
@@ -94,8 +93,8 @@
            <textarea class="post post-emoji" placeholder="write a comment" rows="1"></textarea>
            <button class="link link-emoji"><div class="emoji-button" id="link-it"></div></button>
            <button class="link"><div class="fa fa-paperclip link-it" id="link-it"><input type="file" id="image-upload"  class="fa fa-paperclip" multiple=""></div></button>
-           <button class="sendbtn {{ auth()->check() ? 'send': 'login-to-action'}}"><div class="fa fa-share" id="do-comment"></div></button>
-        </div>
+           <button class="sendbtn {{ auth()->check() ? 'send': 'login-to-action'}}"><div><img src="/img/send.png" alt="png"></div></button>
+        </div> 
         <div class="box-image-holder">
         </div>
     </div>

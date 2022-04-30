@@ -407,7 +407,7 @@ img{
     border-bottom: 1px solid #ffffff;
   }
 
-  .collapsible-menu ul li a{
+  .collapsible-menu ul a li{
      color: rgb(157, 99, 180);
      font-weight: bold;
   }
@@ -914,6 +914,7 @@ header{
 
 .sort select option{
     font-weight: bold;
+    margin-right: -10px;
     background: #F8F6FB;
 }
 
@@ -1277,10 +1278,6 @@ header{
     font-size: 25px;
     font-size: 20px;
     cursor: pointer;
-}
-
-#do-comment{
-    font-size: 20px;
 }
 
 #link-it{
@@ -2397,7 +2394,7 @@ header{
     margin-top: 10px;
     padding: 6px;
     font-size: 16px;
-    resize: none;
+    resize: vertical;
     border: none;
     overflow: visible;
     outline: rgb(175, 4, 255);
@@ -2475,6 +2472,14 @@ header{
 
 .main{
     position: relative;
+}
+
+.loader{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  text-align: center;
 }
 
 .edit-profile-element{
@@ -3402,10 +3407,6 @@ header{
 
     .comment-text .send{
         width: 23px;
-    }
-
-    #do-comment{
-        font-size: 14px;
     }
 
     #link-it{
