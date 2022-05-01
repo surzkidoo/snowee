@@ -102,9 +102,11 @@ imageUpload.addEventListener('change', function(){
        postBox.placeholder = 'please input comment';
        //postBox.style.color = 'rgb(114, 114, 110)'
      } else {
-       
- let id= $('.thread-title')[0].id
-       formdata = new FormData()
+       let id= $('.thread-title')[0].id
+       formdata = new FormData();
+
+       let imageSRC = doComment.querySelector('.send-post');
+       console.log(imageSRC);
       
        formdata.append('content',commentContent)
        formdata.append('reply_to_id',0);
@@ -128,6 +130,12 @@ imageUpload.addEventListener('change', function(){
         success: function(data){
           if(data){
             console.log(data);
+            let commentContent = document.querySelector('.post-emoji');
+            commentContent.value = '';
+            imagesContainer.innerHTML = 'Comment Added🎉';
+            setTimeout(()=>{
+              imagesContainer.style.display = 'none'
+            }, 2500)
             commentTemplete([data.data],(newdata)=>{
               $(".comments-section").prepend(newdata);
           })
@@ -144,6 +152,10 @@ imageUpload.addEventListener('change', function(){
         },
         error: function(e){
             console.log(e);
+            imagesContainer.innerHTML = 'Comment Error, Please Try Again⚠';
+            setTimeout(()=>{
+              imagesContainer.style.display = 'none'
+            }, 2500)
         }
       
       });

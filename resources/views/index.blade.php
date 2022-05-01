@@ -27,8 +27,8 @@
                 <h1>Loopy</h1>
                 <div class="cont">
                 @guest
-                <button class="login-button">Login</button>
-                <button class="sign-up-button">Sign up</button>
+               <a href="/login"><button class="login-button">Login</button></a> 
+               <a href="/signup"><button class="sign-up-button">Sign up</button></a>
                 @endguest
                 @auth
                 <div class="profile-dropdown">
