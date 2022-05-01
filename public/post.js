@@ -102,7 +102,9 @@ imageUpload.addEventListener('change', function(){
        postBox.placeholder = 'please input comment';
        //postBox.style.color = 'rgb(114, 114, 110)'
      } else {
-       
+      let postBox = document.querySelector('.post-emoji');
+      postBox.style.border = ' 1px solid rgba(96, 92, 99, 0.705)'
+      //border: 1px solid rgba(96, 92, 99, 0.705);
       let imageSRC = doComment.querySelector('.send-post');
       imageSRC.src = '/img/send-loader.gif';
       imageSRC.style.width = '30px';
