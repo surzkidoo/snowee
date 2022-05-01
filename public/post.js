@@ -98,15 +98,17 @@ imageUpload.addEventListener('change', function(){
      //check if comment value is empty
      if(commentContent === ''){
        let postBox = document.querySelector('.post-emoji');
-       postBox.style.border = '2px solid red';
+       postBox.style.border = '1.6px solid red';
        postBox.placeholder = 'please input comment';
        //postBox.style.color = 'rgb(114, 114, 110)'
      } else {
+       
+      let imageSRC = doComment.querySelector('.send-post');
+      imageSRC.src = '/img/send-loader.gif';
+      imageSRC.style.width = '30px';
+
        let id= $('.thread-title')[0].id
        formdata = new FormData();
-
-       let imageSRC = doComment.querySelector('.send-post');
-       console.log(imageSRC);
       
        formdata.append('content',commentContent)
        formdata.append('reply_to_id',0);
@@ -132,10 +134,17 @@ imageUpload.addEventListener('change', function(){
             console.log(data);
             let commentContent = document.querySelector('.post-emoji');
             commentContent.value = '';
+            imagesContainer.style.display = 'block';
             imagesContainer.innerHTML = 'Comment Added🎉';
+
+            let imageSRC = doComment.querySelector('.send-post');
+            imageSRC.src = '/img/send.png';
+            imageSRC.style.width = '32px';
+
             setTimeout(()=>{
-              imagesContainer.style.display = 'none'
-            }, 2500)
+              imagesContainer.style.display = 'none';
+            }, 2500);
+
             commentTemplete([data.data],(newdata)=>{
               $(".comments-section").prepend(newdata);
           })
@@ -153,6 +162,11 @@ imageUpload.addEventListener('change', function(){
         error: function(e){
             console.log(e);
             imagesContainer.innerHTML = 'Comment Error, Please Try Again⚠';
+
+            let imageSRC = doComment.querySelector('.send-post');
+            imageSRC.src = '/img/send.png';
+            imageSRC.style.width = '32px';
+
             setTimeout(()=>{
               imagesContainer.style.display = 'none'
             }, 2500)
