@@ -98,8 +98,13 @@ imageUpload.addEventListener('change', function(){
      //check if comment value is empty
      if(commentContent === ''){
        let postBox = document.querySelector('.post-emoji');
-       postBox.style.border = '1.6px solid red';
+       postBox.style.border = '1px solid red';
        postBox.placeholder = 'please input comment';
+
+       setTimeout(()=>{
+        postBox.style.border = ' 1px solid rgba(96, 92, 99, 0.705)';
+        postBox.placeholder = 'write a comment';
+       },1500)
        //postBox.style.color = 'rgb(114, 114, 110)'
      } else {
       let postBox = document.querySelector('.post-emoji');
